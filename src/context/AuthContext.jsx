@@ -1,58 +1,50 @@
-import jwtDecode from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
-import { toast } from "sonner";
+import PropTypes from "prop-types";
+import { getMyDataService } from "../services";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
-export const AuthProviderComponent = ({ children }) => {
-  const storedToken = localStorage.getItem("token");
-  const [token, setToken] = useState(storedToken || " ");
-  const [userData, setUserData] = useState(null);
-  const [auth, setAuth] = useState(false);
-  const [login, setLogin] = useState(false);
+export const AuthContextProviderComponent = ({ children }) => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("token", token);
-
-    if (token !== " ") {
-      try {
-        const decodedToken = jwtDecode(token);
-        setUserData(decodedToken);
-        setAuth(true);
-        if (login) {
-          toast.success(
-            `Bienvenid@ ${decodedToken.firstName || decodedToken.userUsername}`
-          );
-          setLogin(false);
-        }
-      } catch (error) {
-        console.log("Error decoding token:", error);
-        setUserData(null);
-      }
-    } else {
-      setUserData(null);
-    }
   }, [token]);
 
-  const logoutHandler = () => {
-    localStorage.removeItem(storedToken);
-    setAuth(false);
-    return setToken(" ");
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const data = await getMyDataService(token);
+
+        setUser(data);
+      } catch (error) {
+        setToken("");
+        setUser(null);
+      }
+    };
+
+    if (token) getUserData();
+  }, [token, setToken]);
+
+  const logout = () => {
+    setToken("");
+    setUser(null);
+  };
+
+  const login = (token) => {
+    setToken(token);
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        token,
-        setToken,
-        userData,
-        auth,
-        setAuth,
-        setLogin,
-        logoutHandler,
-      }}
-    >
+    <AuthContext.Provider value={{ token, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+AuthContextProviderComponent.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default AuthContextProviderComponent;
