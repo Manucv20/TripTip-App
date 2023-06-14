@@ -1,57 +1,69 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
 import { loginUserService } from "../services";
+import { AuthContext } from "../context/AuthContext";
+import IconoEmail from "../components/IconoEmail";
+import IconoPassword from "../components/IconoPassword";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { setToken, setLogin } = useContext(AuthContext);
 
-  const handleForm = async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setError("");
 
     try {
-      await loginUserService({ email, password });
+      const data = await loginUserService({ email, password });
+      setToken(data);
+      setLogin(true);
 
-      navigate("/userprivate");
+      if (data) return navigate("/");
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <section>
-      <h1>Login</h1>
-      <form onSubmit={handleForm}>
-        <ul>
-          <li>
-            <label htmlFor="email">Email</label>
+      <h2>
+        Login on <Link to="/">TripTip</Link>
+      </h2>
+      <form onSubmit={submitHandler} className="form">
+        <ul className="input">
+          <li className="input-wrapper">
+            <IconoEmail />
             <input
               type="email"
               id="email"
               name="email"
               required
+              placeholder="Email ..."
               onChange={(e) => setEmail(e.target.value)}
             />
           </li>
-          <li>
-            <label htmlFor="pass1">Password</label>
+          <li className="input-wrapper">
+            <IconoPassword />
             <input
               type="password"
               id="pass1"
               name="pass1"
               required
+              placeholder="Password ..."
               onChange={(e) => setPassword(e.target.value)}
             />
           </li>
         </ul>
-        <button>Inicia Sesión</button>
-        {error ? <p>{error}</p> : null}
+        <p>
+          Have you forgotten your password? <Link>Reset password</Link>{" "}
+        </p>
+        <button>Log in</button>
+        <Link to="/register">¿No tienes cuenta? Registrate.</Link>
       </form>
-      <Link to="/register">¿No tienes cuenta? Registrate.</Link>
     </section>
   );
 };

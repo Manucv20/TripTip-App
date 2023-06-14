@@ -8,3 +8,35 @@ html,
 #root {
   height: 100%;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.svg-icon {
+  margin-right: -1px;
+  width: 20px;
+  border: 1px solid #000000;
+  background-color: #e0dada;
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
