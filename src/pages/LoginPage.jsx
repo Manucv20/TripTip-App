@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
-import { loginUserService } from "../services";
+import { activateUserService, loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import IconoEmail from "../components/IconoEmail";
 import IconoPassword from "../components/IconoPassword";
@@ -14,6 +14,21 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const { setToken, setLogin } = useContext(AuthContext);
 
+  const { token } = useParams();
+  const [activated, setActivated] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (initialLoad) {
+      setInitialLoad(false);
+      return;
+    }
+
+    if (token && !activated) {
+      activateAccount(token);
+    }
+  }, [token, activated, initialLoad]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -23,6 +38,22 @@ const LoginPage = () => {
       setLogin(true);
 
       if (data) return navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const activateAccount = async (token) => {
+    try {
+      const response = await activateUserService({ token });
+
+      if (response.message === "Account activated successfully") {
+        toast.success("Account activated successfully");
+        setActivated(true);
+        navigate("/");
+      } else {
+        toast.error("Invalid activation token or token has already been used");
+      }
     } catch (error) {
       toast.error(error.message);
     }

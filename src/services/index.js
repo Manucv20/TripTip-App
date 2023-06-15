@@ -45,3 +45,21 @@ export const loginUserService = async ({ email, password }) => {
     throw new Error(error.message);
   }
 };
+
+export const activateUserService = async ({ token }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/activate-account/${token}`
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
