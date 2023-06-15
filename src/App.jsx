@@ -9,6 +9,8 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import SearchComponent from "./components/SearchComponent";
+
 
 function App() {
   return (
@@ -44,7 +46,14 @@ function App() {
 /* Componentes para interactuar y que se pueden borrar una vez se hayan creado los componentes verdaderos */
 
 const Home = () => {
-  return <h1>Home</h1>;
+
+  return (
+    <div>
+      <h1>Inicio</h1>
+      <SearchComponent />
+    </div>
+  );
+
 };
 
 const NotFound = () => {
