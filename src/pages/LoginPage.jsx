@@ -51,8 +51,6 @@ const LoginPage = () => {
         toast.success("Account activated successfully");
         setActivated(true);
         navigate("/");
-      } else {
-        toast.error("Invalid activation token or token has already been used");
       }
     } catch (error) {
       toast.error(error.message);

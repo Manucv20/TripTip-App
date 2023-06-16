@@ -6,6 +6,7 @@ export const registerUserService = async ({ username, email, password }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Frontend-URL": import.meta.env.VITE_APP_FRONTEND,
         },
         body: JSON.stringify({ username, email, password }),
       }
