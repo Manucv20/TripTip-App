@@ -24,6 +24,7 @@ function App() {
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/activate/:token" element={<LoginPage />} />
 
           {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>

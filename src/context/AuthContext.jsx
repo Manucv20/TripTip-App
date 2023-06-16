@@ -26,7 +26,7 @@ export const AuthProviderComponent = ({ children }) => {
           setLogin(false);
         }
       } catch (error) {
-        console.log("Error decoding token:", error);
+        toast.error("Error decoding token:", error);
         setUserData(null);
       }
     } else {

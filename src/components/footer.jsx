@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 const linkData = [
   { text: "Política de privacidad", url: "/politica-privacidad" },
   { text: "Política de Cookies", url: "/politica-cookies" },
@@ -14,9 +12,9 @@ const Footer = () => {
       <h1 style={styles.title}>TripTip</h1>
       <div style={styles.linksContainer}>
         {linkData.map(({ text, url }) => (
-          <Link key={url} to={url} style={styles.link}>
+          <a key={url} href={url} style={styles.link}>
             {text}
-          </Link>
+          </a>
         ))}
       </div>
     </footer>
