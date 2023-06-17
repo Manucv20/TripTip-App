@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import SearchComponent from "./components/SearchComponent";
+import { HomePage } from "./pages/Home";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <main>
         <Routes>
           {/* Ruta que se puede modificar por la buena */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -43,19 +44,6 @@ function App() {
     </>
   );
 }
-
-/* Componentes para interactuar y que se pueden borrar una vez se hayan creado los componentes verdaderos */
-
-const Home = () => {
-
-  return (
-    <div>
-      <h1>Inicio</h1>
-      <SearchComponent />
-    </div>
-  );
-
-};
 
 const NotFound = () => {
   return (
