@@ -50,7 +50,6 @@ const LoginPage = () => {
       if (response.message === "Account activated successfully") {
         toast.success("Account activated successfully");
         setActivated(true);
-        navigate("/");
       }
     } catch (error) {
       toast.error(error.message);
