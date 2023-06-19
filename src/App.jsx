@@ -1,6 +1,5 @@
 import { Route, Routes, Link } from "react-router-dom";
 import { Toaster } from "sonner";
-
 import "./App.css";
 import Header from "./components/header.jsx";
 import Footer from "./components/footer.jsx";
@@ -9,38 +8,28 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import SearchComponent from "./components/SearchComponent";
-import { HomePage } from "./pages/Home";
-
+import HomePage from "./pages/HomePage";
+import SearchResultsComponent from './components/SearchResultsComponent';
 
 function App() {
   return (
     <>
-      <Header />
-      <Toaster position="top-right" />
+      <Header /> {/* Componente de encabezado */}
+      <Toaster position="top-right" /> {/* Componente para mostrar notificaciones */}
       <main>
         <Routes>
-          {/* Ruta que se puede modificar por la buena */}
-          <Route path="/" element={<HomePage />} />
-          {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/activate/:token" element={<LoginPage />} />
-
-          {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
-          <Route element={<PrivateRoutes />}>
-            <Route path="/accounts/myprofile" element={<User />} />
-            {/*    <Route
-            path="/accounts/myrecomendations"
-            element={<UserRecomendations />}
-            />
-          <Route path="/accounts/favourites" element={<UserFavorites />} /> */}
+          <Route path="/" element={<HomePage />} /> {/* Ruta para la página de inicio */}
+          <Route path="/search-results" element={<SearchResultsComponent />} /> {/* Ruta para los resultados de búsqueda */}
+          <Route path="/register" element={<RegisterPage />} /> {/* Ruta para la página de registro */}
+          <Route path="/login" element={<LoginPage />} /> {/* Ruta para la página de inicio de sesión */}
+          <Route path="/activate/:token" element={<LoginPage />} /> {/* Ruta para activar la cuenta con un token */}
+          <Route element={<PrivateRoutes />}> {/* Rutas privadas */}
+            <Route path="/accounts/myprofile" element={<User />} /> {/* Ruta para el perfil del usuario */}
           </Route>
-          {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} /> {/* Ruta para páginas no encontradas */}
         </Routes>
       </main>
-      <Footer />
+      <Footer /> {/* Componente de pie de página */}
     </>
   );
 }
@@ -49,15 +38,14 @@ const NotFound = () => {
   return (
     <>
       <h1>Page Not Found</h1>
-      <Link to="/">Back Home</Link>
+      <Link to="/">Back Home</Link> {/* Enlace para volver a la página de inicio */}
     </>
   );
 };
 
 const User = () => {
-  const { userData } = useContext(AuthContext);
-  // Accede a los datos del usuario, por ejemplo:
-  const { userEmail, userUsername, firstName, lastName, userId } = userData;
+  const { userData } = useContext(AuthContext); // Obtiene los datos de usuario del contexto de autenticación
+  const { userEmail, userUsername, firstName, lastName, userId } = userData; // Extrae los datos de usuario
   return (
     <>
       <h1>Ruta Private del perfil del usuario</h1>
