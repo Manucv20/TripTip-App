@@ -40,12 +40,12 @@ const SearchComponent = () => {
         <button type="submit">Buscar</button>
       </form>
 
-      <h2>Resultados:</h2>
+{/*       <h2>Resultados:</h2>
       {searchResults.length > 0 ? (
         searchResults.map((result) => <div key={result.id}>{result.name}</div>)
       ) : (
         <p>No se encontraron resultados.</p>
-      )}
+      )} */}
     </div>
   );
 };
