@@ -12,36 +12,45 @@ import SearchComponent from "../components/SearchComponent";
 const HomePage = () => {
   return (
     <>
-      <header style={{ /* Estilos para el encabezado */ }}>
+      <header style={{
+        backgroundImage: `url("/foto_header.jpg")`,
+        backgroundSize: "cover",
+        width: "100%",
+        height: "200px",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center"
+      }}>
         <h2 style={{ color: "black", margin: 0 }}>
           Miles de recomendaciones para tus viajes favoritos
         </h2>
-        <SearchComponent /> {/* Componente para la barra de búsqueda */}
+        <SearchComponent />
       </header>
       <main style={{ textAlign: "center" }}>
         <h3>Viajar mejor: ¿dónde, cuándo y cómo?</h3>
         <p>¿Quieres viajar de forma más auténtica y responsable? Vive experiencias únicas junto con nuestros expertos y expertas locales, y descubre nuestros consejos y recomendaciones para viajar de forma respetuosa con el entorno y la cultura local. Aquí tienes algunos ejemplos:</p>
-        <div style={cardsContainerStyle}> {/* Contenedor para las tarjetas */}
-          <SafariCard /> {/* Tarjeta de safari */}
-          <SenderismoCard /> {/* Tarjeta de senderismo */}
-          <SportCard /> {/* Tarjeta de deporte */}
+        <div style={cardsContainerStyle}>
+          <SafariCard />
+          <SenderismoCard />
+          <SportCard />
         </div>
         <h4>Atrévete a descubrir el mundo de una forma diferente viviendo experiencias únicas e inusuales</h4>
         <p>¿En pareja o en familia? ¿Un trekking o un safari? ¿Cultura o aventura? Descubre ideas de viaje recomendadas por nuestros usuarios.</p>
-        <div style={cardsContainerStyle}> {/* Contenedor para las tarjetas */}
-          <AdventureCard /> {/* Tarjeta de aventura */}
-          <BeachCard /> {/* Tarjeta de playa */}
-          <CarCard /> {/* Tarjeta de coche */}
-          <FamilyCard /> {/* Tarjeta de familia */}
-          <LoveCard /> {/* Tarjeta de amor */}
-          <NaturaCard /> {/* Tarjeta de naturaleza */}
+        <div style={cardsContainerStyle}>
+          <AdventureCard />
+          <BeachCard />
+          <CarCard />
+          <FamilyCard />
+          <LoveCard />
+          <NaturaCard />
         </div>
       </main>
     </>
   );
 };
 
-const cardsContainerStyle = { /* Estilos para el contenedor de las tarjetas */
+const cardsContainerStyle = {
   display: "flex",
   justifyContent: "center",
   gap: "20px",
