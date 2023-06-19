@@ -2,8 +2,19 @@ import { Link } from "react-router-dom";
 
 const SafariCard = () => {
   return (
-    <Link to="/safari" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-      <div style={{ ...cardStyle, backgroundSize: "cover", backgroundImage: `url("/viaje_safari.jpg")` }}>
+    <Link
+      to="/safari"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: "none" }}
+    >
+      <div
+        style={{
+          ...cardStyle,
+          backgroundSize: "cover",
+          backgroundImage: `url("viaje_safari.jpg")`,
+        }}
+      >
         <h3 style={titleStyle}>Safari</h3>
       </div>
     </Link>
