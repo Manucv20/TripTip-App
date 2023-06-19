@@ -17,6 +17,8 @@ export const registerUserService = async ({ username, email, password }) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
+
+    return json;
   } catch (error) {
     throw new Error(`The ${error.message}`);
   }

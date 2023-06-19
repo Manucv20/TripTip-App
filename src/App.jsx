@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import "./App.css";
@@ -9,8 +9,9 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import SearchComponent from "./components/SearchComponent";
 import { HomePage } from "./pages/Home";
+import SendEmailPage from "./pages/SendEmailPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 
 function App() {
@@ -25,34 +26,26 @@ function App() {
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/registered" element={<SendEmailPage />} />
           <Route path="/activate/:token" element={<LoginPage />} />
 
           {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/accounts/myprofile" element={<User />} />
+            <Route path="/account/myprofile" element={<User />} />
             {/*    <Route
-            path="/accounts/myrecomendations"
+            path="/account/myrecomendations"
             element={<UserRecomendations />}
             />
-          <Route path="/accounts/favourites" element={<UserFavorites />} /> */}
+          <Route path="/account/favourites" element={<UserFavorites />} /> */}
           </Route>
           {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />
     </>
   );
 }
-
-const NotFound = () => {
-  return (
-    <>
-      <h1>Page Not Found</h1>
-      <Link to="/">Back Home</Link>
-    </>
-  );
-};
 
 const User = () => {
   const { userData } = useContext(AuthContext);
