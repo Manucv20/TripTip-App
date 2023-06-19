@@ -7,7 +7,7 @@ function PrivateRoutes() {
   const { auth } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!auth) return navigate("/login");
+    if (!auth) return navigate("/register");
   }, []);
 
   return <>{auth ? <Outlet /> : null}</>;

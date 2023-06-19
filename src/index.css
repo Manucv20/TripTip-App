@@ -9,13 +9,13 @@ html,
   height: 100%;
 }
 
-main {
+/* main {
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-top: 50px;
   width: 100%;
-}
+} */
 
 .svg-icon {
   margin-right: -1px;
