@@ -47,8 +47,8 @@ const LoginPage = () => {
     try {
       const response = await activateUserService({ token });
 
-      if (response.message === "Account activated successfully") {
-        toast.success("Account activated successfully");
+      if (response.message === "Cuenta activada exitosamente.") {
+        toast.success("Cuenta activada exitosamente.");
         setActivated(true);
       }
     } catch (error) {
@@ -59,7 +59,7 @@ const LoginPage = () => {
   return (
     <section>
       <h2>
-        Login on <Link to="/">TripTip</Link>
+        Login en <Link to="/">TripTip</Link>
       </h2>
       <form onSubmit={submitHandler} className="form">
         <ul className="input">
@@ -70,7 +70,7 @@ const LoginPage = () => {
               id="email"
               name="email"
               required
-              placeholder="Email ..."
+              placeholder="Correo Electrónico ..."
               onChange={(e) => setEmail(e.target.value)}
             />
           </li>
@@ -81,15 +81,15 @@ const LoginPage = () => {
               id="pass1"
               name="pass1"
               required
-              placeholder="Password ..."
+              placeholder="Contraseña ..."
               onChange={(e) => setPassword(e.target.value)}
             />
           </li>
         </ul>
         <p>
-          Have you forgotten your password? <Link>Reset password</Link>{" "}
+          ¿Has olvidado tu contraseña? <Link>Restablecer contraseña</Link>{" "}
         </p>
-        <button>Log in</button>
+        <button>Iniciar sesión</button>
         <Link to="/register">¿No tienes cuenta? Registrate.</Link>
       </form>
     </section>

@@ -1,27 +1,30 @@
 import { useState } from 'react';
-import { useSearch } from '../hooks/useSearch';
+import { useNavigate } from 'react-router-dom';
+import { searchAPI } from '../services/getRecomendations';
 
 const SearchComponent = () => {
-  const [lugar, setLugar] = useState('');
-  const [categoria, setCategoria] = useState('');
-  const { searchResults, performSearch } = useSearch();
+  const navigate = useNavigate();
+  const [lugar, setLugar] = useState(''); // Estado para almacenar el valor del lugar
+  const [categoria, setCategoria] = useState(''); // Estado para almacenar el valor de la categoría
 
   const handleLugarChange = (event) => {
-    setLugar(event.target.value);
+    setLugar(event.target.value); // Actualiza el estado de lugar con el valor del campo de entrada
   };
 
   const handleCategoriaChange = (event) => {
-    setCategoria(event.target.value);
+    setCategoria(event.target.value); // Actualiza el estado de categoría con el valor del campo de entrada
   };
 
   const handleSearch = async (event) => {
-    event.preventDefault(); // Evita el envío del formulario y la recarga de la página
+    event.preventDefault(); // Evita que el formulario se envíe y se recargue la página
 
-    await performSearch(lugar, categoria); // Espera a que la búsqueda se complete antes de continuar
+    // Llama a la función de búsqueda de la API con los valores de lugar y categoría
+    const searchResults = await searchAPI(lugar, categoria);
 
-    // Limpia los campos de búsqueda después de realizar la búsqueda
-    setLugar('');
-    setCategoria('');
+    setLugar(''); // Restablece el estado de lugar a una cadena vacía
+    setCategoria(''); // Restablece el estado de categoría a una cadena vacía
+
+    navigate('/search-results', { state: { searchResults } }); // Navega a la página de resultados de búsqueda y pasa los resultados como estado
   };
 
   return (
@@ -29,23 +32,16 @@ const SearchComponent = () => {
       <form onSubmit={handleSearch}>
         <label>
           Lugar:
-          <input type="text" value={lugar} onChange={handleLugarChange} />
+          <input type="text" value={lugar} onChange={handleLugarChange} /> {/* Campo de entrada para el lugar */}
         </label>
         <br />
         <label>
           Categoría:
-          <input type="text" value={categoria} onChange={handleCategoriaChange} />
+          <input type="text" value={categoria} onChange={handleCategoriaChange} /> {/* Campo de entrada para la categoría */}
         </label>
         <br />
-        <button type="submit">Buscar</button>
+        <button type="submit">Buscar</button> {/* Botón de búsqueda */}
       </form>
-
-{/*       <h2>Resultados:</h2>
-      {searchResults.length > 0 ? (
-        searchResults.map((result) => <div key={result.id}>{result.name}</div>)
-      ) : (
-        <p>No se encontraron resultados.</p>
-      )} */}
     </div>
   );
 };

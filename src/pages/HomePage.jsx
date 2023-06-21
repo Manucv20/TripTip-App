@@ -8,9 +8,8 @@ import SafariCard from "../components/Cards/SafariCard";
 import SenderismoCard from "../components/Cards/SenderismoCard";
 import SportCard from "../components/Cards/SportCard";
 import SearchComponent from "../components/SearchComponent";
-import { Link } from "react-router-dom";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <>
       <header
@@ -28,7 +27,6 @@ export const HomePage = () => {
         <h2 style={{ color: "black", margin: 0 }}>
           Miles de recomendaciones para tus viajes favoritos
         </h2>
-        <Link to="/"></Link>
         <SearchComponent />
       </header>
       <section style={{ textAlign: "center" }}>

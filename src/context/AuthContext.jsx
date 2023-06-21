@@ -6,13 +6,15 @@ export const AuthContext = createContext();
 
 export const AuthProviderComponent = ({ children }) => {
   const storedToken = localStorage.getItem("token");
+  const storedAuth = localStorage.getItem("auth");
   const [token, setToken] = useState(storedToken || " ");
   const [userData, setUserData] = useState(null);
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(storedAuth === "true");
   const [login, setLogin] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("token", token);
+    localStorage.setItem("auth", auth);
 
     if (token !== " ") {
       try {
@@ -26,16 +28,17 @@ export const AuthProviderComponent = ({ children }) => {
           setLogin(false);
         }
       } catch (error) {
-        toast.error("Error decoding token:", error);
+        toast.error("Error al decodificar el token:", error);
         setUserData(null);
       }
     } else {
       setUserData(null);
     }
-  }, [token]);
+  }, [token, auth]);
 
   const logoutHandler = () => {
-    localStorage.removeItem(storedToken);
+    localStorage.removeItem("token");
+    localStorage.removeItem("auth");
     setAuth(false);
     return setToken(" ");
   };
