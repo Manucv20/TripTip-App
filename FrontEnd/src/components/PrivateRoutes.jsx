@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Sidebar from "./Sidebar";
 
 function PrivateRoutes() {
   const navigate = useNavigate();
@@ -10,7 +11,9 @@ function PrivateRoutes() {
     if (!auth) return navigate("/register");
   }, []);
 
-  return <>{auth ? <Outlet /> : null}</>;
+  return <>{auth ? (<div style={{display: "flex", gap: "1rem"}}>
+    <Sidebar /> <Outlet />
+    </div>) : null}</>;
 }
 
 export default PrivateRoutes;
