@@ -9,26 +9,33 @@ import LoginPage from "./pages/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import HomePage from "./pages/HomePage";
-import SearchResultsComponent from './components/SearchResultsComponent';
+import SearchResultsComponent from "./components/SearchResultsComponent";
 import SendEmailPage from "./pages/SendEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import PruebaPage from "./pages/PrivatePage";
 
 function App() {
   return (
     <>
       <Header /> {/* Componente de encabezado */}
-      <Toaster position="top-right" /> {/* Componente para mostrar notificaciones */}
+      <Toaster position="top-right" />{" "}
+      {/* Componente para mostrar notificaciones */}
       <main>
         <Routes>
           {/* Ruta que se puede modificar por la buena */}
-          <Route path="/" element={<HomePage />} /> {/* Ruta para la página de inicio */}
-          <Route path="/search-results" element={<SearchResultsComponent />} /> {/* Ruta para los resultados de búsqueda */}
+          <Route path="/" element={<HomePage />} />{" "}
+          <Route path="/prueba" element={<PruebaPage />}/>
+          {/* Ruta para la página de inicio */}
+          <Route
+            path="/search-results"
+            element={<SearchResultsComponent />}
+          />{" "}
+          {/* Ruta para los resultados de búsqueda */}
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registered" element={<SendEmailPage />} />
           <Route path="/activate/:token" element={<LoginPage />} />
-
           {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
             <Route path="/account/myprofile" element={<User />} />
