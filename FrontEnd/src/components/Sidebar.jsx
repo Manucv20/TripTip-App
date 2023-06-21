@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaSuitcase, FaHeart, FaComment, FaCog } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Sidebar = () => {
+  const { userData } = useContext(AuthContext);
   const [highlightedItem, setHighlightedItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -58,9 +60,14 @@ const Sidebar = () => {
 
   return (
     <>
-      <div style={containerStyles}>
+      <header style={containerStyles}>
         <div className="sidebar" style={sidebarStyles}>
-          <h2 style={{ marginLeft: "10px" }}>Hola @usuario</h2>
+          <h2 style={{ marginLeft: "10px" }}>
+            Hola{" "}
+            {userData.userfirstname
+              ? userData.userfirstname
+              : userData.userUsername}
+          </h2>
           <ul className="menu" style={listStyles}>
             <li
               style={itemContainerStyles(0)}
@@ -70,9 +77,9 @@ const Sidebar = () => {
               onClick={() => handleClick(0)}
             >
               <FaSuitcase color="black" style={iconStyles} />
-              <Link to ="/" style={linkStyles}>
+              <NavLink to="/" style={linkStyles}>
                 Mis recomendaciones
-              </Link>
+              </NavLink>
             </li>
             <li
               style={itemContainerStyles(1)}
@@ -82,21 +89,9 @@ const Sidebar = () => {
               onClick={() => handleClick(1)}
             >
               <FaHeart color="black" style={iconStyles} />
-              <Link to ="#" style={linkStyles}>
+              <NavLink to="/likes" style={linkStyles}>
                 Mis favoritos
-              </Link>
-            </li>
-            <li
-              style={itemContainerStyles(2)}
-              className="itemContainer"
-              onMouseEnter={() => handleMouseEnter(2)}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => handleClick(2)}
-            >
-              <FaComment color="black" style={iconStyles} />
-              <Link to ="#" style={linkStyles}>
-                Mis opiniones
-              </Link>
+              </NavLink>
             </li>
             <li
               style={itemContainerStyles(3)}
@@ -106,14 +101,14 @@ const Sidebar = () => {
               onClick={() => handleClick(3)}
             >
               <FaCog color="black" style={iconStyles} />
-              <Link to ="#" style={linkStyles}>
+              <NavLink to="/myprofile" style={linkStyles}>
                 Mi información personal
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
         <div style={{ borderRight: "1px solid #f2f2f2" }}></div>
-      </div>
+      </header>
     </>
   );
 };

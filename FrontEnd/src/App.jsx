@@ -12,7 +12,7 @@ import HomePage from "./pages/HomePage";
 import SearchResultsComponent from "./components/SearchResultsComponent";
 import SendEmailPage from "./pages/SendEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import PruebaPage from "./pages/PrivatePage";
+import LikesPage from "./pages/LikePages";
 
 function App() {
   return (
@@ -24,7 +24,6 @@ function App() {
         <Routes>
           {/* Ruta que se puede modificar por la buena */}
           <Route path="/" element={<HomePage />} />{" "}
-          <Route path="/prueba" element={<PruebaPage />}/>
           {/* Ruta para la página de inicio */}
           <Route
             path="/search-results"
@@ -38,7 +37,8 @@ function App() {
           <Route path="/activate/:token" element={<LoginPage />} />
           {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/account/myprofile" element={<User />} />
+            <Route path="/myprofile" element={<User />} />
+            <Route path="/likes" element={<LikesPage />} />
             {/*    <Route
             path="/account/myrecomendations"
             element={<UserRecomendations />}
