@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { FaSuitcase, FaHeart, FaComment, FaCog } from "react-icons/fa";
+import React, { useState, useContext, useEffect } from "react";
+import { FaSuitcase, FaHeart, FaCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -7,6 +7,10 @@ const Sidebar = () => {
   const { userData } = useContext(AuthContext);
   const [highlightedItem, setHighlightedItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  if (!userData) {
+    return <div>Cargando...</div>; // Indicador de carga mientras se carga userData solución al problema de la carga de la pagina cuando se reinicia
+  }
 
   const handleMouseEnter = (index) => {
     setHighlightedItem(index);
@@ -58,19 +62,13 @@ const Sidebar = () => {
     fontWeight: "bold",
   };
 
-  if (!userData) {
-    return <div>Cargando...</div>; // Indicador de carga mientras se carga userData solución al problema de la carga de la pagina cuando se reinicia
-  }
-
   return (
     <>
       <header style={containerStyles}>
         <div className="sidebar" style={sidebarStyles}>
           <h2 style={{ marginLeft: "10px" }}>
             Hola{" "}
-            {userData.userfirstname
-              ? userData.userfirstname
-              : userData.userUsername}
+            {userData.firstName ? userData.firstName : userData.userUsername}
           </h2>
           <ul className="menu" style={listStyles}>
             <li

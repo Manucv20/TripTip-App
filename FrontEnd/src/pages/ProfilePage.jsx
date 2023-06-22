@@ -44,6 +44,15 @@ const ProfilePage = () => {
 
       const data = new FormData(e.target);
 
+      if (!imagen) {
+        const currentImage = formData?.profile_image;
+        if (currentImage) {
+          data.append("profile_image", currentImage);
+        } else {
+          data.delete("profile_image"); // Eliminar el campo "profile_image" del FormData si no hay cambios
+        }
+      }
+
       await sendDataUserService({
         data,
         token,
@@ -71,163 +80,173 @@ const ProfilePage = () => {
   return (
     <>
       <section>
-        <form onSubmit={handleForm}>
-          <h2>Perfil de usuario:</h2>
-          {loading ? <p>Cargando Formulario...</p> : null}
-          <ul>
-            <li
-              style={{
-                position: "relative",
-              }}
-            >
-              <label
-                className="fondo"
-                htmlFor="fileInput"
-                title="Descargar Avatar"
+        {loading ? <p>Cargando Formulario...</p> : null}
+        <form className="setting" onSubmit={handleForm}>
+          <fieldset>
+            <figcaption>Perfil de usuario:</figcaption>
+            <ul>
+              <li
                 style={{
-                  width: "170px",
-                  height: "170px",
-                  display: "inline-block",
-                  backgroundImage: formData.profile_image
-                    ? `url(${`${imagenUrl}/${formData?.profile_image}`})`
-                    : 'url("/photoperfil.png")',
-                  backgroundSize: "cover",
-                  borderRadius: "50%",
-                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "center",
+                  position: "relative",
                 }}
               >
-                {imagen ? (
-                  <img
-                    src={URL.createObjectURL(imagen)}
-                    alt="Mi Perfil"
-                    style={{
-                      width: "170px",
-                      height: "170px",
-                      display: "inline-block",
-                      backgroundSize: "cover",
-                      borderRadius: "50%",
-                      cursor: "pointer",
-                    }}
-                  />
-                ) : null}
-              </label>
-
-              <input
-                id="fileInput"
-                type="file"
-                name="profile_image"
-                onChange={(e) => setImagen(e.target.files[0])}
-                accept=".jpg, .png"
-                style={{ display: "none" }}
-              />
-            </li>
-            <li>
-              {
-                <h3
+                <label
+                  className="fondo"
+                  htmlFor="fileInput"
+                  title="Descargar Avatar"
                   style={{
-                    marginTop: "10px",
-                    textAlign: "left",
+                    width: "170px",
+                    height: "170px",
+                    display: "inline-block",
+                    backgroundImage: formData.profile_image
+                      ? `url(${`${imagenUrl}/${formData?.profile_image}`})`
+                      : 'url("/photoperfil.png")',
+                    backgroundSize: "cover",
+                    borderRadius: "50%",
+                    cursor: "pointer",
                   }}
                 >
-                  {formData?.username ?? ""}
-                </h3>
-              }
-              <input
-                type="hidden"
-                name="username"
-                value={formData?.username ?? ""}
-                readOnly
-              />
-            </li>
+                  {imagen ? (
+                    <img
+                      src={URL.createObjectURL(imagen)}
+                      alt="Mi Perfil"
+                      style={{
+                        width: "170px",
+                        height: "170px",
+                        display: "inline-block",
+                        backgroundSize: "cover",
+                        borderRadius: "50%",
+                        cursor: "pointer",
+                      }}
+                    />
+                  ) : null}
+                </label>
 
-            <li>
-              <label htmlFor="firstname">Nombre</label>
-              <input
-                id="firstname"
-                type="text"
-                name="name"
-                value={formData?.name ?? ""}
-                onChange={handleChange}
-                required
-              />
-            </li>
-            <li>
-              <label htmlFor="lastname">Apellido</label>
-              <input
-                id="lastname"
-                type="text"
-                name="lastname"
-                value={formData?.lastname ?? ""}
-                onChange={handleChange}
-                required
-              />
-            </li>
-            <li>
-              <label htmlFor="gender">Género</label>
-              <select
-                id="gender"
-                name="gender"
-                value={formData?.gender ?? ""}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Seleccionar...</option>
-                <option value="male">Masculino</option>
-                <option value="female">Femenino</option>
-                <option value="other">Otro</option>
-              </select>
-            </li>
-            <li>
-              <label htmlFor="address">Dirección</label>
-              <input
-                id="address"
-                type="text"
-                name="address"
-                value={formData?.address ?? ""}
-                onChange={handleChange}
-              />
-            </li>
-            <li>
-              <label htmlFor="biografia">Sobre mi</label>
+                <input
+                  id="fileInput"
+                  type="file"
+                  name="profile_image"
+                  onChange={(e) => setImagen(e.target.files[0])}
+                  accept=".jpg, .png"
+                  style={{ display: "none" }}
+                />
+              </li>
+              <li>
+                {
+                  <h3
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "10px",
+                      textAlign: "left",
+                    }}
+                  >
+                    {formData?.username ?? ""}
+                  </h3>
+                }
+                <input
+                  type="hidden"
+                  name="username"
+                  value={formData?.username ?? ""}
+                  readOnly
+                />
+              </li>
+              <li>
+                <label htmlFor="email">Correo electrónico</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={formData?.email ?? ""}
+                  onChange={handleChange}
+                  readOnly
+                />
+                <button type="button" onClick={handleModifyEmail}>
+                  Modificar
+                </button>
+              </li>
 
-              <textarea
-                id="biografia"
-                name="bio"
-                value={formData?.bio ?? ""}
-                onChange={handleChange}
-              />
-            </li>
-            <li>
-              <label htmlFor="email">Correo electrónico</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={formData?.email ?? ""}
-                onChange={handleChange}
-                readOnly
-              />
-              <button type="button" onClick={handleModifyEmail}>
-                Modificar
-              </button>
-            </li>
+              <li>
+                <label htmlFor="password">Contraseña</label>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  value={formData?.password ?? ""}
+                  onChange={handleChange}
+                  readOnly
+                />
+                <button type="button" onClick={handleModifyPassword}>
+                  Modificar
+                </button>
+              </li>
+            </ul>
+          </fieldset>
+          <fieldset>
+            <figcaption>Datos Personales:</figcaption>
+            <ul>
+              <li>
+                <label htmlFor="firstname">Nombre</label>
+                <input
+                  id="firstname"
+                  type="text"
+                  name="name"
+                  value={formData?.name ?? ""}
+                  onChange={handleChange}
+                  required
+                />
+              </li>
+              <li>
+                <label htmlFor="lastname">Apellido</label>
+                <input
+                  id="lastname"
+                  type="text"
+                  name="lastname"
+                  value={formData?.lastname ?? ""}
+                  onChange={handleChange}
+                  required
+                />
+              </li>
+              <li>
+                <label htmlFor="gender">Género</label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={formData?.gender ?? ""}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Seleccionar...</option>
+                  <option value="male">Masculino</option>
+                  <option value="female">Femenino</option>
+                  <option value="other">Otro</option>
+                </select>
+              </li>
+              <li>
+                <label htmlFor="address">Dirección</label>
+                <input
+                  id="address"
+                  type="text"
+                  name="address"
+                  value={formData?.address ?? ""}
+                  onChange={handleChange}
+                />
+              </li>
+              <li>
+                <label htmlFor="biografia">Sobre mi</label>
 
-            <li>
-              <label htmlFor="password">Contraseña</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={formData?.password ?? ""}
-                onChange={handleChange}
-                readOnly
-              />
-              <button type="button" onClick={handleModifyPassword}>
-                Modificar
-              </button>
-            </li>
-          </ul>
-          <button type="submit">Actualizar</button>
+                <textarea
+                  id="biografia"
+                  name="bio"
+                  value={formData?.bio ?? ""}
+                  onChange={handleChange}
+                />
+              </li>
+            </ul>
+            <button type="submit">Actualizar</button>
+          </fieldset>
         </form>
       </section>
     </>
