@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
+
   const { userData, logoutHandler } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -59,10 +60,12 @@ const BurgerMenu = () => {
           }}
         >
           <li style={{ padding: 10 }}>
-            <Link to="/likes">Ajustes</Link>
+
+            <Link to="/myprofile">Ajustes</Link>
           </li>
           <li style={{ padding: 10 }}>
-            <button
+            <Link
+              to="/"
               onClick={logoutHandler}
               style={{
                 color: "black",
@@ -72,7 +75,7 @@ const BurgerMenu = () => {
               }}
             >
               Cerrar sesión
-            </button>
+            </Link>
           </li>
         </ul>
       )}

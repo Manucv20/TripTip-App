@@ -8,12 +8,18 @@ function PrivateRoutes() {
   const { auth } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!auth) return navigate("/register");
+    if (!auth) return navigate("/login");
   }, []);
 
-  return <>{auth ? (<div style={{display: "flex", gap: "1rem"}}>
-    <Sidebar /> <Outlet />
-    </div>) : null}</>;
+  return (
+    <>
+      {auth ? (
+        <div style={{ display: "flex", gap: "1rem" }}>
+          {<Sidebar />} <Outlet />
+        </div>
+      ) : null}
+    </>
+  );
 }
 
 export default PrivateRoutes;

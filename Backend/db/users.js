@@ -118,30 +118,38 @@ const updateUser = async (
   address,
   gender,
   email,
-  password,
   profile_image,
   bio
 ) => {
   let connection;
   try {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+    console.log(profile_image);
     connection = await getConnection();
-    const updateUserQuery =
-      "UPDATE users SET username = ?, name = ?, lastname = ?, address = ?, gender = ?, email = ?, password = ?, profile_image = ?, bio = ? WHERE id = ?";
-    await connection.query(updateUserQuery, [
+    let updateUserQuery =
+      "UPDATE users SET username = ?, name = ?, lastname = ?, address = ?, gender = ?, email = ?, bio = ?";
+    const updateParams = [
       username,
       name,
       lastname,
       address,
       gender,
       email,
-      hashedPassword,
-      profile_image,
       bio,
-      userId,
-    ]);
+    ];
+
+    if (profile_image) {
+      updateUserQuery += ", profile_image = ?"; // Agregar la columna profile_image a la consulta
+      updateParams.push(profile_image);
+    }
+
+    updateUserQuery += " WHERE id = ?";
+    updateParams.push(userId);
+
+    await connection.query(updateUserQuery, updateParams);
+
+    const user = await getUserById(userId);
+    return user;
+
   } finally {
     if (connection) {
       connection.release();

@@ -4,9 +4,9 @@ const NotFoundPage = () => {
   return (
     <>
       <section>
-        <h2>Uups ... Page Not Found</h2>
+        <h2>Uups ... Página no encontrada</h2>
         <img src="page-not-found.png" alt="404" />
-        <Link to="/">Go to Home Page</Link>
+        <Link to="/">Ir a la página de inicio.</Link>
       </section>
     </>
   );
