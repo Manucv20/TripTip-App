@@ -1,33 +1,58 @@
-import React, { useState, useContext } from "react";
-import { FaUser } from "react-icons/fa";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
-  const { logoutHandler, userData } = useContext(AuthContext);
+
+  const { userData, logoutHandler } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  if (!userData) {
-    return <div>Cargando...</div>; // Indicador de carga mientras se carga userData
-  }
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div style={{ position: "relative", zIndex: 9999 }}>
-      <button onClick={toggleMenu}>
-        <FaUser /> {userData.userUsername}
+      <button
+        onClick={toggleMenu}
+        style={{
+          cursor: "pointer",
+          border: "none",
+          background: "none",
+          padding: "0",
+          font: "inherit",
+        }}
+      >
+        <img
+          src="/icono_usuario_header.png"
+          alt="Logo"
+          style={{ width: "30px", height: "30px" }}
+        />
+        {userData.userUsername}
       </button>
-
       {isOpen && (
         <ul
+          ref={menuRef}
           style={{
             position: "absolute",
             top: "100%",
             left: 0,
-            backgroundColor: "white",
+            backgroundColor: "transparent", // Cambiado a transparente
             listStyle: "none",
             padding: 0,
             margin: 0,
@@ -49,7 +74,7 @@ const BurgerMenu = () => {
                 cursor: "pointer",
               }}
             >
-              Logout
+              Cerrar sesión
             </Link>
           </li>
         </ul>

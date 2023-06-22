@@ -14,7 +14,7 @@ function Header() {
             <h1 style={{ fontSize: '30px', color: 'white' }}>TripTip</h1>
             {auth ? 
             <BurgerMenu /> : 
-            <Link to="/login" style={{ color: 'white', marginLeft: 'auto', marginRight: '10px', textDecoration: 'none' }}>Login</Link>}
+            <Link to="/login" style={{ color: 'white', marginLeft: 'auto', marginRight: '10px', textDecoration: 'none' }}>Iniciar sesión</Link>}
         </header>
     );
 }
