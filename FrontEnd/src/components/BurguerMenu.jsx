@@ -71,7 +71,7 @@ const BurgerMenu = () => {
                 cursor: "pointer",
               }}
             >
-              Logout
+              Cerrar sesión
             </button>
           </li>
         </ul>
