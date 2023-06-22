@@ -28,7 +28,7 @@ export const AuthProviderComponent = ({ children }) => {
           setLogin(false);
         }
       } catch (error) {
-        toast.error("Error al decodificar el token:", error);
+        toast.error("Error decoding token:", error);
         setUserData(null);
       }
     } else {
@@ -37,7 +37,7 @@ export const AuthProviderComponent = ({ children }) => {
   }, [token, auth]);
 
   const logoutHandler = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem(storedToken);
     localStorage.removeItem("auth");
     setAuth(false);
     return setToken(" ");

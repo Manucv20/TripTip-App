@@ -20,7 +20,7 @@ export const registerUserService = async ({ username, email, password }) => {
 
     return json;
   } catch (error) {
-    throw new Error(`${error.message}`);
+    throw new Error(`The ${error.message}`);
   }
 };
 

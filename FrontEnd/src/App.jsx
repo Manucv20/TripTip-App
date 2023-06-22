@@ -10,13 +10,14 @@ import HomePage from "./pages/HomePage";
 import SearchResultsComponent from "./components/SearchResultsComponent";
 import SendEmailPage from "./pages/SendEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import LikesPage from "./pages/LikePages";
 import ProfilePage from "./pages/ProfilePage.jsx";
 
 function App() {
   return (
     <>
       <Header /> {/* Componente de encabezado */}
-      <Toaster position="top-right" />{" "}
+      <Toaster position="top-left" />{" "}
       {/* Componente para mostrar notificaciones */}
       <main>
         <Routes>
@@ -35,9 +36,13 @@ function App() {
           <Route path="/activate/:token" element={<LoginPage />} />
           {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
-            {/* Pagina privada creada por Jose */}
             <Route path="/myprofile" element={<ProfilePage />} />
-            {/* A continuación tienen que ponerse las otras dos rutas privadas */}
+            <Route path="/likes" element={<LikesPage />} />
+            {/*    <Route
+            path="/account/myrecomendations"
+            element={<UserRecomendations />}
+            />
+          <Route path="/account/favourites" element={<UserFavorites />} /> */}
           </Route>
           {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
           <Route path="*" element={<NotFoundPage />} />

@@ -20,7 +20,7 @@ const RegisterPage = () => {
 
     if (pass1 !== pass2) {
       toast.error(
-        `Las contraseñas que ingresaste no coinciden. Asegúrate de escribir la misma contraseña en ambos campos.`
+        `The "passwords" you entered do not match. Please make sure to enter the same password in both fields.`
       );
       return;
     }
@@ -37,7 +37,7 @@ const RegisterPage = () => {
   return (
     <section>
       <h2>
-        Registrate en <Link to="/">TripTip</Link>
+        Register on <Link to="/">TripTip</Link>
       </h2>
       <form onSubmit={handleForm} className="form">
         <ul className="input">
@@ -48,7 +48,7 @@ const RegisterPage = () => {
               id="username"
               name="username"
               required
-              placeholder="Nombre de Usuario ..."
+              placeholder="User ..."
               onChange={(e) => setUsername(e.target.value)}
             />
           </li>
@@ -59,7 +59,7 @@ const RegisterPage = () => {
               id="email"
               name="email"
               required
-              placeholder="Correo electrónico ..."
+              placeholder="Mail address ..."
               onChange={(e) => setEmail(e.target.value)}
             />
           </li>
@@ -70,7 +70,7 @@ const RegisterPage = () => {
               id="pass1"
               name="pass1"
               required
-              placeholder="Contraseña ..."
+              placeholder="Password ..."
               onChange={(e) => setPass1(e.target.value)}
             />
           </li>
@@ -81,16 +81,13 @@ const RegisterPage = () => {
               id="pass2"
               name="pass2"
               required
-              placeholder="Repita la contraseña ..."
+              placeholder="Repeat password ..."
               onChange={(e) => setPass2(e.target.value)}
             />
           </li>
         </ul>
-        <button>Registrate</button>
-        <p>
-          ¿Ya estás registrado?
-          <Link to="/login"> Haga clic Aquí</Link>
-        </p>
+        <button>Register</button>
+        <Link to="/login">Already registered?</Link>
       </form>
     </section>
   );
