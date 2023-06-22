@@ -116,6 +116,7 @@ const updateUserController = async (req, res, next) => {
 
     const { username, name, lastname, address, gender, email, bio } = value;
 
+
     let imageFileName;
 
     if (req.files?.profile_image) {
