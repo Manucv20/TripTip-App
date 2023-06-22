@@ -66,3 +66,52 @@ export const activateUserService = async ({ token }) => {
     throw new Error(error.message);
   }
 };
+
+export const sendDataUserService = async ({ data, token, id }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/${id}`,
+      {
+        method: "PUT",
+        body: data,
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+    return json.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getDataUserService = async ({ id, token }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/${id}`,
+      {
+        method: "GET",
+
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+    return json;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+

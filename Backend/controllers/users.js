@@ -114,8 +114,8 @@ const updateUserController = async (req, res, next) => {
       );
     }
 
-    const { username, name, lastname, address, gender, email, password, bio } =
-      value;
+    const { username, name, lastname, address, gender, email, bio } = value;
+
 
     let imageFileName;
 
@@ -143,7 +143,7 @@ const updateUserController = async (req, res, next) => {
     }
 
     try {
-      await updateUser(
+      const dataUser = await updateUser(
         userId,
         username,
         name,
@@ -151,12 +151,13 @@ const updateUserController = async (req, res, next) => {
         address,
         gender,
         email,
-        password,
         imageFileName,
         bio
       );
 
-      res.status(200).json({ message: "Perfil actualizado exitosamente." });
+      res
+        .status(200)
+        .json({ message: "Perfil actualizado exitosamente.", data: dataUser });
     } catch (err) {
       if (err.code === "ER_DUP_ENTRY") {
         return res.status(400).json({

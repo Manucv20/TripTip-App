@@ -5,7 +5,7 @@ import BurgerMenu from './BurguerMenu';
 
 
 function Header() {
-    const {auth, logoutHandler} = useContext(AuthContext)
+    const {auth} = useContext(AuthContext)
     return (
         <header style={{ backgroundColor: "rgb(194, 178, 128)", width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
            <Link to="/">
@@ -20,3 +20,4 @@ function Header() {
 }
 
 export default Header;
+

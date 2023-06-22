@@ -18,15 +18,15 @@ const loginSchema = Joi.object({
 });
 
 const updateUserSchema = Joi.object({
-  username: Joi.string(),
+  username: Joi.string().required(),
   name: Joi.string(),
   lastname: Joi.string(),
-  address: Joi.string(),
+  address: Joi.string().allow(""),
   gender: Joi.string().valid("male", "female", "other").lowercase(),
-  email: Joi.string().email(),
-  password: Joi.string().min(8),
-  profile_image: Joi.string().allow(null).empty(false),
-  bio: Joi.string().allow(null).empty(false),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required(),
+  profile_image: Joi.string().allow("").empty(false),
+  bio: Joi.string().empty(false).allow(""),
 });
 
 const getUserSchema = Joi.object({

@@ -4,17 +4,21 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
-  const { auth, logoutHandler } = useContext(AuthContext);
+  const { logoutHandler, userData } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  if (!userData) {
+    return <div>Cargando...</div>; // Indicador de carga mientras se carga userData
+  }
+
   return (
     <div style={{ position: "relative", zIndex: 9999 }}>
       <button onClick={toggleMenu}>
-        <FaUser /> Bienvenido👋
+        <FaUser /> {userData.userUsername}
       </button>
 
       {isOpen && (
@@ -31,10 +35,12 @@ const BurgerMenu = () => {
           }}
         >
           <li style={{ padding: 10 }}>
-            <Link to="/likes">Ajustes</Link>
+
+            <Link to="/myprofile">Ajustes</Link>
           </li>
           <li style={{ padding: 10 }}>
-            <button
+            <Link
+              to="/"
               onClick={logoutHandler}
               style={{
                 color: "black",
@@ -44,7 +50,7 @@ const BurgerMenu = () => {
               }}
             >
               Logout
-            </button>
+            </Link>
           </li>
         </ul>
       )}

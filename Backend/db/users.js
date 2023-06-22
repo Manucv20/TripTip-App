@@ -118,18 +118,14 @@ const updateUser = async (
   address,
   gender,
   email,
-  password,
   profile_image,
   bio
 ) => {
   let connection;
   try {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
     connection = await getConnection();
     const updateUserQuery =
-      "UPDATE users SET username = ?, name = ?, lastname = ?, address = ?, gender = ?, email = ?, password = ?, profile_image = ?, bio = ? WHERE id = ?";
+      "UPDATE users SET username = ?, name = ?, lastname = ?, address = ?, gender = ?, email = ?, profile_image = ?, bio = ? WHERE id = ?";
     await connection.query(updateUserQuery, [
       username,
       name,
@@ -137,11 +133,13 @@ const updateUser = async (
       address,
       gender,
       email,
-      hashedPassword,
       profile_image,
       bio,
       userId,
     ]);
+    const user = await getUserById(userId);
+    return user;
+
   } finally {
     if (connection) {
       connection.release();

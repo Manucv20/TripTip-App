@@ -58,6 +58,10 @@ const Sidebar = () => {
     fontWeight: "bold",
   };
 
+  if (!userData) {
+    return <div>Cargando...</div>; // Indicador de carga mientras se carga userData solución al problema de la carga de la pagina cuando se reinicia
+  }
+
   return (
     <>
       <header style={containerStyles}>
