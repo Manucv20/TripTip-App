@@ -56,3 +56,9 @@ img.emailconfirm {
   background-image: none;
   background-color: red;
 }
+
+.setting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}

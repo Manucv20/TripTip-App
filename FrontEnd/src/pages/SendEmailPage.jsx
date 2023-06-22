@@ -2,18 +2,20 @@ const SendEmailPage = () => {
   return (
     <>
       <section>
-        <h2>Thank you for creating an account with TripTip</h2>
+        <h2>Gracias por crear una cuenta en TripTip.</h2>
         <img
           className="emailconfirm"
           src="registroconfirmar.svg"
           alt="confirmar email"
         />
-        <h3>You{`'`}re almost done.</h3>
-        <p>We just sent you an email to activate your account</p>
+        <h3>Estás casi listo.</h3>
         <p>
-          Go to your inbox and click on the activation link to confirm your
-          email address. If you haven{`'`}t received it within 10 minutes, check
-          your spam folder.
+          Acabamos de enviarte un correo electrónico para activar tu cuenta.
+        </p>
+        <p>
+          Ve a tu bandeja de entrada y haz clic en el enlace de activación para
+          confirmar tu dirección de correo electrónico. Si no lo recibiste en
+          los próximos 10 minutos, revisa tu carpeta de spam.
         </p>
       </section>
     </>

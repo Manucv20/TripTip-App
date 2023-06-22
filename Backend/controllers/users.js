@@ -116,7 +116,7 @@ const updateUserController = async (req, res, next) => {
 
     const { username, name, lastname, address, gender, email, bio } = value;
 
-    let imageFileName;
+    let imageFileName = null;
 
     if (req.files?.profile_image) {
       //Creo el path del directorio uploads
@@ -171,6 +171,7 @@ const updateUserController = async (req, res, next) => {
     next(err);
   }
 };
+
 const getUserController = async (req, res, next) => {
   try {
     const { error } = getUserSchema.validate(req.params);
