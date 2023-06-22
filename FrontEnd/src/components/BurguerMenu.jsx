@@ -3,7 +3,11 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
+<<<<<<< Updated upstream:FrontEnd/src/components/BurguerMenu.jsx
   const { userData, auth, logoutHandler } = useContext(AuthContext);
+=======
+  const { userData, logoutHandler } = useContext(AuthContext);
+>>>>>>> Stashed changes:FrontEnd/src/components/BurguerMenu.tsx
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -27,6 +31,7 @@ const BurgerMenu = () => {
 
   return (
     <div style={{ position: "relative", zIndex: 9999 }}>
+<<<<<<< Updated upstream:FrontEnd/src/components/BurguerMenu.jsx
       <button
         onClick={toggleMenu}
         style={{
@@ -43,6 +48,11 @@ const BurgerMenu = () => {
           style={{ width: "30px", height: "30px" }}
         />
         {userData.userUsername}
+=======
+      <button onClick={toggleMenu}>
+        {userData.userUsername}
+        <FaUser />
+>>>>>>> Stashed changes:FrontEnd/src/components/BurguerMenu.tsx
       </button>
       {isOpen && (
         <ul
