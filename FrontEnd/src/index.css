@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+#root {
+  height: 100%;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.svg-icon {
+  margin-right: -1px;
+  width: 20px;
+  border: 1px solid #000000;
+  background-color: #e0dada;
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+img.emailconfirm {
+  width: 25rem;
+}
+
+.fondo:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-image: none;
+  background-color: red;
+}
+
+.setting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
