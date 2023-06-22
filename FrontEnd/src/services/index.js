@@ -114,3 +114,4 @@ export const getDataUserService = async ({ id, token }) => {
     throw new Error(error.message);
   }
 };
+
