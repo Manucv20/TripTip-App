@@ -33,9 +33,14 @@ const getUserSchema = Joi.object({
   id: Joi.string().required(),
 });
 
+const getEmailSchema = Joi.object({
+  email: Joi.string().email().max(100).required(),
+});
+
 module.exports = {
   userSchema,
   loginSchema,
   updateUserSchema,
   getUserSchema,
+  getEmailSchema,
 };

@@ -10,7 +10,8 @@ const SendEmailPage = () => {
         />
         <h3>Estás casi listo.</h3>
         <p>
-          Acabamos de enviarte un correo electrónico para activar tu cuenta.
+          Acabamos de enviarte un correo electrónico para activar tu cuenta y tu
+          email.
         </p>
         <p>
           Ve a tu bandeja de entrada y haz clic en el enlace de activación para

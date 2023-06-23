@@ -123,7 +123,6 @@ const updateUser = async (
 ) => {
   let connection;
   try {
-    console.log(profile_image);
     connection = await getConnection();
     let updateUserQuery =
       "UPDATE users SET username = ?, name = ?, lastname = ?, address = ?, gender = ?, email = ?, bio = ?";

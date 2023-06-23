@@ -5,6 +5,7 @@ const {
   loginController,
   updateUserController,
   getUserController,
+  updateEmailController,
 } = require("../controllers/users");
 const { authUser } = require("../middlewares/auth");
 
@@ -19,5 +20,8 @@ router.put("/user/:id", authUser, updateUserController);
 
 // Obtener usuario por ID
 router.get("/user/:id", authUser, getUserController);
+
+//Modificar Emailp
+router.put("/user/email/:id", authUser, updateEmailController);
 
 module.exports = router;

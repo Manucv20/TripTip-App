@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { FaUserPlus } from "react-icons/fa";
 
 import { registerUserService } from "../services";
 import IconoUserRegister from "../components/IconoUserRegister";
@@ -86,7 +87,17 @@ const RegisterPage = () => {
             />
           </li>
         </ul>
-        <button>Register</button>
+        <button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <span>Registro</span>
+          <FaUserPlus />
+        </button>
         <Link to="/login">Already registered?</Link>
       </form>
     </section>

@@ -8,6 +8,7 @@ const {
   loginSchema,
   updateUserSchema,
   getUserSchema,
+  getEmailSchema,
 } = require("../schemas/usersSchemas");
 
 const {
@@ -18,8 +19,8 @@ const {
   getUserByEmail,
 } = require("../db/users");
 
-const { sendActivationEmail } = require("./email");
-const { createEmailVerification } = require("../db/email");
+const { sendActivationEmail, sendEmail } = require("./email");
+const { createEmailVerification, updateEmail } = require("../db/email");
 const { v4: uuidv4 } = require("uuid");
 
 const generateActivationToken = () => {
@@ -197,9 +198,58 @@ const getUserController = async (req, res, next) => {
   }
 };
 
+const updateEmailController = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const frontendURL = req.headers["frontend-url"];
+
+    // Validar datos de entrada
+    const { error, value } = getEmailSchema.validate(req.body);
+
+    if (error) {
+      throw generateError(error.details[0].message, 400);
+    }
+
+    if (Number(req.userId) !== Number(userId)) {
+      throw generateError(
+        "No autorizado!! No tienes permiso para modificar los datos de otro usuario.",
+        403
+      );
+    }
+
+    const { email } = value;
+
+    if (req.userEmail == email) {
+      throw generateError(
+        "No se puede modificar el correo, porque no lo has cambiado.",
+        403
+      );
+    }
+
+    await updateEmail(email, userId);
+
+    const token = generateActivationToken();
+
+    await createEmailVerification({ userId, token });
+
+    await sendEmail({
+      firstName: req.userFirstName,
+      email,
+      token,
+      frontendURL,
+    });
+  } catch (error) {
+    if (error.status && error.message) {
+      return res.status(error.status).json({ message: error.message });
+    }
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   newUserController,
   loginController,
   updateUserController,
   getUserController,
+  updateEmailController,
 };
