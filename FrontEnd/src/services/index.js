@@ -114,3 +114,52 @@ export const getDataUserService = async ({ id, token }) => {
   }
 };
 
+export const sendUserEmailService = async ({ email, token, id }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/email/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Frontend-URL": import.meta.env.VITE_APP_FRONTEND,
+          Authorization: token,
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const sendUserPasswordService = async ({ password, token, id }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/password/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ password }),
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+

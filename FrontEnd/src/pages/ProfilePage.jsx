@@ -1,18 +1,45 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { FaCheck, FaTimes, FaPencilAlt, FaSyncAlt } from "react-icons/fa";
+import {
+  FaCheck,
+  FaTimes,
+  FaPencilAlt,
+  FaSyncAlt,
+  FaCameraRetro,
+} from "react-icons/fa";
 
-import { getDataUserService, sendDataUserService } from "../services";
+import {
+  getDataUserService,
+  sendDataUserService,
+  sendUserEmailService,
+  sendUserPasswordService,
+} from "../services";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
-  const { userData, token } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const { userData, token, logoutHandler } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
+    usernameEditable: false, // Estado inicial de la edición del username
     emailEditable: false, // Estado inicial de la edición del correo electrónico
+    passwordEditable: false, //Estado inicial de la edición del password
   });
+
+  //Gestion del username
+  const [currentUserName, setCurrentUserName] = useState(
+    formData?.username ?? ""
+  );
+
+  //Gestion del email
   const [currentEmail, setCurrentEmail] = useState(formData?.email ?? "");
-  const [newEmail, setNewEmail] = useState("");
+
+  //Gestion del password
+  const [currentPassword, setCurrenPasswod] = useState(
+    formData?.password ?? ""
+  );
 
   const [imagen, setImagen] = useState("");
 
@@ -65,7 +92,7 @@ const ProfilePage = () => {
         token,
         id: userData?.userId,
       });
-
+      toast.success("Actualización exitosa.");
       setImagen("");
     } catch (error) {
       toast.error(error.message);
@@ -74,25 +101,81 @@ const ProfilePage = () => {
     }
   };
 
-  const handleModifyPassword = () => {
-    // Aquí puedes implementar la lógica para abrir el formulario de modificación de contraseña
-    console.log("Modificar contraseña");
-  };
-
-  const handleModifyEmail = () => {
-    // Aquí puedes implementar la lógica para abrir el formulario de modificación de contraseña
+  const handleSaveUserName = () => {
     setFormData((prevData) => ({
       ...prevData,
-      emailEditable: true,
+      usernameEditable: false,
+      username: prevData.username,
     }));
+    toast.success("Necesitas actualizar para guardar los cambios");
   };
 
-  const handleSaveEmail = () => {
+  const handleSaveEmail = async () => {
+    try {
+      setLoading(true);
+      setFormData((prevData) => ({
+        ...prevData,
+        emailEditable: false,
+        email: prevData.email,
+      }));
+
+      const email = formData?.email;
+
+      if (!email) {
+        throw new Error("El campo email está vacio.");
+      }
+
+      await sendUserEmailService({
+        email,
+        token,
+        id: formData?.id,
+      });
+      toast.success("Actualización exitosa.");
+
+      logoutHandler();
+      navigate("/registered");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSavePassword = async () => {
+    try {
+      setLoading(true);
+      setFormData((prevData) => ({
+        ...prevData,
+        passwordEditable: false,
+        password: currentPassword,
+      }));
+      const password = formData?.password;
+
+      if (!password) {
+        throw new Error("El campo password está vacio.");
+      }
+      await sendUserPasswordService({
+        password,
+        token,
+        id: formData?.id,
+      });
+      toast.success("Actualización exitosa.");
+
+      logoutHandler();
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelUsername = () => {
     setFormData((prevData) => ({
       ...prevData,
-      emailEditable: false,
+      username: currentUserName,
+      usernameEditable: false,
     }));
-    setNewEmail(formData?.email ?? "");
   };
 
   const handleCancelEmail = () => {
@@ -103,11 +186,56 @@ const ProfilePage = () => {
     }));
   };
 
+  const handleCancelPassword = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      password: currentPassword,
+      passwordEditable: false,
+    }));
+  };
+
+  const handleEditUsername = () => {
+    setFormData({
+      ...formData,
+      usernameEditable: true,
+      username: "",
+    });
+  };
+
+  const handleEditEmail = () => {
+    setFormData({
+      ...formData,
+      emailEditable: true,
+      email: "",
+    });
+  };
+
+  const handleEditPassword = () => {
+    setFormData({
+      ...formData,
+      passwordEditable: true,
+      password: "",
+    });
+  };
+
   useEffect(() => {
     if (!formData.emailEditable) {
       setCurrentEmail(formData?.email ?? "");
     }
-  }, [formData.emailEditable, formData.email]);
+    if (!formData.usernameEditable) {
+      setCurrentUserName(formData?.username ?? "");
+    }
+    if (!formData.passwordEditable) {
+      setCurrenPasswod(formData?.password ?? "");
+    }
+  }, [
+    formData.emailEditable,
+    formData.email,
+    formData.usernameEditable,
+    formData.username,
+    formData.passwordEditable,
+    formData.password,
+  ]);
 
   return (
     <>
@@ -124,6 +252,7 @@ const ProfilePage = () => {
               {" "}
               <h2>Perfil de usuario</h2>{" "}
             </figcaption>
+
             <ul>
               <li
                 style={{
@@ -133,9 +262,7 @@ const ProfilePage = () => {
                 }}
               >
                 <label
-                  className="fondo"
                   htmlFor="fileInput"
-                  title="Descargar Avatar"
                   style={{
                     width: "170px",
                     height: "170px",
@@ -145,23 +272,37 @@ const ProfilePage = () => {
                       : 'url("/photoperfil.png")',
                     backgroundSize: "cover",
                     borderRadius: "50%",
-                    cursor: "pointer",
+                    position: "relative",
                   }}
                 >
                   {imagen ? (
-                    <img
-                      src={URL.createObjectURL(imagen)}
-                      alt="Mi Perfil"
-                      style={{
-                        width: "170px",
-                        height: "170px",
-                        display: "inline-block",
-                        backgroundSize: "cover",
-                        borderRadius: "50%",
-                        cursor: "pointer",
-                      }}
-                    />
+                    <>
+                      <img
+                        src={URL.createObjectURL(imagen)}
+                        alt="Mi Perfil"
+                        style={{
+                          width: "170px",
+                          height: "170px",
+                          display: "inline-block",
+                          backgroundSize: "cover",
+                          borderRadius: "50%",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </>
                   ) : null}
+                  <FaCameraRetro
+                    className="fondo"
+                    title="Descargar Avatar"
+                    style={{
+                      position: "absolute",
+                      bottom: "10px",
+                      right: "30px",
+                      color: "white",
+                      fontSize: "24px",
+                      cursor: "pointer",
+                    }}
+                  />
                 </label>
 
                 <input
@@ -173,19 +314,64 @@ const ProfilePage = () => {
                   style={{ display: "none" }}
                 />
               </li>
+              {imagen ? (
+                <li>Tienes que Actualizar para guardar los cambios.</li>
+              ) : null}
               <li>
-                {
+                {formData.usernameEditable ? (
+                  <>
+                    <input
+                      type="text"
+                      name="username"
+                      value={formData?.username ?? ""}
+                      onChange={handleChange}
+                      placeholder="Nuevo Username..."
+                    />
+
+                    <button
+                      type="button"
+                      onClick={handleSaveUserName}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaCheck
+                        style={{
+                          color: "green",
+                        }}
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelUsername}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaTimes
+                        style={{
+                          color: "red",
+                        }}
+                      />
+                    </button>
+                  </>
+                ) : (
                   <h3
                     style={{
                       display: "flex",
                       justifyContent: "center",
+                      gap: "8px",
                       marginTop: "10px",
                       textAlign: "left",
+                      cursor: "pointer",
                     }}
+                    onClick={handleEditUsername}
                   >
                     {formData?.username ?? ""}
+                    <FaPencilAlt className="fondo2" />
                   </h3>
-                }
+                )}
+
                 <input
                   type="hidden"
                   name="username"
@@ -194,44 +380,127 @@ const ProfilePage = () => {
                 />
               </li>
               <li>
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData?.email ?? ""}
-                  onChange={handleChange}
-                  readOnly={!formData.emailEditable}
-                />
                 {formData.emailEditable ? (
                   <>
-                    <button type="button" onClick={handleSaveEmail}>
-                      <FaCheck />
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData?.email ?? ""}
+                      onChange={handleChange}
+                      placeholder="Nuevo Email..."
+                    />
+
+                    <button
+                      type="button"
+                      onClick={handleSaveEmail}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaCheck
+                        style={{
+                          color: "green",
+                        }}
+                      />
                     </button>
-                    <button type="button" onClick={handleCancelEmail}>
-                      <FaTimes />
+                    <button
+                      type="button"
+                      onClick={handleCancelEmail}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaTimes
+                        style={{
+                          color: "red",
+                        }}
+                      />
                     </button>
                   </>
                 ) : (
-                  <button type="button" onClick={handleModifyEmail}>
-                    <FaPencilAlt />
-                  </button>
+                  <h3
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "8px",
+                      marginTop: "10px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                    }}
+                    onClick={handleEditEmail}
+                  >
+                    {formData?.email ?? ""}
+                    <FaPencilAlt className="fondo2" />
+                  </h3>
                 )}
-              </li>
-
-              <li>
-                <label htmlFor="password">Password</label>
                 <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={formData?.password ?? ""}
-                  onChange={handleChange}
+                  type="hidden"
+                  name="email"
+                  value={formData?.email ?? ""}
                   readOnly
                 />
-                <button type="button" onClick={handleModifyPassword}>
-                  <FaPencilAlt />
-                </button>
+              </li>
+              <li>
+                {formData.passwordEditable ? (
+                  <>
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData?.password ?? ""}
+                      onChange={handleChange}
+                      placeholder="Nuevo Password..."
+                    />
+
+                    <button
+                      type="button"
+                      onClick={handleSavePassword}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaCheck
+                        style={{
+                          color: "green",
+                        }}
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelPassword}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaTimes
+                        style={{
+                          color: "red",
+                        }}
+                      />
+                    </button>
+                  </>
+                ) : (
+                  <h3
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "8px",
+                      marginTop: "10px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                    }}
+                    onClick={handleEditPassword}
+                  >
+                    Password ********
+                    <FaPencilAlt className="fondo2" />
+                  </h3>
+                )}
+
+                <input
+                  type="hidden"
+                  name="password"
+                  value={formData?.password ?? ""}
+                  readOnly
+                />
               </li>
             </ul>
           </fieldset>
@@ -254,6 +523,7 @@ const ProfilePage = () => {
                   name="name"
                   value={formData?.name ?? ""}
                   onChange={handleChange}
+                  placeholder="Nombre..."
                   required
                 />
               </li>
@@ -265,6 +535,7 @@ const ProfilePage = () => {
                   name="lastname"
                   value={formData?.lastname ?? ""}
                   onChange={handleChange}
+                  placeholder="Apellido..."
                   required
                 />
               </li>
@@ -290,6 +561,7 @@ const ProfilePage = () => {
                   type="text"
                   name="address"
                   value={formData?.address ?? ""}
+                  placeholder="Dirección..."
                   onChange={handleChange}
                 />
               </li>
@@ -300,11 +572,21 @@ const ProfilePage = () => {
                   id="biografia"
                   name="bio"
                   value={formData?.bio ?? ""}
+                  placeholder="Cuentame sobre ti..."
                   onChange={handleChange}
                 />
               </li>
             </ul>
-            <button type="submit">
+            <button
+              type="submit"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "8px",
+                cursor: "pointer",
+              }}
+            >
               {" "}
               <FaSyncAlt /> Actualizar
             </button>

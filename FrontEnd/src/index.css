@@ -53,13 +53,15 @@ img.emailconfirm {
 
 .fondo:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-image: none;
-  background-color: red;
 }
 
 .setting {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.fondo2:hover {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 

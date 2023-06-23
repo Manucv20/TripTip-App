@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
+
 import { toast } from "sonner";
 
 export const AuthContext = createContext();
@@ -7,6 +8,7 @@ export const AuthContext = createContext();
 export const AuthProviderComponent = ({ children }) => {
   const storedToken = localStorage.getItem("token");
   const storedAuth = localStorage.getItem("auth");
+
   const [token, setToken] = useState(storedToken || " ");
   const [userData, setUserData] = useState(null);
   const [auth, setAuth] = useState(storedAuth === "true");
@@ -39,6 +41,7 @@ export const AuthProviderComponent = ({ children }) => {
   const logoutHandler = () => {
     localStorage.removeItem(storedToken);
     localStorage.removeItem("auth");
+
     setAuth(false);
     return setToken(" ");
   };

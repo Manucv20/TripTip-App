@@ -37,10 +37,15 @@ const getEmailSchema = Joi.object({
   email: Joi.string().email().max(100).required(),
 });
 
+const getPasswordSchema = Joi.object({
+  password: Joi.string().min(8).required(),
+});
+
 module.exports = {
   userSchema,
   loginSchema,
   updateUserSchema,
   getUserSchema,
   getEmailSchema,
+  getPasswordSchema,
 };
