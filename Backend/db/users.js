@@ -124,6 +124,18 @@ const updateUser = async (
   let connection;
   try {
     connection = await getConnection();
+
+    const [usernameExist] = await connection.query(
+      "SELECT * FROM users WHERE username = ? AND id <> ?",
+      [username, userId]
+    );
+
+    if (usernameExist.length > 0) {
+      throw generateError(
+        `"Nombre de usuario" ya existe en nuestra base de datos. Por favor, ingresa otro nombre de usuario.`,
+        409
+      );
+    }
     let updateUserQuery =
       "UPDATE users SET username = ?, name = ?, lastname = ?, address = ?, gender = ?, email = ?, bio = ?";
     const updateParams = [
@@ -156,12 +168,17 @@ const updateUser = async (
 };
 
 const getUserById = async (userId) => {
-  const connection = await getConnection();
-  const [rows] = await connection.query("SELECT * FROM users WHERE id = ?", [
-    userId,
-  ]);
-  connection.release();
-  return rows[0];
+  let connection;
+  try {
+    connection = await getConnection();
+    const [rows] = await connection.query("SELECT * FROM users WHERE id = ?", [
+      userId,
+    ]);
+    connection.release();
+    return rows[0];
+  } finally {
+    if (connection) connection.release();
+  }
 };
 
 const getUserByEmail = async (email) => {
@@ -190,10 +207,33 @@ const getUserByEmail = async (email) => {
   }
 };
 
+const updatePassword = async ({ password, userId }) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    await connection.execute("UPDATE users SET password = ? WHERE id = ?", [
+      hashedPassword,
+      userId,
+    ]);
+
+    const user = await getUserById(userId);
+    return user;
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+
 module.exports = {
   createUser,
   login,
   updateUser,
   getUserById,
   getUserByEmail,
+  updatePassword,
 };

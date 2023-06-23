@@ -63,7 +63,8 @@ const activateAccountController = async (req, res, next) => {
   }
 };
 
-const sendEmail = async (firstName, email, token, frontendURL) => {
+const sendEmail = async (data) => {
+  const { firstName, email, token, frontendURL } = data;
   try {
     const { response } = await mailjet
       .post("send", { version: "v3.1" })
@@ -82,7 +83,7 @@ const sendEmail = async (firstName, email, token, frontendURL) => {
             ],
             Subject: "Verificación de correo electrónico",
             TextPart: `¡Estimado ${firstName}! `,
-            HTMLPart: `<h3>Hola ${firstName},</h3> <p>Por favor, verifica tu dirección de correo electrónico a través de este enlace:</p><a href="${frontendURL}/activate/${token}">https://triptip.com/activate/${token}</a><br /><p>Tus datos de acceso:</p><p>Email: ${email}`,
+            HTMLPart: `<h3>Hola ${firstName},</h3> <p>Por favor, verifica tu dirección de correo electrónico a través de este enlace:</p><a href="href="${frontendURL}/activate/${token}">https://triptip.com/activate/${token}</a><br /><p>Tus datos de acceso:</p><p>Email: ${email}`,
           },
         ],
       });
