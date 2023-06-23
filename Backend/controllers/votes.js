@@ -1,4 +1,4 @@
-const { createVotes } = require("../db/votes");
+const { createVotes, getVotedRecommendationsByUser } = require("../db/votes");
 const { getRecommendationById } = require("../db/recommendations");
 
 const NewVoteController = async (req, res, next) => {
@@ -23,7 +23,18 @@ const NewVoteController = async (req, res, next) => {
     next(e);
   }
 };
+const getVotedRecommendationsController = async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+
+    const votedRecommendations = await getVotedRecommendationsByUser(user_id);
+
+    res.status(200).json(votedRecommendations);
+  } catch (er) {
+    next(e);
+  }
+};
 
 module.exports = {
-  NewVoteController,
+  getVotedRecommendationsController, NewVoteController
 };

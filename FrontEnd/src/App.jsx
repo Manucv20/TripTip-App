@@ -6,6 +6,7 @@ import Footer from "./components/footer.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
+
 import HomePage from "./pages/HomePage";
 import SearchResultsComponent from "./components/SearchResultsComponent";
 import SendEmailPage from "./pages/SendEmailPage";
