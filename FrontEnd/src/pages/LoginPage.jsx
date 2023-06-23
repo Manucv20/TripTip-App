@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { FaSignInAlt } from "react-icons/fa";
 
 import { activateUserService, loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
@@ -89,7 +90,17 @@ const LoginPage = () => {
         <p>
           Have you forgotten your password? <Link>Reset password</Link>{" "}
         </p>
-        <button>Log in</button>
+        <button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <span>Iniciar sesión</span>
+          <FaSignInAlt />
+        </button>
         <Link to="/register">¿No tienes cuenta? Registrate.</Link>
       </form>
     </section>

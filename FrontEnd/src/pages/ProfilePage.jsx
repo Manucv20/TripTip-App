@@ -1,12 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { FaCheck, FaTimes, FaPencilAlt, FaSyncAlt } from "react-icons/fa";
+
 import { getDataUserService, sendDataUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 
 const ProfilePage = () => {
   const { userData, token } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    emailEditable: false, // Estado inicial de la edición del correo electrónico
+  });
+  const [currentEmail, setCurrentEmail] = useState(formData?.email ?? "");
+  const [newEmail, setNewEmail] = useState("");
+
   const [imagen, setImagen] = useState("");
 
   const imagenUrl = `${import.meta.env.VITE_APP_BACKEND}/uploads`;
@@ -74,8 +81,33 @@ const ProfilePage = () => {
 
   const handleModifyEmail = () => {
     // Aquí puedes implementar la lógica para abrir el formulario de modificación de contraseña
-    console.log("Modificar correo electronico");
+    setFormData((prevData) => ({
+      ...prevData,
+      emailEditable: true,
+    }));
   };
+
+  const handleSaveEmail = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      emailEditable: false,
+    }));
+    setNewEmail(formData?.email ?? "");
+  };
+
+  const handleCancelEmail = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      email: currentEmail,
+      emailEditable: false,
+    }));
+  };
+
+  useEffect(() => {
+    if (!formData.emailEditable) {
+      setCurrentEmail(formData?.email ?? "");
+    }
+  }, [formData.emailEditable, formData.email]);
 
   return (
     <>
@@ -83,7 +115,15 @@ const ProfilePage = () => {
         {loading ? <p>Cargando Formulario...</p> : null}
         <form className="setting" onSubmit={handleForm}>
           <fieldset>
-            <figcaption>Perfil de usuario:</figcaption>
+            <figcaption
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {" "}
+              <h2>Perfil de usuario</h2>{" "}
+            </figcaption>
             <ul>
               <li
                 style={{
@@ -154,22 +194,33 @@ const ProfilePage = () => {
                 />
               </li>
               <li>
-                <label htmlFor="email">Correo electrónico</label>
+                <label htmlFor="email">Email</label>
                 <input
                   id="email"
                   type="email"
                   name="email"
                   value={formData?.email ?? ""}
                   onChange={handleChange}
-                  readOnly
+                  readOnly={!formData.emailEditable}
                 />
-                <button type="button" onClick={handleModifyEmail}>
-                  Modificar
-                </button>
+                {formData.emailEditable ? (
+                  <>
+                    <button type="button" onClick={handleSaveEmail}>
+                      <FaCheck />
+                    </button>
+                    <button type="button" onClick={handleCancelEmail}>
+                      <FaTimes />
+                    </button>
+                  </>
+                ) : (
+                  <button type="button" onClick={handleModifyEmail}>
+                    <FaPencilAlt />
+                  </button>
+                )}
               </li>
 
               <li>
-                <label htmlFor="password">Contraseña</label>
+                <label htmlFor="password">Password</label>
                 <input
                   id="password"
                   type="password"
@@ -179,13 +230,21 @@ const ProfilePage = () => {
                   readOnly
                 />
                 <button type="button" onClick={handleModifyPassword}>
-                  Modificar
+                  <FaPencilAlt />
                 </button>
               </li>
             </ul>
           </fieldset>
           <fieldset>
-            <figcaption>Datos Personales:</figcaption>
+            <figcaption
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {" "}
+              <h2>Datos Personales</h2>{" "}
+            </figcaption>
             <ul>
               <li>
                 <label htmlFor="firstname">Nombre</label>
@@ -245,7 +304,10 @@ const ProfilePage = () => {
                 />
               </li>
             </ul>
-            <button type="submit">Actualizar</button>
+            <button type="submit">
+              {" "}
+              <FaSyncAlt /> Actualizar
+            </button>
           </fieldset>
         </form>
       </section>

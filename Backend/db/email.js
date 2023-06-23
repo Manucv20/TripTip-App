@@ -49,4 +49,23 @@ const activateUser = async (userId) => {
   }
 };
 
-module.exports = { createEmailVerification, getUserByToken, activateUser };
+const updateEmail = async (userId, email) => {
+  let connection;
+  try {
+    await connection.execute(
+      "UPDATE users SET email = ?, isActivated = false WHERE id = ?",
+      [email, userId]
+    );
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+
+module.exports = {
+  createEmailVerification,
+  getUserByToken,
+  activateUser,
+  updateEmail,
+};
