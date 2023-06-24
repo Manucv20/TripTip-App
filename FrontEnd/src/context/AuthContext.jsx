@@ -13,6 +13,7 @@ export const AuthProviderComponent = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [auth, setAuth] = useState(storedAuth === "true");
   const [login, setLogin] = useState(false);
+  const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
     localStorage.setItem("token", token);
@@ -36,6 +37,8 @@ export const AuthProviderComponent = ({ children }) => {
     } else {
       setUserData(null);
     }
+
+    setAvatar("");
   }, [token, auth]);
 
   const logoutHandler = () => {
@@ -49,6 +52,8 @@ export const AuthProviderComponent = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        avatar,
+        setAvatar,
         token,
         setToken,
         userData,

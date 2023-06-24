@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken, setLogin } = useContext(AuthContext);
+  const { setToken, setLogin, setAuth } = useContext(AuthContext);
 
   const { token } = useParams();
   const [activated, setActivated] = useState(false);
@@ -37,8 +37,9 @@ const LoginPage = () => {
       const data = await loginUserService({ email, password });
       setToken(data);
       setLogin(true);
+      setAuth(true);
 
-      if (data) return navigate("/");
+      if (data) return navigate("/myprofile");
     } catch (error) {
       toast.error(error.message);
     }

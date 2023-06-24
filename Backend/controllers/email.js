@@ -28,7 +28,7 @@ const sendActivationEmail = async (username, email, token, frontendURL) => {
             ],
             Subject: "User Activation",
             TextPart: `¡Estimado ${username}, bienvenido a Mailjet! ¡Que la fuerza de entrega esté contigo!`,
-            HTMLPart: `<h3>Hola ${username},</h3> <p>Eres el miembro más reciente de TripTip, una comunidad para compartir experiencias únicas e inusuales mientras viajas por el mundo. Estamos felices de tenerte y esperamos ver tus recomendaciones de viaje muy pronto.</p><p>Por favor, verifica tu dirección de correo electrónico a través de este enlace:</p><a href="${frontendURL}/activate/${token}">https://triptip.com/activate/${token}</a><br /><p>Tus datos de acceso:</p><p>Email: ${email} <br /> Username: ${username}</p><p>Tu equipo TripTip</p>`,
+            HTMLPart: `<h3>Hola ${username},</h3> <p>Eres el miembro más reciente de TripTip, una comunidad para compartir experiencias únicas e inusuales mientras viajas por el mundo. Estamos felices de tenerte y esperamos ver tus recomendaciones de viaje muy pronto.</p><p>Por favor, verifica tu dirección de correo electrónico a través de este enlace:</p><a href="${frontendURL}/acount/${token}">https://triptip.com/activate/${token}</a><br /><p>Tus datos de acceso:</p><p>Email: ${email} <br /> Pasword: ********<br />Por motivos de seguridad no podemos mostrar tu contraseña en este email</p><p>Tu equipo TripTip</p>`,
           },
         ],
       });
@@ -83,7 +83,7 @@ const sendEmail = async (data) => {
             ],
             Subject: "Verificación de correo electrónico",
             TextPart: `¡Estimado ${firstName}! `,
-            HTMLPart: `<h3>Hola ${firstName},</h3> <p>Por favor, verifica tu dirección de correo electrónico a través de este enlace:</p><a href="href="${frontendURL}/activate/${token}">https://triptip.com/activate/${token}</a><br /><p>Tus datos de acceso:</p><p>Email: ${email}`,
+            HTMLPart: `<h3>Hola ${firstName},</h3> <p>Por favor, verifica tu dirección de correo electrónico a través de este enlace:</p><a href="${frontendURL}/acount/${token}">https://triptip.com/activate/${token}</a><br /><p>Tus datos de acceso:</p><p>Email: ${email}<br /> Pasword: ********<br />Por motivos de seguridad no podemos mostrar tu contraseña en este email</p>`,
           },
         ],
       });

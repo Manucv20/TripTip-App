@@ -91,6 +91,7 @@ const login = async (email, password) => {
         userEmail: user.email,
         firstName: user.name,
         lastName: user.lastname,
+        imagen: user.profile_image,
       },
       process.env.JWT_SECRET,
       {

@@ -1,12 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import {
-  FaCheck,
-  FaTimes,
-  FaPencilAlt,
-  FaSyncAlt,
-  FaCameraRetro,
-} from "react-icons/fa";
+import { FaCheck, FaTimes, FaPencilAlt, FaSyncAlt } from "react-icons/fa";
 
 import {
   getDataUserService,
@@ -16,17 +10,19 @@ import {
 } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import AvatarUploader from "../components/AvatarUploader ";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
 
-  const { userData, token, logoutHandler } = useContext(AuthContext);
+  const { userData, token, logoutHandler, setAvatar } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     usernameEditable: false, // Estado inicial de la edición del username
     emailEditable: false, // Estado inicial de la edición del correo electrónico
     passwordEditable: false, //Estado inicial de la edición del password
   });
+  const [imagen, setImagen] = useState("");
 
   //Gestion del username
   const [currentUserName, setCurrentUserName] = useState(
@@ -41,10 +37,6 @@ const ProfilePage = () => {
     formData?.password ?? ""
   );
 
-  const [imagen, setImagen] = useState("");
-
-  const imagenUrl = `${import.meta.env.VITE_APP_BACKEND}/uploads`;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,6 +44,7 @@ const ProfilePage = () => {
         if (userData?.userId) {
           const data = await getDataUserService({ id: userData.userId, token });
           setFormData(data);
+          setAvatar(data.profile_image ?? "");
         }
       } catch (error) {
         toast.error(error.message);
@@ -78,21 +71,13 @@ const ProfilePage = () => {
 
       const data = new FormData(e.target);
 
-      if (!imagen) {
-        const currentImage = formData?.profile_image;
-        if (currentImage) {
-          data.append("profile_image", currentImage);
-        } else {
-          data.delete("profile_image"); // Eliminar el campo "profile_image" del FormData si no hay cambios
-        }
-      }
-
       await sendDataUserService({
         data,
         token,
         id: userData?.userId,
       });
       toast.success("Actualización exitosa.");
+
       setImagen("");
     } catch (error) {
       toast.error(error.message);
@@ -237,6 +222,10 @@ const ProfilePage = () => {
     formData.password,
   ]);
 
+  const handleImageChange = (imagen) => {
+    setImagen(imagen);
+  };
+
   return (
     <>
       <section>
@@ -261,57 +250,9 @@ const ProfilePage = () => {
                   position: "relative",
                 }}
               >
-                <label
-                  htmlFor="fileInput"
-                  style={{
-                    width: "170px",
-                    height: "170px",
-                    display: "inline-block",
-                    backgroundImage: formData.profile_image
-                      ? `url(${`${imagenUrl}/${formData?.profile_image}`})`
-                      : 'url("/photoperfil.png")',
-                    backgroundSize: "cover",
-                    borderRadius: "50%",
-                    position: "relative",
-                  }}
-                >
-                  {imagen ? (
-                    <>
-                      <img
-                        src={URL.createObjectURL(imagen)}
-                        alt="Mi Perfil"
-                        style={{
-                          width: "170px",
-                          height: "170px",
-                          display: "inline-block",
-                          backgroundSize: "cover",
-                          borderRadius: "50%",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </>
-                  ) : null}
-                  <FaCameraRetro
-                    className="fondo"
-                    title="Descargar Avatar"
-                    style={{
-                      position: "absolute",
-                      bottom: "10px",
-                      right: "30px",
-                      color: "white",
-                      fontSize: "24px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </label>
-
-                <input
-                  id="fileInput"
-                  type="file"
-                  name="profile_image"
-                  onChange={(e) => setImagen(e.target.files[0])}
-                  accept=".jpg, .png"
-                  style={{ display: "none" }}
+                <AvatarUploader
+                  handleImageChange={handleImageChange}
+                  profile_imagen={formData.profile_image}
                 />
               </li>
               {imagen ? (
