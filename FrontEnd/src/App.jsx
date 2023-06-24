@@ -6,6 +6,7 @@ import Footer from "./components/footer.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
+
 import HomePage from "./pages/HomePage";
 import SearchResultsComponent from "./components/SearchResultsComponent";
 import SendEmailPage from "./pages/SendEmailPage";
@@ -33,16 +34,11 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registered" element={<SendEmailPage />} />
-          <Route path="/activate/:token" element={<LoginPage />} />
-          {/* Ruta Privada a tener en cuenta para el Dashboard del Usuario */}
+          <Route path="/acount/:token" element={<LoginPage />} />
+          {/* Rutas Privadas a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
             <Route path="/myprofile" element={<ProfilePage />} />
             <Route path="/likes" element={<LikesPage />} />
-            {/*    <Route
-            path="/account/myrecomendations"
-            element={<UserRecomendations />}
-            />
-          <Route path="/account/favourites" element={<UserFavorites />} /> */}
           </Route>
           {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
           <Route path="*" element={<NotFoundPage />} />

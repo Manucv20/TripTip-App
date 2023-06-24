@@ -52,7 +52,7 @@ img.emailconfirm {
 }
 
 .fondo:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .setting {
@@ -62,5 +62,5 @@ img.emailconfirm {
 }
 
 .fondo2:hover {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0px -2px 0px rgba(0, 0, 0, 0.5));
 }

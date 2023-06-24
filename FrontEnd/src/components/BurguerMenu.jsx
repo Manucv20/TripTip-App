@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import Avatar from "./Avatar";
 
 const BurgerMenu = () => {
-  const { userData, logoutHandler } = useContext(AuthContext);
+  const { userData, logoutHandler, avatar } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -39,16 +40,12 @@ const BurgerMenu = () => {
           cursor: "pointer",
           border: "none",
           background: "none",
-          padding: "0",
+          gap: "1rem",
           font: "inherit",
         }}
       >
-        <img
-          src="/photoperfil.png"
-          alt="Logo"
-          style={{ width: "30px", height: "30px" }}
-        />
         <span>{userData.userUsername}</span>
+        {<Avatar imagen={avatar} estilo={{ width: "40px", height: "40px" }} />}
       </button>
       {isOpen && (
         <ul

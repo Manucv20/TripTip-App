@@ -25,6 +25,7 @@ const authUser = (req, res, next) => {
     req.firstName = token.firstName;
     req.lastName = token.lastName;
     req.userUsername = token.userUsername;
+    req.imagen = token.imagen;
 
     next();
   } catch (error) {

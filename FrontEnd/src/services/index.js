@@ -61,7 +61,7 @@ export const activateUserService = async ({ token }) => {
       throw new Error(json.message);
     }
 
-    return json;
+    return json.message;
   } catch (error) {
     throw new Error(error.message);
   }
