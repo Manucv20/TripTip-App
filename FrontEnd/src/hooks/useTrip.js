@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getSingleTripService } from "../services";
 
-const useTrip = (id, refresh) => {
-  const [trip, setTrip] = useState(null);
+const useTrip = (id) => {
+  const [trip, setTrip] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -24,7 +24,7 @@ const useTrip = (id, refresh) => {
     };
 
     loadTrip();
-  }, [id, refresh]);
+  }, []);
 
   return { trip, loading, error };
 };

@@ -133,13 +133,14 @@ export const getSingleTripService = async (id) => {
   }
 };
 
-export const userCommentService = async ({ id, comment }) => {
+export const userCommentService = async (id, comment, token) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_APP_BACKEND}/recommendations/comments/${id}`,
       {
         method: "POST",
         headers: {
+          Authorization: token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ comment }),

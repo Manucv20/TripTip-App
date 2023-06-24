@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { userCommentService } from "../services";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 export const DetailedTripComments = ({ trip }) => {
   const [comment, setComment] = useState("");
+  const { token } = useContext(AuthContext);
+
+  console.log(comment);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -12,7 +17,7 @@ export const DetailedTripComments = ({ trip }) => {
     e.preventDefault();
 
     try {
-      await userCommentService({ trip: result.id }, comment);
+      await userCommentService(trip.result.id, comment, token);
     } finally {
       setComment("");
     }
