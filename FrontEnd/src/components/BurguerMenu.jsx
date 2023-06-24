@@ -3,7 +3,6 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
-
   const { userData, logoutHandler } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -26,11 +25,17 @@ const BurgerMenu = () => {
     };
   }, []);
 
+  if (!userData) {
+    return <p>Cargando....</p>;
+  }
+
   return (
     <div style={{ position: "relative", zIndex: 9999 }}>
       <button
         onClick={toggleMenu}
         style={{
+          display: "flex",
+          alignItems: "center",
           cursor: "pointer",
           border: "none",
           background: "none",
@@ -39,11 +44,11 @@ const BurgerMenu = () => {
         }}
       >
         <img
-          src="/icono_usuario_header.png"
+          src="/photoperfil.png"
           alt="Logo"
           style={{ width: "30px", height: "30px" }}
         />
-        {userData.userUsername}
+        <span>{userData.userUsername}</span>
       </button>
       {isOpen && (
         <ul
@@ -52,7 +57,7 @@ const BurgerMenu = () => {
             position: "absolute",
             top: "100%",
             left: 0,
-            backgroundColor: "transparent", // Cambiado a transparente
+            backgroundColor: "white", // Cambiado a transparente
             listStyle: "none",
             padding: 0,
             margin: 0,
@@ -60,7 +65,6 @@ const BurgerMenu = () => {
           }}
         >
           <li style={{ padding: 10 }}>
-
             <Link to="/myprofile">Ajustes</Link>
           </li>
           <li style={{ padding: 10 }}>
