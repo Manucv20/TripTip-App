@@ -13,16 +13,27 @@ function Header() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        padding: "0.5rem",
       }}
     >
-      <Link to="/">
-        <img
-          src="/icono.png"
-          alt="Logo"
-          style={{ width: "60px", height: "60px" }}
-        />
-      </Link>
-      <h1 style={{ fontSize: "30px", color: "white" }}>TripTip</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+          marginLeft: "2rem",
+        }}
+      >
+        <Link to="/">
+          <img
+            src="/icono.png"
+            alt="Logo"
+            style={{ width: "60px", height: "60px" }}
+          />
+        </Link>
+        <h1 style={{ fontSize: "30px", color: "white" }}>TripTip</h1>
+      </div>
       {auth ? (
         <BurgerMenu />
       ) : (
@@ -31,11 +42,11 @@ function Header() {
           style={{
             color: "white",
             marginLeft: "auto",
-            marginRight: "10px",
+            marginRight: "2rem",
             textDecoration: "none",
           }}
         >
-          Login
+          Iniciar sesión
         </Link>
       )}
     </header>

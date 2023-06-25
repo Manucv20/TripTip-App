@@ -42,6 +42,7 @@ const BurgerMenu = () => {
           background: "none",
           gap: "1rem",
           font: "inherit",
+          marginRight: "2rem",
         }}
       >
         <span>{userData.userUsername}</span>
@@ -62,7 +63,9 @@ const BurgerMenu = () => {
           }}
         >
           <li style={{ padding: 10 }}>
-            <Link to="/myprofile">Ajustes</Link>
+            <Link to="/myprofile" onClick={toggleMenu}>
+              Ajustes
+            </Link>
           </li>
           <li style={{ padding: 10 }}>
             <Link
