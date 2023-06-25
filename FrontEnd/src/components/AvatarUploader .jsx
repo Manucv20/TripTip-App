@@ -22,7 +22,6 @@ const AvatarUploader = ({ handleImageChange, profile_imagen }) => {
             margin: "10px",
             bottom: "-10px",
             right: "0px",
-            color: "#adadadad",
             fontSize: "24px",
             cursor: "pointer",
           }}

@@ -231,18 +231,34 @@ const ProfilePage = () => {
       <section>
         {loading ? <p>Cargando Formulario...</p> : null}
         <form className="setting" onSubmit={handleForm}>
-          <fieldset>
+          <fieldset
+            style={{
+              height: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "column",
+              gap: "1rem",
+              padding: "3rem",
+              margin: "0.5rem",
+              borderRadius: "15px",
+              boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
+              backgroundColor: "#C2B280",
+            }}
+          >
             <figcaption
               style={{
                 display: "flex",
                 justifyContent: "center",
               }}
             >
-              {" "}
-              <h2>Perfil de usuario</h2>{" "}
+              <h2>Perfil de usuario</h2>
             </figcaption>
-
-            <ul>
+            <ul
+              style={{
+                display: "flex",
+                gap: "2rem",
+              }}
+            >
               <li
                 style={{
                   display: "flex",
@@ -445,7 +461,20 @@ const ProfilePage = () => {
               </li>
             </ul>
           </fieldset>
-          <fieldset>
+          <fieldset
+            style={{
+              height: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "column",
+              gap: "1rem",
+              padding: "3rem",
+              margin: "0.5rem",
+              borderRadius: "15px",
+              boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
+              backgroundColor: "#C2B280",
+            }}
+          >
             <figcaption
               style={{
                 display: "flex",
@@ -455,7 +484,12 @@ const ProfilePage = () => {
               {" "}
               <h2>Datos Personales</h2>{" "}
             </figcaption>
-            <ul>
+            <ul
+              style={{
+                display: "flex",
+                gap: "2rem",
+              }}
+            >
               <li>
                 <label htmlFor="firstname">Nombre</label>
                 <input

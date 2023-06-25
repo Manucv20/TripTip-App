@@ -59,50 +59,73 @@ const LoginPage = () => {
   };
 
   return (
-    <section>
-      <h2>
-        Login on <Link to="/">TripTip</Link>
-      </h2>
+    <section
+      style={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <form onSubmit={submitHandler} className="form">
-        <ul className="input">
-          <li className="input-wrapper">
-            <IconoEmail />
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="Email ..."
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </li>
-          <li className="input-wrapper">
-            <IconoPassword />
-            <input
-              type="password"
-              id="pass1"
-              name="pass1"
-              required
-              placeholder="Password ..."
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </li>
-        </ul>
-        <p>
-          Have you forgotten your password? <Link>Reset password</Link>{" "}
-        </p>
-        <button
+        <fieldset
           style={{
+            height: "100%",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "8px",
+            justifyContent: "space-between",
+            flexDirection: "column",
+            gap: "1rem",
+            padding: "3rem",
+            margin: "0.5rem",
+            borderRadius: "15px",
+            boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
+            backgroundColor: "#C2B280",
           }}
         >
-          <span>Iniciar sesión</span>
-          <FaSignInAlt />
-        </button>
-        <Link to="/register">¿No tienes cuenta? Registrate.</Link>
+          <h2>
+            Login on <Link to="/">TripTip</Link>
+          </h2>
+          <ul className="input">
+            <li className="input-wrapper">
+              <IconoEmail />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="Email ..."
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </li>
+            <li className="input-wrapper">
+              <IconoPassword />
+              <input
+                type="password"
+                id="pass1"
+                name="pass1"
+                required
+                placeholder="Password ..."
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </li>
+          </ul>
+          <p>
+            ¿Has Olvidado tu Contraseña? <Link>Reset password</Link>{" "}
+          </p>
+          <button
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "8px",
+
+              margin: "1rem",
+            }}
+          >
+            <span>Iniciar sesión</span>
+            <FaSignInAlt />
+          </button>
+          <Link to="/register">¿No tienes cuenta? Registrate.</Link>
+        </fieldset>
       </form>
     </section>
   );
