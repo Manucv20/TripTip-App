@@ -151,6 +151,26 @@ export const userCommentService = async (id, comment, token) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
+    return json.insertId;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const tripCommentsService = async (id) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/recommendations/${id}/comments`,
+      {
+        method: "GET",
+      }
+    );
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+    return json.comments;
   } catch (error) {
     throw new Error(error.message);
   }

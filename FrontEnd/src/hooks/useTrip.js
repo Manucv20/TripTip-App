@@ -13,8 +13,6 @@ const useTrip = (id) => {
 
         const data = await getSingleTripService(id);
 
-        console.log(data);
-
         setTrip(data);
       } catch (error) {
         setError(error.message);
@@ -24,7 +22,7 @@ const useTrip = (id) => {
     };
 
     loadTrip();
-  }, []);
+  }, [id]);
 
   return { trip, loading, error };
 };

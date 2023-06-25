@@ -16,12 +16,17 @@ const createComments = async (user_id, recommendation_id, comment) => {
       throw generateError("Esta recomendación no existe.", 404);
     }
 
-    const [result] = await connection.query(
+    const [insert] = await connection.query(
       "INSERT INTO comments (user_id, recommendation_id, comment) VALUES (?, ?, ?)",
       [user_id, recommendation_id, comment]
     );
 
-    return result.insertId;
+    const [result] = await connection.query(
+      "SELECT * FROM comments WHERE id = ?",
+      [insert.insertId]
+    );
+
+    return result[0];
   } finally {
     if (connection) connection.release();
   }
@@ -33,7 +38,7 @@ const getCommentsByRecommendations = async (req, res) => {
     const recommendationId = req.params.id;
     connection = await getConnection();
     const [result] = await connection.query(
-      "SELECT comments.*, users.name as username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
+      "SELECT comments.*, users.username as username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
       [recommendationId]
     );
     if (result.length === 0) {
