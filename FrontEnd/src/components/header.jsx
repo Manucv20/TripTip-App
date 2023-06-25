@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
-import BurgerMenu from "./BurguerMenu";
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { useContext } from 'react';
+import BurgerMenu from './BurguerMenu';
+
 
 function Header() {
   const { auth } = useContext(AuthContext);
@@ -54,3 +55,4 @@ function Header() {
 }
 
 export default Header;
+
