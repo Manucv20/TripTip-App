@@ -13,6 +13,7 @@ import SendEmailPage from "./pages/SendEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LikesPage from "./pages/LikePages";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import MyRecommendationsPage from "./pages/MyRecommendationsPage.jsx";
 
 function App() {
   return (
@@ -38,7 +39,11 @@ function App() {
           {/* Rutas Privadas a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
             <Route path="/myprofile" element={<ProfilePage />} />
-            <Route path="/likes" element={<LikesPage />} />
+            <Route path="/mylikes" element={<LikesPage />} />
+            <Route
+              path="/myRecommendations"
+              element={<MyRecommendationsPage />}
+            />
           </Route>
           {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
           <Route path="*" element={<NotFoundPage />} />

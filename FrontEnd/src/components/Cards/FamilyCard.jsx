@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { searchAPI } from "../../services/getRecomendations";
+import { searchAPI } from "../../services/getRecommendations";
 import SearchResultsComponent from "../SearchResultsComponent";
 import SearchComponent from "../SearchComponent";
 

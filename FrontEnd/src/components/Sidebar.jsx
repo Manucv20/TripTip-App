@@ -78,7 +78,7 @@ const Sidebar = () => {
               onClick={() => handleClick(0)}
             >
               <FaSuitcase color="black" style={iconStyles} />
-              <NavLink to="/" style={linkStyles}>
+              <NavLink to="/myRecommendations" style={linkStyles}>
                 Mis recomendaciones
               </NavLink>
             </li>
@@ -90,7 +90,7 @@ const Sidebar = () => {
               onClick={() => handleClick(1)}
             >
               <FaHeart color="black" style={iconStyles} />
-              <NavLink to="/likes" style={linkStyles}>
+              <NavLink to="/mylikes" style={linkStyles}>
                 Mis favoritos
               </NavLink>
             </li>
