@@ -11,14 +11,21 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AvatarUploader from "../components/AvatarUploader ";
+import UsernameComponent from "../components/UsernameComponent";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
 
-  const { userData, token, logoutHandler, setAvatar } = useContext(AuthContext);
+  const {
+    userData,
+    token,
+    logoutHandler,
+    setAvatar,
+    setUsername,
+    setFirstname,
+  } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    usernameEditable: false, // Estado inicial de la edición del username
     emailEditable: false, // Estado inicial de la edición del correo electrónico
     passwordEditable: false, //Estado inicial de la edición del password
   });
@@ -44,7 +51,12 @@ const ProfilePage = () => {
         if (userData?.userId) {
           const data = await getDataUserService({ id: userData.userId, token });
           setFormData(data);
-          setAvatar(data.profile_image ?? "");
+          localStorage.setItem("avatar", data.profile_image);
+          setAvatar(localStorage.getItem("avatar") ?? "");
+          localStorage.setItem("username", data.username);
+          setUsername(localStorage.getItem("username") ?? "");
+          localStorage.setItem("firstname", data.name);
+          setFirstname(localStorage.getItem("firstname") ?? "");
         }
       } catch (error) {
         toast.error(error.message);
@@ -71,6 +83,10 @@ const ProfilePage = () => {
 
       const data = new FormData(e.target);
 
+      if (!imagen) {
+        data.delete("profile_image");
+      }
+
       await sendDataUserService({
         data,
         token,
@@ -78,21 +94,14 @@ const ProfilePage = () => {
       });
       toast.success("Actualización exitosa.");
 
+      setUsername(currentUserName);
+      setFirstname(formData.name);
       setImagen("");
     } catch (error) {
       toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleSaveUserName = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      usernameEditable: false,
-      username: prevData.username,
-    }));
-    toast.success("Necesitas actualizar para guardar los cambios");
   };
 
   const handleSaveEmail = async () => {
@@ -155,14 +164,6 @@ const ProfilePage = () => {
     }
   };
 
-  const handleCancelUsername = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      username: currentUserName,
-      usernameEditable: false,
-    }));
-  };
-
   const handleCancelEmail = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -177,14 +178,6 @@ const ProfilePage = () => {
       password: currentPassword,
       passwordEditable: false,
     }));
-  };
-
-  const handleEditUsername = () => {
-    setFormData({
-      ...formData,
-      usernameEditable: true,
-      username: "",
-    });
   };
 
   const handleEditEmail = () => {
@@ -216,7 +209,6 @@ const ProfilePage = () => {
   }, [
     formData.emailEditable,
     formData.email,
-    formData.usernameEditable,
     formData.username,
     formData.passwordEditable,
     formData.password,
@@ -224,6 +216,10 @@ const ProfilePage = () => {
 
   const handleImageChange = (imagen) => {
     setImagen(imagen);
+  };
+
+  const handleUsernameChange = (currentUserName) => {
+    setCurrentUserName(currentUserName);
   };
 
   return (
@@ -242,7 +238,6 @@ const ProfilePage = () => {
               margin: "0.5rem",
               borderRadius: "15px",
               boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-              backgroundColor: "#C2B280",
             }}
           >
             <figcaption
@@ -272,67 +267,19 @@ const ProfilePage = () => {
                 />
               </li>
               {imagen ? (
-                <li>Tienes que Actualizar para guardar los cambios.</li>
+                <li>
+                  <h5>Tienes que Actualizar para guardar los cambios.</h5>
+                </li>
               ) : null}
               <li>
-                {formData.usernameEditable ? (
-                  <>
-                    <input
-                      type="text"
-                      name="username"
-                      value={formData?.username ?? ""}
-                      onChange={handleChange}
-                      placeholder="Nuevo Username..."
-                    />
-
-                    <button
-                      type="button"
-                      onClick={handleSaveUserName}
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <FaCheck
-                        style={{
-                          color: "green",
-                        }}
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCancelUsername}
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <FaTimes
-                        style={{
-                          color: "red",
-                        }}
-                      />
-                    </button>
-                  </>
-                ) : (
-                  <h3
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "8px",
-                      marginTop: "10px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                    }}
-                    onClick={handleEditUsername}
-                  >
-                    {formData?.username ?? ""}
-                    <FaPencilAlt className="fondo2" />
-                  </h3>
-                )}
-
+                <UsernameComponent
+                  currentUsername={currentUserName}
+                  handleUsernameChange={handleUsernameChange}
+                />
                 <input
                   type="hidden"
                   name="username"
-                  value={formData?.username ?? ""}
+                  value={currentUserName}
                   readOnly
                 />
               </li>
@@ -472,7 +419,6 @@ const ProfilePage = () => {
               margin: "0.5rem",
               borderRadius: "15px",
               boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-              backgroundColor: "#C2B280",
             }}
           >
             <figcaption

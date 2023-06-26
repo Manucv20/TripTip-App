@@ -10,6 +10,7 @@ const Avatar = ({ imagen, estilo }) => {
     backgroundSize: "cover",
     borderRadius: "50%",
     position: "relative",
+    objectFit: "cover",
     ...estilo, // Fusionar el estilo pasado desde el componente padre
   };
 
