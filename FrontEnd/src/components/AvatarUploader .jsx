@@ -38,6 +38,7 @@ const AvatarUploader = ({ handleImageChange, profile_imagen }) => {
             backgroundSize: "cover",
             borderRadius: "50%",
             position: "relative",
+            objectFit: "cover",
           }}
         />
       ) : (
