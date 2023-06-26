@@ -22,7 +22,7 @@ const useTrip = (id) => {
     };
 
     loadTrip();
-  }, [id]);
+  }, []);
 
   return { trip, loading, error };
 };

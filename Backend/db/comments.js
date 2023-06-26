@@ -32,14 +32,13 @@ const createComments = async (user_id, recommendation_id, comment) => {
   }
 };
 
-const getCommentsByRecommendations = async (req, res) => {
+const getCommentsByRecommendations = async (id) => {
   let connection;
   try {
-    const recommendationId = req.params.id;
     connection = await getConnection();
     const [result] = await connection.query(
       "SELECT comments.*, users.username as username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
-      [recommendationId]
+      [id]
     );
     if (result.length === 0) {
       throw generateError(
@@ -47,7 +46,7 @@ const getCommentsByRecommendations = async (req, res) => {
         404
       );
     }
-    return res.status(200).json({ comments: result });
+    return result;
   } finally {
     if (connection) connection.release();
   }

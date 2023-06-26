@@ -3,7 +3,7 @@ import { userCommentService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 
-export const CommentForm = ({ trip }) => {
+const NewComment = ({ trip, addComment }) => {
   const [comment, setComment] = useState("");
   const { token } = useContext(AuthContext);
 
@@ -15,10 +15,19 @@ export const CommentForm = ({ trip }) => {
     e.preventDefault();
 
     try {
-      await userCommentService(trip.result.id, comment, token);
+      const userComment = await userCommentService(
+        trip.result.id,
+        comment,
+        token
+      );
+      addComment(userComment);
     } finally {
       setComment("");
     }
+  };
+
+  const handleCancelComment = () => {
+    setComment("");
   };
 
   return (
@@ -30,9 +39,19 @@ export const CommentForm = ({ trip }) => {
         onChange={handleCommentChange}
       ></textarea>
       <div className="comment-buttons">
-        <button className="comment-cancel-button">Cancelar</button>
-        <button className="comment-submit-button">Comentar</button>
+        <button
+          type="button"
+          className="comment-cancel-button"
+          onClick={handleCancelComment}
+        >
+          Cancelar
+        </button>
+        <button type="submit" className="comment-submit-button">
+          Comentar
+        </button>
       </div>
     </form>
   );
 };
+
+export default NewComment;

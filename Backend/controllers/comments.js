@@ -11,6 +11,7 @@ const {
   getCommentById,
 } = require("../db/comments.js");
 const { generateError } = require("../helpers.js");
+const { log } = require("har-validator");
 
 const newCommentController = async (req, res, next) => {
   try {
@@ -34,14 +35,17 @@ const newCommentController = async (req, res, next) => {
 
 const getCommentsByRecommendationsController = async (req, res, next) => {
   try {
-    const { error } = idCommentsSchema.validate(req.params);
+    const { error, value } = idCommentsSchema.validate(req.params);
+    console.log(value);
     if (error) {
       return res.status(400).json({ error: "Id Invalido" });
     }
 
-    const comments = await getCommentsByRecommendations(req, res);
+    const { id } = value;
 
-    res.status(200).json({ comments: comments });
+    const comments = await getCommentsByRecommendations(id);
+
+    return res.status(200).json({ comments: comments });
   } catch (err) {
     next(err);
   }

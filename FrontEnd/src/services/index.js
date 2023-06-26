@@ -151,7 +151,7 @@ export const userCommentService = async (id, comment, token) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
-    return json.insertId;
+    return json.commentId;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -176,11 +176,12 @@ export const tripCommentsService = async (id) => {
   }
 };
 
-export const voteTripUserService = async (id, token) => {
+export const deleteCommentService = async ({ id, token }) => {
   const response = await fetch(
-    `${import.meta.env.VITE_APP_BACKEND}/votes/${id}`,
+    `${import.meta.env.VITE_APP_BACKEND}/comments/${id}`,
     {
-      method: "POST",
+      method: "DELETE",
+
       headers: {
         Authorization: token,
       },
@@ -190,5 +191,27 @@ export const voteTripUserService = async (id, token) => {
   const json = await response.json();
   if (!response.ok) {
     throw new Error(json.message);
+  }
+};
+
+export const voteTripUserService = async (id, token) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/votes/${id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+    return json.votes;
+  } catch (error) {
+    throw new Error(error.message);
   }
 };

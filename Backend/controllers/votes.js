@@ -6,12 +6,15 @@ const NewVoteController = async (req, res, next) => {
   try {
     const { id } = req.params;
     const recommendation = await getRecommendationById(id);
-    console.log(token);
 
-    //Añadir una votación en una recomendación
-    const data = await createVotes(req.userId, recommendation[0].result.id);
+    // Añadir una votación en una recomendación
+    const { success, votes } = await createVotes(
+      req.userId,
+      recommendation[0].result.id
+    );
 
-    if (data) {
+    let message;
+    if (success) {
       message = "¡Excelente elección! Te ha gustado la recomendación.";
     } else {
       message = `¿Cambiaste de opinión? Has quitado tu "me gusta" de la recomendación.`;
@@ -20,6 +23,7 @@ const NewVoteController = async (req, res, next) => {
     res.send({
       status: "OK",
       message,
+      votes,
     });
   } catch (e) {
     next(e);

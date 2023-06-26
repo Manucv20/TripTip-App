@@ -21,9 +21,17 @@ const useComments = (id) => {
     };
 
     loadComments();
-  }, [id]);
+  }, []);
 
-  return { comments, loading, error };
+  const addComment = (comment) => {
+    setComments([comment, ...comments]);
+  };
+
+  const removeComment = (id) => {
+    setComments(comments.filter((comment) => comment.id !== id));
+  };
+
+  return { comments, loading, error, addComment, removeComment };
 };
 
 export default useComments;
