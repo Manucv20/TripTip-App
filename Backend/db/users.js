@@ -161,7 +161,6 @@ const updateUser = async (
 
     const user = await getUserById(userId);
     return user;
-
   } finally {
     if (connection) {
       connection.release();

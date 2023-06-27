@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 import React from "react";
 
+>>>>>>> origin/dev
 const Footer = () => {
   return (
     <footer style={styles.footer}>
@@ -13,7 +16,11 @@ const styles = {
     backgroundColor: "rgb(194, 178, 128)",
     width: "100%",
     padding: "10px",
+<<<<<<< HEAD
+    marginTop: "20px", // Ajusta el valor según el margen superior deseado
+=======
     position: "fixed",
+>>>>>>> origin/dev
     bottom: 0,
     left: 0,
     display: "flex",
@@ -27,4 +34,8 @@ const styles = {
   },
 };
 
+<<<<<<< HEAD
 export default Footer;
+=======
+export default Footer;
+>>>>>>> origin/dev
