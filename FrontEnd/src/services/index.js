@@ -61,7 +61,7 @@ export const activateUserService = async ({ token }) => {
       throw new Error(json.message);
     }
 
-    return json;
+    return json.message;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -85,7 +85,6 @@ export const sendDataUserService = async ({ data, token, id }) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
-    return json.data;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -115,103 +114,52 @@ export const getDataUserService = async ({ id, token }) => {
   }
 };
 
-export const getSingleTripService = async (id) => {
+export const sendUserEmailService = async ({ email, token, id }) => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_APP_BACKEND}/recommendation/${id}`
-    );
-
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json.recommendation;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-export const userCommentService = async (id, comment, token) => {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_APP_BACKEND}/recommendations/comments/${id}`,
+      `${import.meta.env.VITE_APP_BACKEND}/user/email/${id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
-          Authorization: token,
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ comment }),
-      }
-    );
-
-    const json = await response.json();
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-    return json.commentId;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-export const tripCommentsService = async (id) => {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_APP_BACKEND}/recommendations/${id}/comments`,
-      {
-        method: "GET",
-      }
-    );
-
-    const json = await response.json();
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-    return json.comments;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-export const deleteCommentService = async ({ id, token }) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_APP_BACKEND}/comments/${id}`,
-    {
-      method: "DELETE",
-
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-
-  const json = await response.json();
-  if (!response.ok) {
-    throw new Error(json.message);
-  }
-};
-
-export const voteTripUserService = async (id, token) => {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_APP_BACKEND}/votes/${id}`,
-      {
-        method: "POST",
-        headers: {
+          "Frontend-URL": import.meta.env.VITE_APP_FRONTEND,
           Authorization: token,
         },
+        body: JSON.stringify({ email }),
       }
     );
 
     const json = await response.json();
+
     if (!response.ok) {
       throw new Error(json.message);
     }
-    return json.votes;
   } catch (error) {
     throw new Error(error.message);
   }
 };
+
+export const sendUserPasswordService = async ({ password, token, id }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/password/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ password }),
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+

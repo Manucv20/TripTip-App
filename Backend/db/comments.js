@@ -16,29 +16,25 @@ const createComments = async (user_id, recommendation_id, comment) => {
       throw generateError("Esta recomendación no existe.", 404);
     }
 
-    const [insert] = await connection.query(
+    const [result] = await connection.query(
       "INSERT INTO comments (user_id, recommendation_id, comment) VALUES (?, ?, ?)",
       [user_id, recommendation_id, comment]
     );
 
-    const [result] = await connection.query(
-      "SELECT * FROM comments WHERE id = ?",
-      [insert.insertId]
-    );
-
-    return result[0];
+    return result.insertId;
   } finally {
     if (connection) connection.release();
   }
 };
 
-const getCommentsByRecommendations = async (id) => {
+const getCommentsByRecommendations = async (req, res) => {
   let connection;
   try {
+    const recommendationId = req.params.id;
     connection = await getConnection();
     const [result] = await connection.query(
-      "SELECT comments.*, users.username as username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
-      [id]
+      "SELECT comments.*, users.name as username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
+      [recommendationId]
     );
     if (result.length === 0) {
       throw generateError(
@@ -46,7 +42,7 @@ const getCommentsByRecommendations = async (id) => {
         404
       );
     }
-    return result;
+    return res.status(200).json({ comments: result });
   } finally {
     if (connection) connection.release();
   }

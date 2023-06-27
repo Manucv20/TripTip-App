@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { FaSignInAlt } from "react-icons/fa";
 
 import { activateUserService, loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
@@ -12,7 +13,7 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken, setLogin } = useContext(AuthContext);
+  const { setToken, setLogin, setAuth } = useContext(AuthContext);
 
   const { token } = useParams();
   const [activated, setActivated] = useState(false);
@@ -36,8 +37,9 @@ const LoginPage = () => {
       const data = await loginUserService({ email, password });
       setToken(data);
       setLogin(true);
+      setAuth(true);
 
-      if (data) return navigate("/");
+      if (data) return navigate("/myprofile");
     } catch (error) {
       toast.error(error.message);
     }
@@ -57,40 +59,73 @@ const LoginPage = () => {
   };
 
   return (
-    <section>
-      <h2>
-        Login on <Link to="/">TripTip</Link>
-      </h2>
+    <section
+      style={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <form onSubmit={submitHandler} className="form">
-        <ul className="input">
-          <li className="input-wrapper">
-            <IconoEmail />
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="Email ..."
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </li>
-          <li className="input-wrapper">
-            <IconoPassword />
-            <input
-              type="password"
-              id="pass1"
-              name="pass1"
-              required
-              placeholder="Password ..."
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </li>
-        </ul>
-        <p>
-          Have you forgotten your password? <Link>Reset password</Link>{" "}
-        </p>
-        <button>Log in</button>
-        <Link to="/register">¿No tienes cuenta? Registrate.</Link>
+        <fieldset
+          style={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "column",
+            gap: "1rem",
+            padding: "3rem",
+            margin: "0.5rem",
+            borderRadius: "15px",
+            boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
+            backgroundColor: "#C2B280",
+          }}
+        >
+          <h2>
+            Login on <Link to="/">TripTip</Link>
+          </h2>
+          <ul className="input">
+            <li className="input-wrapper">
+              <IconoEmail />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="Email ..."
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </li>
+            <li className="input-wrapper">
+              <IconoPassword />
+              <input
+                type="password"
+                id="pass1"
+                name="pass1"
+                required
+                placeholder="Password ..."
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </li>
+          </ul>
+          <p>
+            ¿Has Olvidado tu Contraseña? <Link>Reset password</Link>{" "}
+          </p>
+          <button
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "8px",
+
+              margin: "1rem",
+            }}
+          >
+            <span>Iniciar sesión</span>
+            <FaSignInAlt />
+          </button>
+          <Link to="/register">¿No tienes cuenta? Registrate.</Link>
+        </fieldset>
       </form>
     </section>
   );

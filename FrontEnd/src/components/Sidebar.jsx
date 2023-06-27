@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { FaSuitcase, FaHeart, FaCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Sidebar = () => {
-  const { userData } = useContext(AuthContext);
+  const { userData, firstname } = useContext(AuthContext);
   const [highlightedItem, setHighlightedItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -67,8 +67,7 @@ const Sidebar = () => {
       <header style={containerStyles}>
         <div className="sidebar" style={sidebarStyles}>
           <h2 style={{ marginLeft: "10px" }}>
-            Hola{" "}
-            {userData.firstName ? userData.firstName : userData.userUsername}
+            Hola {firstname != "null" ? firstname : userData.userUsername}
           </h2>
           <ul className="menu" style={listStyles}>
             <li
@@ -79,7 +78,7 @@ const Sidebar = () => {
               onClick={() => handleClick(0)}
             >
               <FaSuitcase color="black" style={iconStyles} />
-              <NavLink to="/" style={linkStyles}>
+              <NavLink to="/myRecommendations" style={linkStyles}>
                 Mis recomendaciones
               </NavLink>
             </li>
@@ -91,7 +90,7 @@ const Sidebar = () => {
               onClick={() => handleClick(1)}
             >
               <FaHeart color="black" style={iconStyles} />
-              <NavLink to="/likes" style={linkStyles}>
+              <NavLink to="/mylikes" style={linkStyles}>
                 Mis favoritos
               </NavLink>
             </li>
