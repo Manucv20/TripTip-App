@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { deleteCommentService } from "../services";
 
 export const Comment = ({ comment, removeComment }) => {
@@ -8,8 +7,6 @@ export const Comment = ({ comment, removeComment }) => {
   const [error, setError] = useState("");
 
   const deleteComment = async (id) => {
-    console.log(id);
-    console.log(token);
     try {
       await deleteCommentService({ id, token });
       removeComment(id);

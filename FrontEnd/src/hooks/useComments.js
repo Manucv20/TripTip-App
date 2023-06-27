@@ -23,6 +23,8 @@ const useComments = (id) => {
     loadComments();
   }, []);
 
+  console.log(comments);
+
   const addComment = (comment) => {
     setComments([comment, ...comments]);
   };

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { userCommentService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
 
 const NewComment = ({ trip, addComment }) => {
   const [comment, setComment] = useState("");
   const { token } = useContext(AuthContext);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -15,13 +16,18 @@ const NewComment = ({ trip, addComment }) => {
     e.preventDefault();
 
     try {
+      setSending(true);
+
       const userComment = await userCommentService(
         trip.result.id,
         comment,
         token
       );
       addComment(userComment);
+    } catch (error) {
+      setError(error.message);
     } finally {
+      setSending(false);
       setComment("");
     }
   };
@@ -49,6 +55,7 @@ const NewComment = ({ trip, addComment }) => {
         <button type="submit" className="comment-submit-button">
           Comentar
         </button>
+        {sending ? <p>Sending comment</p> : null}
       </div>
     </form>
   );

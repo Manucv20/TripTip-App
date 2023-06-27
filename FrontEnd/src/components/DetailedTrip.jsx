@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { voteTripUserService } from "../services";
-import { useEffect } from "react";
 
 export const DetailedTrip = ({ trip }) => {
   const { userData, token } = useContext(AuthContext);
@@ -13,15 +12,13 @@ export const DetailedTrip = ({ trip }) => {
       if (!userData) {
         return setError("Debes iniciar sesión para votar.");
       }
-      setError(""); // Reiniciar el mensaje de error
+      setError("");
       const vote = await voteTripUserService(trip.result.id, token);
       setVotes(vote);
     } catch (error) {
       setError(error.message);
     }
   };
-
-  useEffect(() => {}, [votes]);
 
   return (
     <>
