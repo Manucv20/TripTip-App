@@ -1,6 +1,5 @@
-const { createVotes } = require("../db/votes");
+const { createVotes, getVotedRecommendationsByUser } = require("../db/votes");
 const { getRecommendationById } = require("../db/recommendations");
-const { token } = require("morgan");
 
 const NewVoteController = async (req, res, next) => {
   try {

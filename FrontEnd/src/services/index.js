@@ -61,7 +61,11 @@ export const activateUserService = async ({ token }) => {
       throw new Error(json.message);
     }
 
+<<<<<<< HEAD
     return json;
+=======
+    return json.message;
+>>>>>>> origin/dev
   } catch (error) {
     throw new Error(error.message);
   }
@@ -85,7 +89,10 @@ export const sendDataUserService = async ({ data, token, id }) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
+<<<<<<< HEAD
     return json.data;
+=======
+>>>>>>> origin/dev
   } catch (error) {
     throw new Error(error.message);
   }
@@ -115,6 +122,7 @@ export const getDataUserService = async ({ id, token }) => {
   }
 };
 
+<<<<<<< HEAD
 export const getSingleTripService = async (id) => {
   try {
     const response = await fetch(
@@ -203,15 +211,64 @@ export const voteTripUserService = async (id, token) => {
         headers: {
           Authorization: token,
         },
+=======
+export const sendUserEmailService = async ({ email, token, id }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/email/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Frontend-URL": import.meta.env.VITE_APP_FRONTEND,
+          Authorization: token,
+        },
+        body: JSON.stringify({ email }),
+>>>>>>> origin/dev
       }
     );
 
     const json = await response.json();
+<<<<<<< HEAD
     if (!response.ok) {
       throw new Error(json.message);
     }
     return json.votes;
+=======
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+>>>>>>> origin/dev
   } catch (error) {
     throw new Error(error.message);
   }
 };
+<<<<<<< HEAD
+=======
+
+export const sendUserPasswordService = async ({ password, token, id }) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/user/password/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ password }),
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+>>>>>>> origin/dev

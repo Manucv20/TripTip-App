@@ -78,6 +78,27 @@ const createVotes = async (user_id, recommendation_id) => {
   }
 };
 
+const getVotedRecommendationsByUser = async (user_id) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    // Obtener los votos del usuario
+    const [votedRecommendations] = await connection.query(
+      `
+      SELECT recommendation_id, value
+      FROM votes
+      WHERE user_id = ?
+    `,
+      [user_id]
+    );
+
+    return votedRecommendations;
+  } finally {
+    if (connection) connection.release();
+  }
+};
 module.exports = {
+  getVotedRecommendationsByUser,
   createVotes,
 };
