@@ -5,7 +5,6 @@ import useComments from "../hooks/useComments";
 import { CommentsList } from "../components/CommentsList";
 import ErrorMessage from "../components/ErrorMessage";
 import NewComment from "../components/NewComment";
-import { useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 

@@ -6,6 +6,7 @@ export const Comment = ({ comment, removeComment }) => {
   const { userData, token } = useContext(AuthContext);
   const [error, setError] = useState("");
 
+  console.log(comment);
   const deleteComment = async (id) => {
     try {
       await deleteCommentService({ id, token });
@@ -18,7 +19,7 @@ export const Comment = ({ comment, removeComment }) => {
   return (
     <section>
       <p>
-        {comment.user_id} {comment.created_at}
+        {comment.username} {comment.created_at}
       </p>
       <div>
         <div>{comment.comment}</div>
