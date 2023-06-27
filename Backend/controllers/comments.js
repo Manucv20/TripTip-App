@@ -11,6 +11,7 @@ const {
   getCommentById,
 } = require("../db/comments.js");
 const { generateError } = require("../helpers.js");
+const { log } = require("har-validator");
 
 const newCommentController = async (req, res, next) => {
   try {

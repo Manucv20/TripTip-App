@@ -70,7 +70,7 @@ async function main() {
       user_id INT NOT NULL,
       token VARCHAR(255) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      FOREIGN KEY (user_id) REFERENCES users(id)
     );`);
   } catch (error) {
     console.log(error);

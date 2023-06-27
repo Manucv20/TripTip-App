@@ -31,7 +31,7 @@ const createRecommendation = async (
   }
 };
 
-//muestra los datos de un registro de la tabla Recommendations
+//muestra los datos de un registro de la tabla recomendations
 const getRecommendationById = async (id) => {
   if (!id) {
     throw generateError("No se proporcionó un ID.", 400);

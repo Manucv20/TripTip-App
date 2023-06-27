@@ -12,7 +12,6 @@ import SearchComponent from "../components/SearchComponent";
 const HomePage = () => {
   return (
     <>
-<<<<<<< HEAD
       <header
         style={{
           backgroundImage: `url("/foto_header.jpg")`,
@@ -30,9 +29,6 @@ const HomePage = () => {
         </h2>
         <SearchComponent />
       </header>
-=======
-      <SearchComponent />
->>>>>>> origin/dev
       <section style={{ textAlign: "center" }}>
         <h3>Viajar mejor: ¿dónde, cuándo y cómo?</h3>
         <p>
@@ -74,8 +70,4 @@ const cardsContainerStyle = {
   gap: "20px",
 };
 
-<<<<<<< HEAD
 export default HomePage;
-=======
-export default HomePage;
->>>>>>> origin/dev
