@@ -22,6 +22,7 @@ export const CommentsList = ({ comments, removeComment }) => {
     const days = Math.floor(hours / 24);
 
     if (seconds < 60) {
+
       return `hace pocos segundos`;
     } else if (minutes < 60) {
       return `hace ${minutes} ${minutes === 1 ? "minuto" : "minutos"}`;
@@ -33,18 +34,23 @@ export const CommentsList = ({ comments, removeComment }) => {
       return `hace ${years} ${years === 1 ? "año" : "años"}`;
     }
   };
+
   return (
     <section className="CommentsList">
       {reversedComments.length ? (
         <ul>
+
           <h3 id="titulo">Comentarios</h3>
+
           {reversedComments.map((comment) => {
             const commentDate = new Date(comment.created_at);
             const utcDateString = commentDate.toUTCString();
             const timeDiff = calculateTimeDiff(utcDateString);
 
             return (
+
               <li className="Comment" key={comment.id}>
+
                 <Comment
                   comment={comment}
                   removeComment={removeComment}

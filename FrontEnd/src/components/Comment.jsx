@@ -16,6 +16,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
   };
 
   return (
+
     <>
       <div className="namedate-container">
         <Avatar />
@@ -34,6 +35,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
               src="/trash-can.png"
               alt="eliminar-comentario"
             />
+
           </button>
         ) : null}
         {error ? <p>{error}</p> : null}

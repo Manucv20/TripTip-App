@@ -34,7 +34,14 @@ export const DetailedTrip = ({ trip }) => {
           <div className="summary-container">
             <p id="summary">"{trip.result.summary}"</p>
             <div className="vote-container" onClick={voteTrip}>
-              <div>❤️ {votes}</div> <div>{error ? <p>{error}</p> : null}</div>
+              <div
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                ❤️ {votes}
+              </div>{" "}
+              <div>{error ? <p>{error}</p> : null}</div>
             </div>
           </div>
         </div>
