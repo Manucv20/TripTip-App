@@ -21,7 +21,8 @@ export const DetailedTrip = ({ trip }) => {
   };
 
   return (
-    <>
+
+    <section className="DetailedTrip">
       <div className="image-container">
         <div className="image-content">
           <img
@@ -33,27 +34,26 @@ export const DetailedTrip = ({ trip }) => {
           />
           <div className="summary-container">
             <p id="summary">"{trip.result.summary}"</p>
+            <div className="vote-container" onClick={voteTrip}>
+              <div>❤️ {votes}</div> <div>{error ? <p>{error}</p> : null}</div>
+            </div>
           </div>
-          <div className="vote-container" onClick={voteTrip}>
-            ❤️ {votes}{" "}
-          </div>
-          {error ? <p>{error}</p> : null}
         </div>
       </div>
-      <h1>{trip.result.title}</h1>
-      <p>{trip.result.details}</p>
       <div>
-        <div id="datasheet">
-          <h2>Trip information:</h2>
-          <p>Category:</p>
-          <p>{trip.result.category}</p>
-          <p>Address:</p>
-          <p>{trip.result.location}</p>
-          <p>Recommended by:</p>
-          <p>{trip.result.user_id}</p>
-          <p>{trip.result.created_at}</p>
-        </div>
+        <h1>{trip.result.title}</h1>
+        <p id="details">{trip.result.details}</p>
       </div>
-    </>
+      <div id="datasheet">
+        <h2>Trip information:</h2>
+        <p>Category:</p>
+        <p>{trip.result.category}</p>
+        <p>Address:</p>
+        <p>{trip.result.location}</p>
+        <p>Recommended by:</p>
+        <p>{trip.result.user_id}</p>
+        <p>{trip.result.created_at}</p>
+      </div>
+    </section>
   );
 };

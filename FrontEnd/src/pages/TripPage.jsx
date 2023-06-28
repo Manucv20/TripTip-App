@@ -18,7 +18,8 @@ const TripPage = () => {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section className="detailedTrip">
+    <section className="TripPage">
+
       <DetailedTrip trip={trip} />
       {userData ? <NewComment trip={trip} addComment={addComment} /> : null}
       <CommentsList comments={comments} removeComment={removeComment} />

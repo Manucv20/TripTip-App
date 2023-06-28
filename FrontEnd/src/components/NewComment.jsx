@@ -37,27 +37,29 @@ const NewComment = ({ trip, addComment }) => {
   };
 
   return (
-    <form className="comment-form" onSubmit={handleSubmitComment}>
-      <textarea
-        value={comment}
-        className="comment-textarea"
-        placeholder="Añade un comentario"
-        onChange={handleCommentChange}
-      ></textarea>
-      <div className="comment-buttons">
-        <button
-          type="button"
-          className="comment-cancel-button"
-          onClick={handleCancelComment}
-        >
-          Cancelar
-        </button>
-        <button type="submit" className="comment-submit-button">
-          Comentar
-        </button>
-        {sending ? <p>Sending comment</p> : null}
-      </div>
-    </form>
+    <section className="NewComment">
+      <form className="comment-form" onSubmit={handleSubmitComment}>
+        <textarea
+          value={comment}
+          className="comment-textarea"
+          placeholder="Añade un comentario"
+          onChange={handleCommentChange}
+        ></textarea>
+        <div className="comment-buttons">
+          <button
+            type="button"
+            className="comment-cancel-button"
+            onClick={handleCancelComment}
+          >
+            Cancelar
+          </button>
+          <button type="submit" className="comment-submit-button">
+            Comentar
+          </button>
+          {sending ? <p>Sending comment</p> : null}
+        </div>
+      </form>
+    </section>
   );
 };
 
