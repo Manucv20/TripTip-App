@@ -1,12 +1,10 @@
-import { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { getCreatedRecommendations } from "../services/getRecommendationsById";
+import { getCreatedRecommendations, deleteRecommendation, editRecommendation, createRecommendation } from "../services/getRecommendationsById";
 
 const CreatedRecommendations = () => {
   const { userData } = useContext(AuthContext);
   const [createdRecommendations, setCreatedRecommendations] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
 
   useEffect(() => {
     const fetchCreatedRecommendations = async () => {
@@ -34,26 +32,28 @@ const CreatedRecommendations = () => {
 
   const listStyle = {
     width: "100%",
-    flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
-    overflowY: "auto",
     padding: "16px",
   };
 
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
     borderRadius: "8px",
     border: "1px solid #ccc",
     padding: "16px",
     marginBottom: "16px",
+    minHeight: "250px",
   };
 
   const imageStyle = {
     width: "100%",
     height: "auto",
+    objectFit: "cover",
+    borderRadius: "8px",
     marginBottom: "16px",
   };
 
@@ -61,49 +61,73 @@ const CreatedRecommendations = () => {
     flex: "1",
   };
 
-  const paginationMenuStyle = {
-    backgroundColor: "#f9f9f9",
-    borderTop: "1px solid #ccc",
-    padding: "16px",
-    textAlign: "center",
+  const handleCreateRecommendation = async () => {
+    try {
+      // Aquí puedes definir los datos de la nueva recomendación
+      const recommendationData = {
+        // Proporciona los datos necesarios para crear la recomendación
+      };
+
+      const newRecommendation = await createRecommendation(recommendationData);
+      // Agrega la nueva recomendación a la lista de recomendaciones
+      setCreatedRecommendations([...createdRecommendations, newRecommendation]);
+      console.log("Nueva recomendación creada:", newRecommendation);
+    } catch (error) {
+      console.log("Error al crear la recomendación:", error);
+    }
   };
 
-  // Obtener el índice de inicio y fin para la página actual
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const handleEditRecommendation = async (recommendationId) => {
+    try {
+      // Aquí puedes obtener los datos de la recomendación que se va a editar
+      // Puedes realizar una solicitud adicional a la API para obtener estos datos si es necesario
+      const recommendationData = {
+        // Proporciona los datos necesarios para editar la recomendación
+      };
 
-  // Obtener las recomendaciones para la página actual
-  const currentRecommendations = createdRecommendations.slice(
-    startIndex,
-    endIndex
-  );
-
-  // Calcular el número total de páginas
-  const totalPages = Math.ceil(createdRecommendations.length / itemsPerPage);
-
-  // Cambiar a la página anterior
-  const goToPreviousPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+      const updatedRecommendation = await editRecommendation(recommendationId, recommendationData);
+      // Actualiza la lista de recomendaciones con la recomendación editada
+      const updatedRecommendations = createdRecommendations.map((recommendation) => {
+        if (recommendation.id === recommendationId) {
+          return updatedRecommendation;
+        }
+        return recommendation;
+      });
+      setCreatedRecommendations(updatedRecommendations);
+      console.log("Recomendación editada:", recommendationId);
+    } catch (error) {
+      console.log("Error al editar la recomendación:", error);
+    }
   };
 
-  // Cambiar a la página siguiente
-  const goToNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const handleDeleteRecommendation = async (recommendationId) => {
+    try {
+      await deleteRecommendation(recommendationId);
+      // Actualiza la lista de recomendaciones después de borrar
+      const updatedRecommendations = createdRecommendations.filter(
+        (recommendation) => recommendation.id !== recommendationId
+      );
+      setCreatedRecommendations(updatedRecommendations);
+      console.log("Recomendación borrada:", recommendationId);
+    } catch (error) {
+      console.log("Error al borrar la recomendación:", error);
+    }
   };
 
   return (
     <div style={containerStyle}>
+      <button onClick={handleCreateRecommendation}>
+        Crear nueva recomendación
+      </button>
       <h2>Tus recomendaciones creadas:</h2>
-      {currentRecommendations.length > 0 ? (
+      {createdRecommendations.length > 0 ? (
         <ul style={listStyle}>
-          {currentRecommendations.map((recommendation) => (
+          {createdRecommendations.map((recommendation) => (
             <li key={recommendation.id}>
               <div style={cardStyle}>
                 {recommendation.image && (
                   <img
-                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                      recommendation.image
-                    }`}
+                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${recommendation.image}`}
                     alt={recommendation.title}
                     style={imageStyle}
                   />
@@ -117,26 +141,18 @@ const CreatedRecommendations = () => {
                   <p>Fecha de creación: {recommendation.created_at}</p>
                   <p>Votos: {recommendation.votes}</p>
                 </div>
+                <button onClick={() => handleEditRecommendation(recommendation.id)}>
+                  Editar
+                </button>
+                <button onClick={() => handleDeleteRecommendation(recommendation.id)}>
+                  Borrar
+                </button>
               </div>
             </li>
           ))}
         </ul>
       ) : (
         <p>No has creado ninguna recomendación</p>
-      )}
-
-      {createdRecommendations.length > itemsPerPage && (
-        <div style={paginationMenuStyle}>
-          <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-            Anterior
-          </button>
-          <span>
-            Página {currentPage} de {totalPages}
-          </span>
-          <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-            Siguiente
-          </button>
-        </div>
       )}
     </div>
   );
