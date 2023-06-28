@@ -1,17 +1,17 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { voteTripUserService } from "../services";
+import { useNavigate } from "react-router-dom";
 
 export const DetailedTrip = ({ trip }) => {
-  const { userData, token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { userData, token, auth } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [votes, setVotes] = useState(trip.votes);
 
   const voteTrip = async () => {
     try {
-      if (!userData) {
-        return setError("Debes iniciar sesión para votar.");
-      }
+      if (!auth) return navigate("/login");
       setError("");
       const vote = await voteTripUserService(trip.result.id, token);
       setVotes(vote);
@@ -21,7 +21,6 @@ export const DetailedTrip = ({ trip }) => {
   };
 
   return (
-
     <section className="DetailedTrip">
       <div className="image-container">
         <div className="image-content">
@@ -35,7 +34,14 @@ export const DetailedTrip = ({ trip }) => {
           <div className="summary-container">
             <p id="summary">"{trip.result.summary}"</p>
             <div className="vote-container" onClick={voteTrip}>
-              <div>❤️ {votes}</div> <div>{error ? <p>{error}</p> : null}</div>
+              <div
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                ❤️ {votes}
+              </div>{" "}
+              <div>{error ? <p>{error}</p> : null}</div>
             </div>
           </div>
         </div>

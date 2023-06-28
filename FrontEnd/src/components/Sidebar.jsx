@@ -103,7 +103,7 @@ const Sidebar = () => {
               onClick={() => handleClick(3)}
             >
               <FaCog color="black" style={iconStyles} />
-              <NavLink to="/myprofile" style={linkStyles}>
+              <NavLink to="/account/myprofile" style={linkStyles}>
                 Mi información personal
               </NavLink>
             </li>

@@ -22,9 +22,9 @@ const useComments = (id) => {
 
     loadComments();
   }, []);
-  
+
   const addComment = (comment) => {
-    setComments([comment, ...comments]);
+    setComments([...comments, comment]);
   };
 
   const removeComment = (id) => {

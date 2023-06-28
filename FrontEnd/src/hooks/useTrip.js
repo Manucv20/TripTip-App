@@ -6,8 +6,6 @@ const useTrip = (id) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  console.log(trip);
-
   useEffect(() => {
     const loadTrip = async () => {
       try {

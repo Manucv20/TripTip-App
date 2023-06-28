@@ -1,12 +1,11 @@
 import { AuthContext } from "../context/AuthContext";
 import { useState, useContext } from "react";
 import { deleteCommentService } from "../services";
+import Avatar from "./Avatar";
 
-export const Comment = ({ comment, removeComment }) => {
-  const { userData, token } = useContext(AuthContext);
+export const Comment = ({ comment, removeComment, timeDiff }) => {
+  const { auth, userData, token } = useContext(AuthContext);
   const [error, setError] = useState("");
-
-  console.log(comment);
   const deleteComment = async (id) => {
     try {
       await deleteCommentService({ id, token });
@@ -19,11 +18,17 @@ export const Comment = ({ comment, removeComment }) => {
   return (
     <section>
       <p>
-        {comment.username} {comment.created_at}
+        {
+          <Avatar
+            imagen={comment.avatar}
+            estilo={{ width: "40px", height: "40px" }}
+          />
+        }
+        {comment.username} {timeDiff}
       </p>
       <div>
         <div>{comment.comment}</div>
-        {userData && userData.userId === comment.user_id ? (
+        {auth && userData.userId === comment.user_id ? (
           <button onClick={() => deleteComment(comment.id)}>
             Delete comment
           </button>

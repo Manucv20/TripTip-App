@@ -1,14 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { searchAPI } from "../../services/getRecommendations";
-import SearchResultsComponent from "../SearchResultsComponent";
-import SearchComponent from "../SearchComponent";
 
 const BeachCard = () => {
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    const categoria = "Playa"; // Cambia la categoría de búsqueda a "Playa"
+    const categoria = "Playas relax"; // Cambia la categoría de búsqueda a "Playa"
     const results = await searchAPI("", categoria);
     navigate("/search-results", { state: { searchResults: results } });
   };

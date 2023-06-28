@@ -14,15 +14,13 @@ import NotFoundPage from "./pages/NotFoundPage";
 import LikesPage from "./pages/LikePages";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import MyRecommendationsPage from "./pages/MyRecommendationsPage.jsx";
-
 import TripPage from "./pages/TripPage.jsx";
-
 
 function App() {
   return (
     <>
       <Header /> {/* Componente de encabezado */}
-      <Toaster position="top-left" />{" "}
+      <Toaster position="top-left" richColors />{" "}
       {/* Componente para mostrar notificaciones */}
       <main>
         <Routes>
@@ -42,9 +40,10 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registered" element={<SendEmailPage />} />
           <Route path="/acount/:token" element={<LoginPage />} />
+          <Route path="/recommendation/:id" element={<TripPage />} />
           {/* Rutas Privadas a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/myprofile" element={<ProfilePage />} />
+            <Route path="/account/myprofile" element={<ProfilePage />} />
             <Route path="/mylikes" element={<LikesPage />} />
             <Route
               path="/myRecommendations"

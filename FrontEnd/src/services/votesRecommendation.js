@@ -3,7 +3,7 @@ import axios from "axios";
 export const getVotedRecommendations = async (userId, token) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/users/${userId}/votes`,
+      `http://192.168.43.174:3000/users/${userId}/votes`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -17,7 +17,7 @@ export const getVotedRecommendations = async (userId, token) => {
       let recommendationId = votedRecommendation.recommendation_id;
 
       const recommendationResponse = await axios.get(
-        `http://localhost:3000/recommendation/${recommendationId}`
+        `http://192.168.43.174:3000/recommendation/${recommendationId}`
       );
       return recommendationResponse.data;
     });

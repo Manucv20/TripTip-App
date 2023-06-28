@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { FaTimes, FaSyncAlt } from "react-icons/fa";
 
-import { getDataUserService, sendDataUserService } from "../services";
+import { getDataUserService, updataUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import AvatarUploader from "../components/AvatarUploader ";
 import UsernameComponent from "../components/UsernameComponent";
@@ -23,7 +23,7 @@ const ProfilePage = () => {
 
   const [currentEmail] = useState(userData.userEmail ?? "");
 
-  const [currentPassword] = useState(formData?.password ?? "");
+  const [currentPassword] = useState(formData.password ?? "");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +67,7 @@ const ProfilePage = () => {
         data.delete("profile_image");
       }
 
-      const update = await sendDataUserService({
+      const update = await updataUserService({
         data,
         token,
         id: userData.userId,
@@ -149,6 +149,12 @@ const ProfilePage = () => {
               </li>
               <li>
                 <PasswordComponent currentPassword={currentPassword} />
+                <input
+                  type="hidden"
+                  name="password"
+                  value={formData?.password ?? ""}
+                  readOnly
+                />
               </li>
             </ul>
           </fieldset>
