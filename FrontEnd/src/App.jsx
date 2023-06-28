@@ -14,7 +14,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 import LikesPage from "./pages/LikePages";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import MyRecommendationsPage from "./pages/MyRecommendationsPage.jsx";
+
 import TripPage from "./pages/TripPage.jsx";
+
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
             element={<SearchResultsComponent />}
           />{" "}
           {/* Ruta para los resultados de búsqueda */}
+
           <Route path="/recommendation/:id" element={<TripPage />} />
           {/* Ruta para recomendación en detalle */}
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}

@@ -19,6 +19,7 @@ const TripPage = () => {
 
   return (
     <section className="TripPage">
+
       <DetailedTrip trip={trip} />
       {userData ? <NewComment trip={trip} addComment={addComment} /> : null}
       <CommentsList comments={comments} removeComment={removeComment} />

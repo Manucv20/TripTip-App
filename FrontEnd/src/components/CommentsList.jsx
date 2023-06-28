@@ -1,6 +1,7 @@
 import { Comment } from "./Comment";
 
 export const CommentsList = ({ comments, removeComment }) => {
+
   return (
     <section className="CommentsList">
       {comments.length ? (

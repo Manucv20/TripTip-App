@@ -22,7 +22,7 @@ const useComments = (id) => {
 
     loadComments();
   }, []);
-
+  
   const addComment = (comment) => {
     setComments([comment, ...comments]);
   };

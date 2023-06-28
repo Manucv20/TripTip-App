@@ -21,6 +21,7 @@ export const DetailedTrip = ({ trip }) => {
   };
 
   return (
+
     <section className="DetailedTrip">
       <div className="image-container">
         <div className="image-content">
