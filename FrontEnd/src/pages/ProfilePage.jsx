@@ -2,10 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { FaTimes, FaSyncAlt } from "react-icons/fa";
 
-import {
-  getDataUserService,
-  sendDataUserService,
-} from "../services";
+import { getDataUserService, sendDataUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 import AvatarUploader from "../components/AvatarUploader ";
 import UsernameComponent from "../components/UsernameComponent";
@@ -75,7 +72,7 @@ const ProfilePage = () => {
         token,
         id: userData.userId,
       });
-      
+
       setToken(update);
       toast.success("Actualización exitosa.");
 
@@ -148,6 +145,7 @@ const ProfilePage = () => {
               <li>
                 <EmailComponent
                   currentEmail={currentEmail || userData.userEmail}
+                />
               </li>
               <li>
                 <PasswordComponent currentPassword={currentPassword} />

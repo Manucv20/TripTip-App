@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-body {
-=======
 * {
->>>>>>> origin/dev
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,14 +9,11 @@ html,
   height: 100%;
 }
 
-<<<<<<< HEAD
-=======
 main {
   height: 100vh;
   flex-wrap: wrap;
 }
 
->>>>>>> origin/dev
 ul {
   list-style: none;
   display: flex;
@@ -35,6 +28,15 @@ ul {
   background-color: #e0dada;
 }
 
+input {
+  width: 250px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #eee;
+  outline: none;
+  border: 1px solid #39c;
+}
+
 .input-wrapper {
   position: relative;
   display: inline-flex;
@@ -43,22 +45,15 @@ ul {
 .input {
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  gap: 1rem;
-=======
   gap: 2rem;
   margin: 2rem;
->>>>>>> origin/dev
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-<<<<<<< HEAD
-=======
   margin: 2rem;
->>>>>>> origin/dev
 }
 
 section {
@@ -73,13 +68,7 @@ img.emailconfirm {
 }
 
 .fondo:hover {
-<<<<<<< HEAD
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-image: none;
-  background-color: red;
-=======
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
->>>>>>> origin/dev
 }
 
 .setting {
@@ -88,8 +77,6 @@ img.emailconfirm {
   align-items: center;
 }
 
-<<<<<<< HEAD
-=======
 .fondo2:hover {
   filter: drop-shadow(3px 3px 0px rgb(169, 112, 112));
 }
@@ -99,4 +86,10 @@ a {
   font-weight: bold;
 }
 
->>>>>>> origin/dev
+.alert {
+  font-family: Helvetica, sans-serif;
+  font-size: 0.85rem;
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}

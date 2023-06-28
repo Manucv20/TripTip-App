@@ -195,7 +195,7 @@ export const deleteCommentService = async ({ id, token }) => {
   }
 };
 
-export const voteTripUserService = async (id, token) => {
+/* export const voteTripUserService = async (id, token) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_APP_BACKEND}/votes/${id}`,
@@ -203,7 +203,7 @@ export const voteTripUserService = async (id, token) => {
         method: "POST",
         headers: {
           Authorization: token,
-        },
+        }, */
 
 export const sendUserEmailService = async ({ email, token, id }) => {
   try {
@@ -253,4 +253,3 @@ export const sendUserPasswordService = async ({ password, token, id }) => {
     throw new Error(error.message);
   }
 };
-

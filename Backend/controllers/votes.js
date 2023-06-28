@@ -29,6 +29,19 @@ const NewVoteController = async (req, res, next) => {
   }
 };
 
+const getVotedRecommendationsController = async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+
+    const votedRecommendations = await getVotedRecommendationsByUser(user_id);
+
+    res.status(200).json(votedRecommendations);
+  } catch (er) {
+    next(e);
+  }
+};
+
 module.exports = {
+  getVotedRecommendationsController,
   NewVoteController,
 };

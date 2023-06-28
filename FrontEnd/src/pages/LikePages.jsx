@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import Sidebar from "../components/Sidebar";
-const myLikes = () => {
-  return (
-    <>
-    <h1>Aqui estan mis likes</h1>
-    </>
-  );
-};
-
-export default myLikes;
-=======
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getVotedRecommendations } from "../services/votesRecommendation";
@@ -104,4 +92,3 @@ const LikePages = () => {
 };
 
 export default LikePages;
->>>>>>> origin/dev
