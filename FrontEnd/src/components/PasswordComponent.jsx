@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "sonner";
 import { FaCheck, FaPencilAlt, FaTimes } from "react-icons/fa";
-import { sendUserPasswordService } from "../services";
+import { updataUserPasswordService } from "../services";
 
 const PasswordComponent = ({ currentPassword }) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const PasswordComponent = ({ currentPassword }) => {
         return;
       }
 
-      await sendUserPasswordService({
+      await updataUserPasswordService({
         password: newPassword,
         token,
         id: userData.userId,
@@ -104,8 +104,6 @@ const PasswordComponent = ({ currentPassword }) => {
           />
         </h3>
       )}
-
-      <input type="hidden" name="password" value={currentPassword} readOnly />
     </>
   );
 };

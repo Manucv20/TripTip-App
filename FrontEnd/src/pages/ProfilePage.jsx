@@ -1,23 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { FaCheck, FaTimes, FaPencilAlt, FaSyncAlt } from "react-icons/fa";
+import { FaTimes, FaSyncAlt } from "react-icons/fa";
 
-import {
-  getDataUserService,
-  sendDataUserService,
-  sendUserPasswordService,
-} from "../services";
+import { getDataUserService, updataUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import AvatarUploader from "../components/AvatarUploader ";
 import UsernameComponent from "../components/UsernameComponent";
 import EmailComponent from "../components/EmailComponent";
 import PasswordComponent from "../components/PasswordComponent";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-
-  const { userData, token, setToken, logoutHandler } = useContext(AuthContext);
+  const { userData, token, setToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
   const [initialFormData, setInitialFormData] = useState({});
@@ -30,7 +23,7 @@ const ProfilePage = () => {
 
   const [currentEmail] = useState(userData.userEmail ?? "");
 
-  const [currentPassword] = useState(formData?.password ?? "");
+  const [currentPassword] = useState(formData.password ?? "");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +67,7 @@ const ProfilePage = () => {
         data.delete("profile_image");
       }
 
-      const update = await sendDataUserService({
+      const update = await updataUserService({
         data,
         token,
         id: userData.userId,
@@ -156,6 +149,12 @@ const ProfilePage = () => {
               </li>
               <li>
                 <PasswordComponent currentPassword={currentPassword} />
+                <input
+                  type="hidden"
+                  name="password"
+                  value={formData?.password ?? ""}
+                  readOnly
+                />
               </li>
             </ul>
           </fieldset>
