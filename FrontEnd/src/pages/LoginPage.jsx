@@ -53,7 +53,7 @@ const LoginPage = () => {
         toast.success("Account activated successfully");
         setActivated(true);
       }
-      if (response) return navigate("/myprofile");
+      if (response) return navigate("/account/myprofile");
     } catch (error) {
       toast.error(error.message);
     }

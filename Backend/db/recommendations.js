@@ -47,6 +47,15 @@ const getRecommendationById = async (id) => {
       [id]
     );
 
+    const [userResult] = await connection.query(
+      `
+      SELECT username FROM users WHERE id = ?
+    `,
+      [result[0].user_id]
+    );
+
+    console.log(result[0].user_id);
+
     if (result.length === 0) {
       throw generateError(`La recomendación con ID: ${id} no existe`, 404);
     }
@@ -65,6 +74,7 @@ const getRecommendationById = async (id) => {
       result: result[0],
       votes: votes[0].votes,
       comments: comments,
+      userResult: userResult[0],
     };
 
     return [recommendation];

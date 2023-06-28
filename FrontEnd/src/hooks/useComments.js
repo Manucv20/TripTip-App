@@ -24,7 +24,7 @@ const useComments = (id) => {
   }, []);
 
   const addComment = (comment) => {
-    setComments([comment, ...comments]);
+    setComments([...comments, comment]);
   };
 
   const removeComment = (id) => {

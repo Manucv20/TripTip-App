@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { FaCheck, FaPencilAlt, FaTimes } from "react-icons/fa";
 import { toast } from "sonner";
-import { sendUserEmailService } from "../services";
+import { updataUserEmailService } from "../services";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -23,7 +23,7 @@ const EmailComponent = ({ currentEmail }) => {
         return;
       }
 
-      await sendUserEmailService({
+      await updataUserEmailService({
         email: newEmail,
         token,
         id: userData.userId,

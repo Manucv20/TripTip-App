@@ -12,7 +12,7 @@ const TripPage = () => {
   const { id } = useParams();
   const { comments, addComment, removeComment } = useComments(id);
   const { trip, loading, error } = useTrip(id);
-  const { userData } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   if (loading) return <p>cargando trip</p>;
   if (error) return <ErrorMessage message={error} />;
@@ -20,7 +20,7 @@ const TripPage = () => {
   return (
     <section className="TripPage">
       <DetailedTrip trip={trip} />
-      {userData ? <NewComment trip={trip} addComment={addComment} /> : null}
+      {auth ? <NewComment trip={trip} addComment={addComment} /> : null}
       <CommentsList comments={comments} removeComment={removeComment} />
     </section>
   );

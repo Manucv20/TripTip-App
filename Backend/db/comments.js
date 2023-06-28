@@ -22,7 +22,7 @@ const createComments = async (user_id, recommendation_id, comment) => {
     );
 
     const [result] = await connection.query(
-      "SELECT * FROM comments WHERE id = ?",
+      "SELECT comments.*, users.username as username, users.profile_image as avatar FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.id = ?",
       [insert.insertId]
     );
 
@@ -37,7 +37,7 @@ const getCommentsByRecommendations = async (id) => {
   try {
     connection = await getConnection();
     const [result] = await connection.query(
-      "SELECT comments.*, users.username as username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
+      "SELECT comments.*, users.username as username, users.profile_image as avatar FROM comments INNER JOIN users ON comments.user_id = users.id WHERE recommendation_id = ?",
       [id]
     );
     if (result.length === 0) {

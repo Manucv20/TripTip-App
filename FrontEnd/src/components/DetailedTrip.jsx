@@ -1,17 +1,17 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { voteTripUserService } from "../services";
+import { useNavigate } from "react-router-dom";
 
 export const DetailedTrip = ({ trip }) => {
-  const { userData, token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { userData, token, auth } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [votes, setVotes] = useState(trip.votes);
 
   const voteTrip = async () => {
     try {
-      if (!userData) {
-        return setError("Debes iniciar sesión para votar.");
-      }
+      if (!auth) return navigate("/login");
       setError("");
       const vote = await voteTripUserService(trip.result.id, token);
       setVotes(vote);
@@ -44,14 +44,15 @@ export const DetailedTrip = ({ trip }) => {
         <p id="details">{trip.result.details}</p>
       </div>
       <div id="datasheet">
-        <h2>Trip information:</h2>
-        <p>Category:</p>
+        <h2>Información de viaje:</h2>
+        <p>Categoría:</p>
         <p>{trip.result.category}</p>
-        <p>Address:</p>
+        <p>Dirección:</p>
         <p>{trip.result.location}</p>
-        <p>Recommended by:</p>
-        <p>{trip.result.user_id}</p>
-        <p>{trip.result.created_at}</p>
+        <p>Recomendado por:</p>
+        <p>{trip.userResult.username}</p>
+        <p>Fecha de recomendación:</p>
+        <p>{new Date(trip.result.created_at).toLocaleDateString("es-ES")}</p>
       </div>
     </section>
   );
