@@ -159,8 +159,21 @@ const updateUser = async (
 
     await connection.query(updateUserQuery, updateParams);
 
-    const user = await getUserById(userId);
-    return user;
+    const token = jwt.sign(
+      {
+        userId: userId,
+        userUsername: username,
+        userEmail: email,
+        firstName: name,
+        lastName: lastname,
+        imagen: profile_image,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "30d",
+      }
+    );
+    return token;
   } finally {
     if (connection) {
       connection.release();

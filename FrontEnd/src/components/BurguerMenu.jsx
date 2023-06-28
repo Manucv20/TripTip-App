@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
 const BurgerMenu = () => {
-  const { userData, logoutHandler, avatar, username } = useContext(AuthContext);
+  const { userData, logoutHandler } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -45,10 +45,10 @@ const BurgerMenu = () => {
           marginRight: "2rem",
         }}
       >
-        <span>{username}</span>
+        <span>{userData.userUsername}</span>
         {
           <Avatar
-            imagen={avatar != "null" ? avatar : userData.imagen}
+            imagen={userData.imagen}
             estilo={{ width: "40px", height: "40px" }}
           />
         }

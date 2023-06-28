@@ -178,9 +178,7 @@ const RegisterPage = () => {
             <span>Registro</span>
             <FaUserPlus />
           </button>
-          <Link to="/login">
-            ¿Tienes ya cuenta con nosotros? Logeate..........
-          </Link>
+          <Link to="/login">¿Tienes ya cuenta con nosotros? Logeate</Link>
         </fieldset>
 >>>>>>> origin/dev
       </form>
