@@ -16,6 +16,7 @@ const Avatar = ({ imagen, estilo }) => {
 
   return (
     <img
+      className="avatar-photo"
       src={imagenUrl || "/photoperfil.png"}
       alt="Mi Perfil"
       style={estiloAvatar}
