@@ -1,23 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { FaCheck, FaTimes, FaPencilAlt, FaSyncAlt } from "react-icons/fa";
+import { FaTimes, FaSyncAlt } from "react-icons/fa";
 
 import {
   getDataUserService,
   sendDataUserService,
-  sendUserPasswordService,
 } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import AvatarUploader from "../components/AvatarUploader ";
 import UsernameComponent from "../components/UsernameComponent";
 import EmailComponent from "../components/EmailComponent";
 import PasswordComponent from "../components/PasswordComponent";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-
-  const { userData, token, setToken, logoutHandler } = useContext(AuthContext);
+  const { userData, token, setToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
   const [initialFormData, setInitialFormData] = useState({});
@@ -79,7 +75,7 @@ const ProfilePage = () => {
         token,
         id: userData.userId,
       });
-
+      
       setToken(update);
       toast.success("Actualización exitosa.");
 
@@ -152,7 +148,6 @@ const ProfilePage = () => {
               <li>
                 <EmailComponent
                   currentEmail={currentEmail || userData.userEmail}
-                />
               </li>
               <li>
                 <PasswordComponent currentPassword={currentPassword} />

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+<<<<<<< HEAD
+=======
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
+>>>>>>> origin/dev
 
 import { registerUserService } from "../services";
 import IconoUserRegister from "../components/IconoUserRegister";
@@ -36,6 +39,61 @@ const RegisterPage = () => {
   };
 
   return (
+<<<<<<< HEAD
+    <section>
+      <h2>
+        Register on <Link to="/">TripTip</Link>
+      </h2>
+      <form onSubmit={handleForm} className="form">
+        <ul className="input">
+          <li className="input-wrapper">
+            <IconoUserRegister />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              placeholder="User ..."
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </li>
+          <li className="input-wrapper">
+            <IconoEmail />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Mail address ..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </li>
+          <li className="input-wrapper">
+            <IconoPassword />
+            <input
+              type="password"
+              id="pass1"
+              name="pass1"
+              required
+              placeholder="Password ..."
+              onChange={(e) => setPass1(e.target.value)}
+            />
+          </li>
+          <li className="input-wrapper">
+            <IconoPassword />
+            <input
+              type="password"
+              id="pass2"
+              name="pass2"
+              required
+              placeholder="Repeat password ..."
+              onChange={(e) => setPass2(e.target.value)}
+            />
+          </li>
+        </ul>
+        <button>Register</button>
+        <Link to="/login">Already registered?</Link>
+=======
     <section
       style={{
         height: "100%",
@@ -122,6 +180,7 @@ const RegisterPage = () => {
           </button>
           <Link to="/login">¿Tienes ya cuenta con nosotros? Logeate</Link>
         </fieldset>
+>>>>>>> origin/dev
       </form>
     </section>
   );
