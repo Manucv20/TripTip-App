@@ -8,28 +8,23 @@ export const AuthContext = createContext();
 export const AuthProviderComponent = ({ children }) => {
   const storedToken = localStorage.getItem("token");
   const storedAuth = localStorage.getItem("auth");
-  const storedUsername = localStorage.getItem("username");
-  const storedAvatar = localStorage.getItem("avatar");
-  const storedFirstname = localStorage.getItem("firstname");
+  const storedUserData = localStorage.getItem("userData");
 
   const [token, setToken] = useState(storedToken || " ");
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(
+    storedUserData ? JSON.parse(storedUserData) : null
+  );
   const [auth, setAuth] = useState(storedAuth === "true");
   const [login, setLogin] = useState(false);
-  const [avatar, setAvatar] = useState(storedAvatar || "");
-  const [username, setUsername] = useState(storedUsername || "");
-  const [firstname, setFirstname] = useState(storedFirstname || "");
 
   useEffect(() => {
     localStorage.setItem("token", token);
     localStorage.setItem("auth", auth);
-    localStorage.setItem("username", username);
-    localStorage.setItem("avatar", avatar);
-    localStorage.setItem("firstname", firstname);
 
     if (token !== " ") {
       try {
         const decodedToken = jwtDecode(token);
+        localStorage.setItem("userData", JSON.stringify(decodedToken)); // Guardar userData como cadena JSON
         setUserData(decodedToken);
         setAuth(true);
         if (login) {
@@ -45,35 +40,21 @@ export const AuthProviderComponent = ({ children }) => {
     } else {
       setUserData(null);
     }
-
-    setFirstname(storedFirstname);
-    setUsername(storedUsername);
-    setAvatar(storedAvatar);
   }, [token, auth]);
 
   const logoutHandler = () => {
-    localStorage.removeItem(storedToken);
-    localStorage.removeItem(storedAuth);
-    localStorage.removeItem(storedAvatar);
-    localStorage.removeItem(storedUsername);
-    localStorage.removeItem(storedFirstname);
+    localStorage.removeItem("auth");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
 
+    setUserData(null);
     setAuth(false);
-    setAvatar("");
-    setUsername("");
-    setFirstname("");
     return setToken(" ");
   };
 
   return (
     <AuthContext.Provider
       value={{
-        firstname,
-        setFirstname,
-        username,
-        setUsername,
-        avatar,
-        setAvatar,
         token,
         setToken,
         userData,

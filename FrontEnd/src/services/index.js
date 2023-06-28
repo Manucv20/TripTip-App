@@ -85,6 +85,8 @@ export const sendDataUserService = async ({ data, token, id }) => {
     if (!response.ok) {
       throw new Error(json.message);
     }
+
+    return json.data;
   } catch (error) {
     throw new Error(error.message);
   }

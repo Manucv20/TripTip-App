@@ -144,6 +144,10 @@ const updateUserController = async (req, res, next) => {
       await image.toFile(path.join(uploadsDir, imageFileName));
     }
 
+    if (!imageFileName) {
+      imageFileName = req.imagen;
+    }
+
     try {
       const dataUser = await updateUser(
         userId,

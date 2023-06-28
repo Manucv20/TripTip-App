@@ -39,7 +39,7 @@ const LoginPage = () => {
       setLogin(true);
       setAuth(true);
 
-      if (data) return navigate("/myprofile");
+      if (data) return navigate("/");
     } catch (error) {
       toast.error(error.message);
     }
@@ -53,6 +53,7 @@ const LoginPage = () => {
         toast.success("Account activated successfully");
         setActivated(true);
       }
+      if (response) return navigate("/myprofile");
     } catch (error) {
       toast.error(error.message);
     }

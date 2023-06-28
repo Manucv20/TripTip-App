@@ -1,14 +1,29 @@
-import { useState } from "react";
-import { FaCameraRetro } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { FaCameraRetro, FaCheck, FaTimes } from "react-icons/fa";
 import Avatar from "./Avatar";
+import { toast } from "sonner";
 
-const AvatarUploader = ({ handleImageChange, profile_imagen }) => {
+const AvatarUploader = ({ handleAction, profile_imagen }) => {
   const [image, setImage] = useState(null);
+  const [guardar, setGuardar] = useState(true);
+  const fileInputRef = useRef(null);
 
-  const handleImageUpload = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    handleImageChange(file);
+    setGuardar(true);
+  };
+
+  const handleSave = () => {
+    handleAction(image);
+    setGuardar(false);
+    toast.success("Necesitas actualizar para guardar los cambios");
+  };
+
+  const handleCancel = () => {
+    setImage(null);
+    handleAction(null);
+    fileInputRef.current.value = "";
   };
 
   return (
@@ -28,19 +43,54 @@ const AvatarUploader = ({ handleImageChange, profile_imagen }) => {
         />
       </label>
       {image ? (
-        <img
-          src={URL.createObjectURL(image)}
-          alt="Mi Perfil"
-          style={{
-            width: "170px",
-            height: "170px",
-            display: "inline-block",
-            backgroundSize: "cover",
-            borderRadius: "50%",
-            position: "relative",
-            objectFit: "cover",
-          }}
-        />
+        <>
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Mi Perfil"
+            style={{
+              width: "170px",
+              height: "170px",
+              display: "inline-block",
+              backgroundSize: "cover",
+              borderRadius: "50%",
+              position: "relative",
+              objectFit: "cover",
+            }}
+          />
+          {guardar ? (
+            <div>
+              <button
+                type="button"
+                onClick={handleSave}
+                style={{
+                  margin: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
+                <FaCheck
+                  title="Aceptar"
+                  style={{
+                    color: "green",
+                  }}
+                />
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                <FaTimes
+                  title="Cancelar"
+                  style={{
+                    color: "red",
+                  }}
+                />
+              </button>
+            </div>
+          ) : null}
+        </>
       ) : (
         <Avatar imagen={profile_imagen} />
       )}
@@ -48,9 +98,10 @@ const AvatarUploader = ({ handleImageChange, profile_imagen }) => {
         id="fileInput"
         type="file"
         name="profile_image"
-        onChange={handleImageUpload}
+        onChange={handleImageChange}
         accept=".jpg, .png"
         style={{ display: "none" }}
+        ref={fileInputRef} // Asocia la referencia al input
       />
     </>
   );
