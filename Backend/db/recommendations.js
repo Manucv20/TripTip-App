@@ -31,7 +31,7 @@ const createRecommendation = async (
   }
 };
 
-//muestra los datos de un registro de la tabla recomendations
+//muestra los datos de un registro de la tabla Recommendations
 const getRecommendationById = async (id) => {
   if (!id) {
     throw generateError("No se proporcionó un ID.", 400);
@@ -52,18 +52,18 @@ const getRecommendationById = async (id) => {
     }
 
     const [votes] = await connection.query(
-      "SELECT COUNT(*) as count FROM votes WHERE recommendation_id = ?",
+      "SELECT SUM(value) as votes FROM votes WHERE recommendation_id = ?",
       [id]
     );
 
     const [comments] = await connection.query(
-      "SELECT comments.*, users.name FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.recommendation_id = ?",
+      "SELECT comments.*, users.username FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.recommendation_id = ? ORDER BY comments.created_at DESC",
       [id]
     );
 
     const recommendation = {
       result: result[0],
-      votes: votes[0].count,
+      votes: votes[0].votes,
       comments: comments,
     };
 

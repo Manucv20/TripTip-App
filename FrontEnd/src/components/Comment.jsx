@@ -6,7 +6,6 @@ import Avatar from "./Avatar";
 export const Comment = ({ comment, removeComment, timeDiff }) => {
   const { auth, userData, token } = useContext(AuthContext);
   const [error, setError] = useState("");
-
   const deleteComment = async (id) => {
     try {
       await deleteCommentService({ id, token });

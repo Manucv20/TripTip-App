@@ -35,6 +35,7 @@ const BurgerMenu = () => {
           }}
         >
           <li style={{ padding: 10 }}>
+
             <Link to="/myprofile">Ajustes</Link>
           </li>
           <li style={{ padding: 10 }}>

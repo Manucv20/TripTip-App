@@ -3,7 +3,7 @@ import axios from "axios";
 export const getCreatedRecommendations = async (userId) => {
   try {
     const response = await axios.get(
-      `http://192.168.43.174:3000/users/${userId}/recommendations`
+      `http://localhost:3000/users/${userId}/recommendations`
     );
 
     const createdRecommendations = response.data;
