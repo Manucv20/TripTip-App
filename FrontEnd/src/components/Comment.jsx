@@ -16,6 +16,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
   };
 
   return (
+
     <>
       <div className="namedate-container">
         <Avatar

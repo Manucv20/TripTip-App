@@ -1,8 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
-import Header from "./components/header.jsx";
-import Footer from "./components/footer.jsx";
+import Layout from "./components/Layout";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
@@ -19,7 +18,7 @@ import TripPage from "./pages/TripPage.jsx";
 function App() {
   return (
     <>
-      <Header /> {/* Componente de encabezado */}
+      <Layout> 
       <Toaster position="top-left" richColors />{" "}
       {/* Componente para mostrar notificaciones */}
       <main>
@@ -32,6 +31,9 @@ function App() {
             element={<SearchResultsComponent />}
           />{" "}
           {/* Ruta para los resultados de búsqueda */}
+
+          <Route path="/recommendation/:id" element={<TripPage />} />
+          {/* Ruta para recomendación en detalle */}
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -51,7 +53,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer /> {/* Componente de pie de página */}
+      </Layout> 
     </>
   );
 }
