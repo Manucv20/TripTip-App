@@ -1,6 +1,8 @@
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getVotedRecommendations } from "../services/votesRecommendation";
+import { Link } from "react-router-dom";
+
 
 const LikePages = () => {
   const { token, userData } = useContext(AuthContext);
@@ -48,8 +50,8 @@ const LikePages = () => {
   };
 
   const imageStyle = {
-    width: "100%",
-    height: "auto",
+    width: "200px",
+    height: "200px",
     marginBottom: "16px",
   };
 
@@ -61,24 +63,31 @@ const LikePages = () => {
           if (result && result.title) {
             return (
               <div key={result.id} style={cardStyle}>
-                {result.image && (
+                <Link
+                  to={`/recommendation/${result.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <img
-                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                    src={
                       result.image
-                    }`}
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                            result.image
+                          }`
+                        : "/Subir_foto_recomendacion.jpg"
+                    }
                     alt={result.title}
                     style={imageStyle}
                   />
-                )}
-                <div style={contentStyle}>
-                  <h3>{result.title}</h3>
-                  <p>Categoría: {result.category}</p>
-                  <p>Ubicación: {result.location}</p>
-                  <p>Resumen: {result.summary}</p>
-                  <p>Detalles: {result.details}</p>
-                  <p>Fecha de creación: {result.created_at}</p>
-                  <p>Votos: {votes}</p>
-                </div>
+                  <div style={contentStyle}>
+                    <h3>{result.title}</h3>
+                    <p>Categoría: {result.category}</p>
+                    <p>Ubicación: {result.location}</p>
+                    <p>Resumen: {result.summary}</p>
+                    <p>Detalles: {result.details}</p>
+                    <p>Fecha de creación: {result.created_at}</p>
+                    <p>Votos: {votes}</p>
+                  </div>
+                </Link>
               </div>
             );
           }

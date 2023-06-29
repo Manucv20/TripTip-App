@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getCreatedRecommendations } from "../services/getRecommendationsById";
+import { Link } from "react-router-dom";
 
 const CreatedRecommendations = () => {
   const { userData } = useContext(AuthContext);
@@ -52,8 +53,8 @@ const CreatedRecommendations = () => {
   };
 
   const imageStyle = {
-    width: "100%",
-    height: "auto",
+    width: "200px",
+    height: "200px",
     marginBottom: "16px",
   };
 
@@ -98,26 +99,33 @@ const CreatedRecommendations = () => {
         <ul style={listStyle}>
           {currentRecommendations.map((recommendation) => (
             <li key={recommendation.id}>
-              <div style={cardStyle}>
-                {recommendation.image && (
+              <Link
+                to={`/recommendation/${recommendation.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div style={cardStyle}>
                   <img
-                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                    src={
                       recommendation.image
-                    }`}
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                            recommendation.image
+                          }`
+                        : "/Subir_foto_recomendacion.jpg"
+                    }
                     alt={recommendation.title}
                     style={imageStyle}
                   />
-                )}
-                <div style={contentStyle}>
-                  <h3>{recommendation.title}</h3>
-                  <p>Categoría: {recommendation.category}</p>
-                  <p>Ubicación: {recommendation.location}</p>
-                  <p>Resumen: {recommendation.summary}</p>
-                  <p>Detalles: {recommendation.details}</p>
-                  <p>Fecha de creación: {recommendation.created_at}</p>
-                  <p>Votos: {recommendation.votes}</p>
+                  <div style={contentStyle}>
+                    <h3>{recommendation.title}</h3>
+                    <p>Categoría: {recommendation.category}</p>
+                    <p>Ubicación: {recommendation.location}</p>
+                    <p>Resumen: {recommendation.summary}</p>
+                    <p>Detalles: {recommendation.details}</p>
+                    <p>Fecha de creación: {recommendation.created_at}</p>
+                    <p>Votos: {recommendation.votes}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>
