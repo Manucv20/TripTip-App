@@ -32,6 +32,9 @@ function App() {
             element={<SearchResultsComponent />}
           />{" "}
           {/* Ruta para los resultados de búsqueda */}
+
+          <Route path="/recommendation/:id" element={<TripPage />} />
+          {/* Ruta para recomendación en detalle */}
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />

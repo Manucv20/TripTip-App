@@ -12,23 +12,7 @@ import SearchComponent from "../components/SearchComponent";
 const HomePage = () => {
   return (
     <>
-      <header
-        style={{
-          backgroundImage: `url("/foto_header.jpg")`,
-          backgroundSize: "cover",
-          width: "100%",
-          height: "200px", // Ajusta la altura deseada
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <h2 style={{ color: "black", margin: 0 }}>
-          Miles de recomendaciones para tus viajes favoritos
-        </h2>
-        <SearchComponent />
-      </header>
+      <SearchComponent />
       <section style={{ textAlign: "center" }}>
         <h3>Viajar mejor: ¿dónde, cuándo y cómo?</h3>
         <p>
