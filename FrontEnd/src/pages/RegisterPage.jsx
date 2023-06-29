@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { FaUserPlus } from "react-icons/fa";
 
 import { registerUserService } from "../services";
 import IconoUserRegister from "../components/IconoUserRegister";
@@ -37,11 +37,11 @@ const RegisterPage = () => {
 
   return (
     <section
-      style={{
+    /*   style={{
         height: "100%",
         display: "flex",
         justifyContent: "center",
-      }}
+      }} */
     >
       <form onSubmit={handleForm} className="form">
         <fieldset

@@ -110,16 +110,12 @@ const ProfilePage = () => {
               boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
             }}
           >
-            <figcaption
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <h2>Perfil de usuario</h2>
-            </figcaption>
+            <h2>Perfil de usuario</h2>
+
             <ul
               style={{
+                listStyle: "none",
+                flexDirection: "column",
                 display: "flex",
                 gap: "2rem",
               }}
@@ -182,6 +178,8 @@ const ProfilePage = () => {
             </figcaption>
             <ul
               style={{
+                listStyle: "none",
+                flexDirection: "column",
                 display: "flex",
                 gap: "2rem",
               }}

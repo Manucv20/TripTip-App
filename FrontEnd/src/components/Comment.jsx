@@ -6,7 +6,6 @@ import Avatar from "./Avatar";
 export const Comment = ({ comment, removeComment, timeDiff }) => {
   const { auth, userData, token } = useContext(AuthContext);
   const [error, setError] = useState("");
-
   const deleteComment = async (id) => {
     try {
       await deleteCommentService({ id, token });
@@ -17,25 +16,31 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
   };
 
   return (
-    <section>
-      <p>
-        {
-          <Avatar
-            imagen={comment.avatar}
-            estilo={{ width: "40px", height: "40px" }}
-          />
-        }
-        {comment.username} {timeDiff}
-      </p>
+    <>
+      <div className="namedate-container">
+        <Avatar
+          imagen={comment.avatar}
+          estilo={{ width: "40px", height: "40px" }}
+        />
+        <p className="c-username">@{comment.username} </p>&nbsp;
+        <p className="c-created_at">{timeDiff}</p>
+      </div>
       <div>
         <div>{comment.comment}</div>
         {auth && userData.userId === comment.user_id ? (
-          <button onClick={() => deleteComment(comment.id)}>
-            Delete comment
+          <button
+            className="trashcan"
+            onClick={() => deleteComment(comment.id)}
+          >
+            <img
+              className="trashcan-img"
+              src="/trash-can.png"
+              alt="eliminar-comentario"
+            />
           </button>
         ) : null}
         {error ? <p>{error}</p> : null}
       </div>
-    </section>
+    </>
   );
 };
