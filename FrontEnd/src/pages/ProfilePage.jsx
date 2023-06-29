@@ -94,14 +94,18 @@ const ProfilePage = () => {
 
   return (
     <>
-      <section>
+      <section
+        style={{
+          width: "100%",
+        }}
+      >
         <form
           style={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "1rem",
+            gap: "2rem",
             marginTop: "2rem",
+            marginBottom: "5rem",
           }}
           onSubmit={handleForm}
         >
@@ -263,6 +267,8 @@ const ProfilePage = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+
+                    marginRight: "2rem",
                     gap: "8px",
                     cursor: "pointer",
                   }}

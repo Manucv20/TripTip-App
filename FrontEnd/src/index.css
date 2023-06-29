@@ -303,11 +303,6 @@ body {
   .CommentsList .trashcan-img {
     width: 1.4rem;
   }
-
-  .avatar-photo {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
-  }
 }
 
 .CommentsList .trashcan {
