@@ -110,7 +110,7 @@ const LoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </li>
-            <li>
+            <li className="input-register">
               <button className="boton-reg">
                 <span>Iniciar sesión</span>
                 <FaSignInAlt />

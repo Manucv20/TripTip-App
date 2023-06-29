@@ -103,7 +103,7 @@ const ProfilePage = () => {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "2rem",
+            gap: "1rem",
             marginTop: "2rem",
             marginBottom: "5rem",
           }}

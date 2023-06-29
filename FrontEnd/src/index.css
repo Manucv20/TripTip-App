@@ -56,7 +56,7 @@ section {
   gap: 8px;
   padding: 10px;
   border: none;
-  width: 8rem;
+  width: 100%;
   cursor: pointer;
   color: #fff;
   margin: 1rem;
@@ -107,7 +107,7 @@ section {
 .input-personal {
   height: 30px;
   width: 100%;
-  background-color: whitesmoke;
+  background-color: rgb(215, 215, 215);
   padding: 0.5rem;
   font-size: 0.9rem;
   border: none;
@@ -121,7 +121,7 @@ section {
 
 .textarea-personal {
   width: 100%;
-  background-color: whitesmoke;
+  background-color: rgb(215, 215, 215);
   padding: 0.5rem;
   resize: none;
   font-size: 0.9rem;
