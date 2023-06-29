@@ -60,35 +60,36 @@ const LoginPage = () => {
   };
 
   return (
-    <section
-      style={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <form onSubmit={submitHandler} className="form">
+    <section style={{ margin: "2rem" }}>
+      <form onSubmit={submitHandler} style={{ margin: "2rem" }}>
         <fieldset
           style={{
-            height: "100%",
             display: "flex",
             justifyContent: "space-between",
             flexDirection: "column",
-            gap: "1rem",
-            padding: "3rem",
+            gap: "2rem",
+            padding: "1.7rem",
             margin: "0.5rem",
             borderRadius: "15px",
             boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
             backgroundColor: "#C2B280",
           }}
         >
-          <h2>
+          <h2
+            style={{
+              fontSize: "1.75rem",
+              fontWeight: "600px",
+              lineHeight: "1.5715",
+              color: "#000000",
+            }}
+          >
             Login on <Link to="/">TripTip</Link>
           </h2>
-          <ul className="input">
-            <li className="input-wrapper">
+          <ul>
+            <li className="input-register">
               <IconoEmail />
               <input
+                className="input-reg"
                 type="email"
                 id="email"
                 name="email"
@@ -97,9 +98,10 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </li>
-            <li className="input-wrapper">
+            <li className="input-register">
               <IconoPassword />
               <input
+                className="input-reg"
                 type="password"
                 id="pass1"
                 name="pass1"
@@ -108,23 +110,14 @@ const LoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </li>
+            <li>
+              <button className="boton-reg">
+                <span>Iniciar sesión</span>
+                <FaSignInAlt />
+              </button>
+            </li>
           </ul>
-          <p>
-            ¿Has Olvidado tu Contraseña? <Link>Reset password</Link>{" "}
-          </p>
-          <button
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "8px",
 
-              margin: "1rem",
-            }}
-          >
-            <span>Iniciar sesión</span>
-            <FaSignInAlt />
-          </button>
           <Link to="/register">¿No tienes cuenta? Registrate.</Link>
         </fieldset>
       </form>
