@@ -148,8 +148,6 @@ const getRecommendationOrderedByVotesController = async (req, res, next) => {
   try {
     const query = await recommendationOrderedByVotes();
 
-    console.log(query);
-
     res.status(200).json({ recommendations: query });
   } catch (err) {
     next(err);

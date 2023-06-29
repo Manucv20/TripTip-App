@@ -54,8 +54,6 @@ const getRecommendationById = async (id) => {
       [result[0].user_id]
     );
 
-    console.log(result[0].user_id);
-
     if (result.length === 0) {
       throw generateError(`La recomendación con ID: ${id} no existe`, 404);
     }

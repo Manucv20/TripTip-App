@@ -35,7 +35,7 @@ const newCommentController = async (req, res, next) => {
 const getCommentsByRecommendationsController = async (req, res, next) => {
   try {
     const { error, value } = idCommentsSchema.validate(req.params);
-    console.log(value);
+
     if (error) {
       return res.status(400).json({ error: "Id Invalido" });
     }

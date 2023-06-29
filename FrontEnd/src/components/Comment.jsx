@@ -19,7 +19,10 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
 
     <>
       <div className="namedate-container">
-        <Avatar />
+        <Avatar
+          imagen={comment.avatar}
+          estilo={{ width: "40px", height: "40px" }}
+        />
         <p className="c-username">@{comment.username} </p>&nbsp;
         <p className="c-created_at">{timeDiff}</p>
       </div>
@@ -35,7 +38,6 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
               src="/trash-can.png"
               alt="eliminar-comentario"
             />
-
           </button>
         ) : null}
         {error ? <p>{error}</p> : null}
