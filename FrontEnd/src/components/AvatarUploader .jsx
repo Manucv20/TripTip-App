@@ -48,8 +48,8 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
             src={URL.createObjectURL(image)}
             alt="Mi Perfil"
             style={{
-              width: "170px",
-              height: "170px",
+              width: "250px",
+              height: "250px",
               display: "inline-block",
               backgroundSize: "cover",
               borderRadius: "50%",

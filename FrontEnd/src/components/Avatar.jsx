@@ -4,8 +4,8 @@ const Avatar = ({ imagen, estilo }) => {
     : null;
 
   const estiloAvatar = {
-    width: "170px",
-    height: "170px",
+    width: "300px",
+    height: "300px",
     display: "inline-block",
     backgroundSize: "cover",
     borderRadius: "50%",
