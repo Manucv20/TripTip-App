@@ -47,6 +47,7 @@ const PasswordComponent = ({ currentPassword }) => {
       {editing ? (
         <>
           <input
+            className="input-personal"
             type="password"
             name="password"
             value={newPassword}
@@ -54,34 +55,41 @@ const PasswordComponent = ({ currentPassword }) => {
             placeholder="Nuevo Password..."
           />
 
-          <button
-            type="button"
-            onClick={handleSave}
+          <div
             style={{
-              cursor: "pointer",
+              marginTop: "1rem",
             }}
           >
-            <FaCheck
-              title="Aceptar"
+            <button
+              type="button"
+              onClick={handleSave}
               style={{
-                color: "green",
+                marginRight: "1rem",
+                cursor: "pointer",
               }}
-            />
-          </button>
-          <button
-            type="button"
-            onClick={handleCancel}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <FaTimes
-              title="Cancelar"
+            >
+              <FaCheck
+                title="Aceptar"
+                style={{
+                  color: "green",
+                }}
+              />
+            </button>
+            <button
+              type="button"
+              onClick={handleCancel}
               style={{
-                color: "red",
+                cursor: "pointer",
               }}
-            />
-          </button>
+            >
+              <FaTimes
+                title="Cancelar"
+                style={{
+                  color: "red",
+                }}
+              />
+            </button>
+          </div>
         </>
       ) : (
         <h3

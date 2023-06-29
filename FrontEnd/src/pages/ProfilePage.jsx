@@ -95,55 +95,58 @@ const ProfilePage = () => {
   return (
     <>
       <section>
-        {loading ? <p>Cargando Formulario...</p> : null}
-        <form className="setting" onSubmit={handleForm}>
+        <form
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "1rem",
+            marginTop: "2rem",
+          }}
+          onSubmit={handleForm}
+        >
+          {loading ? <p>Cargando Formulario...</p> : null}
           <fieldset
             style={{
-              height: "100%",
               display: "flex",
-              justifyContent: "space-between",
               flexDirection: "column",
               gap: "1rem",
-              padding: "3rem",
+              padding: "2rem",
               margin: "0.5rem",
               borderRadius: "15px",
               boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
             }}
           >
-            <h2>Perfil de usuario</h2>
-
-            <ul
+            <h2
               style={{
-                listStyle: "none",
-                flexDirection: "column",
-                display: "flex",
-                gap: "2rem",
+                fontSize: "1.75rem",
+                fontWeight: "600px",
+                lineHeight: "1.5715",
+                color: "#000000",
               }}
             >
-              <li
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  position: "relative",
-                }}
-              >
+              Perfil de usuario
+            </h2>
+
+            <ul>
+              <li className="input-perfil">
                 <AvatarUploader
                   handleAction={handleImageAction}
                   profile_imagen={userData.imagen}
                 />
               </li>
-              <li>
+              <li className="input-oculto">
                 <UsernameComponent
                   currentUsername={currentUserName || userData.userUsername}
                   handleUsernameChange={handleUsernameChange}
                 />
               </li>
-              <li>
+              <li className="input-oculto">
                 <EmailComponent
                   currentEmail={currentEmail || userData.userEmail}
                 />
               </li>
-              <li>
+              <li className="input-oculto">
                 <PasswordComponent currentPassword={currentPassword} />
                 <input
                   type="hidden"
@@ -156,37 +159,32 @@ const ProfilePage = () => {
           </fieldset>
           <fieldset
             style={{
-              height: "100%",
               display: "flex",
-              justifyContent: "space-between",
               flexDirection: "column",
               gap: "1rem",
-              padding: "3rem",
+              padding: "2rem",
               margin: "0.5rem",
               borderRadius: "15px",
               boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
             }}
           >
-            <figcaption
+            <h2
               style={{
-                display: "flex",
-                justifyContent: "center",
+                fontSize: "1.75rem",
+                fontWeight: "600px",
+                lineHeight: "1.5715",
+                color: "#000000",
               }}
             >
-              {" "}
-              <h2>Datos Personales</h2>{" "}
-            </figcaption>
-            <ul
-              style={{
-                listStyle: "none",
-                flexDirection: "column",
-                display: "flex",
-                gap: "2rem",
-              }}
-            >
-              <li>
-                <label htmlFor="firstname">Nombre</label>
+              Datos Personales
+            </h2>
+            <ul>
+              <li className="container-personal">
+                <label className="label-perfil" htmlFor="firstname">
+                  Nombre
+                </label>
                 <input
+                  className="input-personal"
                   id="firstname"
                   type="text"
                   name="name"
@@ -196,9 +194,12 @@ const ProfilePage = () => {
                   required
                 />
               </li>
-              <li>
-                <label htmlFor="lastname">Apellido</label>
+              <li className="container-personal">
+                <label htmlFor="lastname" className="label-perfil">
+                  Apellido
+                </label>
                 <input
+                  className="input-personal"
                   id="lastname"
                   type="text"
                   name="lastname"
@@ -208,9 +209,12 @@ const ProfilePage = () => {
                   required
                 />
               </li>
-              <li>
-                <label htmlFor="gender">Género</label>
+              <li className="container-personal">
+                <label htmlFor="gender" className="label-perfil">
+                  Género
+                </label>
                 <select
+                  className="input-personal"
                   id="gender"
                   name="gender"
                   value={formData?.gender ?? ""}
@@ -223,9 +227,12 @@ const ProfilePage = () => {
                   <option value="other">Otro</option>
                 </select>
               </li>
-              <li>
-                <label htmlFor="address">Dirección</label>
+              <li className="container-personal">
+                <label htmlFor="address" className="label-perfil">
+                  Dirección
+                </label>
                 <input
+                  className="input-personal"
                   id="address"
                   type="text"
                   name="address"
@@ -234,10 +241,13 @@ const ProfilePage = () => {
                   onChange={handleChange}
                 />
               </li>
-              <li>
-                <label htmlFor="biografia">Sobre mi</label>
+              <li className="container-personal">
+                <label htmlFor="biografia" className="label-perfil">
+                  Sobre mi
+                </label>
 
                 <textarea
+                  className="textarea-personal"
                   id="biografia"
                   name="bio"
                   value={formData?.bio ?? ""}
@@ -245,43 +255,47 @@ const ProfilePage = () => {
                   onChange={handleChange}
                 />
               </li>
+              <li className="input-register">
+                <button
+                  className="boton-personal"
+                  type="submit"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {" "}
+                  <FaSyncAlt
+                    style={{
+                      color: "blue",
+                    }}
+                  />{" "}
+                  Actualizar
+                </button>
+                <button
+                  className="boton-personal"
+                  type="button"
+                  onClick={handleCancel}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <FaTimes
+                    style={{
+                      color: "red",
+                    }}
+                  />{" "}
+                  Cancelar
+                </button>
+              </li>
             </ul>
-            <button
-              type="submit"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "8px",
-                cursor: "pointer",
-              }}
-            >
-              {" "}
-              <FaSyncAlt
-                style={{
-                  color: "blue",
-                }}
-              />{" "}
-              Actualizar
-            </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "8px",
-                cursor: "pointer",
-              }}
-            >
-              <FaTimes
-                style={{
-                  color: "red",
-                }}
-              />{" "}
-              Cancelar
-            </button>
           </fieldset>
         </form>
       </section>
