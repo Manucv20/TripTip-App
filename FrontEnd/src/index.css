@@ -13,7 +13,6 @@ section {
   justify-content: center;
   align-items: center;
 }
-
 /* Final del CSS común para todas las páginas */
 /* CSS Formulario Registro y Login*/
 
@@ -252,8 +251,8 @@ body {
     font-size: 1rem;
   }
 
-  /*   .NewComment {
-  } */
+  .NewComment {
+  }
 
   .CommentsList {
     margin-top: 1.5rem;
@@ -303,11 +302,6 @@ body {
 
   .CommentsList .trashcan-img {
     width: 1.4rem;
-  }
-
-  .avatar-photo {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
   }
 }
 
