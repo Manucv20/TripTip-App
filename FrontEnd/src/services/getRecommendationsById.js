@@ -1,9 +1,8 @@
 import axios from "axios";
-
 export const getCreatedRecommendations = async (userId) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/users/${userId}/recommendations`
+      `${import.meta.env.VITE_APP_BACKEND}/users/${userId}/recommendations`
     );
 
     const createdRecommendations = response.data;
