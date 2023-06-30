@@ -40,11 +40,15 @@ const newRecommendationController = async (req, res, next) => {
       const image = sharp(req.files.image.data);
       //verifico que el archivo contenga las extensiones jpg o png
       const fileName = req.files.image.name;
-      if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
-        image.resize(256);
+      if (
+        fileName.endsWith(".jpg") ||
+        fileName.endsWith(".png") ||
+        fileName.endsWith(".jpeg")
+      ) {
+        image.resize(1024);
       } else {
         throw generateError(
-          "Por favor, asegúrate de subir una imagen en formato jpg o png.",
+          "Por favor, asegúrate de subir una imagen en formato jpg, png o jpeg.",
           400
         );
       }
@@ -201,11 +205,15 @@ const updateRecommendationController = async (req, res, next) => {
       const image = sharp(req.files.image.data);
       // Verifico que el archivo contenga las extensiones jpg o png
       const fileName = req.files.image.name;
-      if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
-        image.resize(256);
+      if (
+        fileName.endsWith(".jpg") ||
+        fileName.endsWith(".png") ||
+        fileName.endsWith(".jpeg")
+      ) {
+        image.resize(1024);
       } else {
         throw generateError(
-          "Por favor, asegúrate de subir una imagen en formato jpg o png.",
+          "Por favor, asegúrate de subir una imagen en formato jpg, png o jpeg.",
           400
         );
       }
