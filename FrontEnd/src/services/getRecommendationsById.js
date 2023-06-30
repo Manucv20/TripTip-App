@@ -14,11 +14,16 @@ export const getCreatedRecommendations = async (userId) => {
   }
 };
 
-export const editRecommendation = async (recommendationId, recommendationData) => {
+export const editRecommendation = async (recommendationId, recommendationData, token) => {
   try {
     const response = await axios.put(
-      `http://localhost:3000/recommendations/${recommendationId}`,
-      recommendationData
+      `${import.meta.env.VITE_APP_BACKEND}/recommendations/${recommendationId}`,
+      recommendationData,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
     );
 
     const updatedRecommendation = response.data;
@@ -30,26 +35,42 @@ export const editRecommendation = async (recommendationId, recommendationData) =
   }
 };
 
-export const deleteRecommendation = async (recommendationId) => {
+export const deleteRecommendation = async (recommendationId, token) => {
   try {
-    const response = await axios.delete(
-      `http://localhost:3000/recommendations/${recommendationId}`
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_BACKEND}/recommendations/${recommendationId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      }
     );
 
-    const deletedRecommendation = response.data;
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+
+    const deletedRecommendation = json.data;
 
     return deletedRecommendation;
   } catch (error) {
-    console.error("Error deleting recommendation:", error);
-    throw new Error("Error deleting recommendation");
+    throw new Error("Error deleting recommendation: " + error.message);
   }
 };
 
-export const createRecommendation = async (recommendationData) => {
+export const createRecommendation = async (recommendationData, token) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/recommendations",
-      recommendationData
+      `${import.meta.env.VITE_APP_BACKEND}/recommendations`,
+      recommendationData,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
     );
 
     const createdRecommendation = response.data;
@@ -60,3 +81,4 @@ export const createRecommendation = async (recommendationData) => {
     throw new Error("Error creating recommendation");
   }
 };
+
