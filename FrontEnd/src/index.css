@@ -144,6 +144,47 @@ section {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
+.avatar-movil {
+  width: 300px;
+  height: 300px;
+}
+
+.carga-avatar {
+  width: 250px;
+  height: 250px;
+}
+
+@media (max-width: 450px) {
+  form {
+    margin-right: 2rem;
+  }
+
+  .avatar-movil {
+    width: 250px;
+    height: 250px;
+  }
+
+  .carga-avatar {
+    width: 210px;
+    height: 210px;
+  }
+
+  .input-perfil {
+    width: 250px;
+  }
+
+  .input-personal {
+    width: 250px;
+  }
+  .textarea-personal {
+    width: 250px;
+  }
+
+  .boton-personal {
+    width: 70px;
+  }
+}
+
 /* Final del CSS de la pagina de perfil */
 
 img.emailconfirm {

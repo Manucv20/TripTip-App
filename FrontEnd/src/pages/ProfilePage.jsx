@@ -115,6 +115,7 @@ const ProfilePage = () => {
             style={{
               display: "flex",
               flexDirection: "column",
+              justifyContent: "center",
               gap: "1rem",
               padding: "2rem",
               margin: "0.5rem",
@@ -166,6 +167,7 @@ const ProfilePage = () => {
             style={{
               display: "flex",
               flexDirection: "column",
+              justifyContent: "center",
               gap: "1rem",
               padding: "2rem",
               margin: "0.5rem",
