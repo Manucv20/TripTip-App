@@ -36,9 +36,9 @@ function App() {
             {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/registered" element={<SendEmailPage />} />
+            <Route path="/registered/:token" element={<SendEmailPage />} />
+            {/* Ruta para activar las cuentas de usuario */}
             <Route path="/acount/:token" element={<LoginPage />} />
-            <Route path="/recommendation/:id" element={<TripPage />} />
             {/* Rutas Privadas a tener en cuenta para el Dashboard del Usuario */}
             <Route element={<PrivateRoutes />}>
               <Route path="/account/myprofile" element={<ProfilePage />} />

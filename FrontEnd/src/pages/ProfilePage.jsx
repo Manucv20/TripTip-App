@@ -102,6 +102,7 @@ const ProfilePage = () => {
         <form
           style={{
             display: "flex",
+            justifyContent: "center",
             flexWrap: "wrap",
             gap: "1rem",
             marginTop: "2rem",
