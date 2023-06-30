@@ -14,7 +14,13 @@ function PrivateRoutes() {
   return (
     <>
       {auth ? (
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
           {<Sidebar />} <Outlet />
         </div>
       ) : null}

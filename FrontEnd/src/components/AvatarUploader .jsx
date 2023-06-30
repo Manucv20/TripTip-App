@@ -45,11 +45,10 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
       {image ? (
         <>
           <img
+            className="carga-avatar"
             src={URL.createObjectURL(image)}
             alt="Mi Perfil"
             style={{
-              width: "170px",
-              height: "170px",
               display: "inline-block",
               backgroundSize: "cover",
               borderRadius: "50%",
@@ -58,11 +57,18 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
             }}
           />
           {guardar ? (
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <button
                 type="button"
                 onClick={handleSave}
                 style={{
+                  width: "1.5rem",
                   margin: "0.5rem",
                   cursor: "pointer",
                 }}
@@ -78,6 +84,7 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
                 type="button"
                 onClick={handleCancel}
                 style={{
+                  width: "1.5rem",
                   cursor: "pointer",
                 }}
               >

@@ -27,44 +27,50 @@ const RegisterPage = () => {
     }
 
     try {
-      await registerUserService({ username, email, password: pass1 });
+      const data = await registerUserService({
+        username,
+        email,
+        password: pass1,
+      });
 
-      navigate("/registered");
+      const { token } = data;
+      navigate(`/registered/${token}`);
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   return (
-    <section
-    /*   style={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-      }} */
-    >
-      <form onSubmit={handleForm} className="form">
+    <section style={{ margin: "2rem" }}>
+      <form onSubmit={handleForm} style={{ margin: "2rem" }}>
         <fieldset
           style={{
-            height: "100%",
             display: "flex",
             justifyContent: "space-between",
             flexDirection: "column",
-            gap: "1rem",
-            padding: "3rem",
+            gap: "2rem",
+            padding: "1.7rem",
             margin: "0.5rem",
             borderRadius: "15px",
             boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
             backgroundColor: "#C2B280",
           }}
         >
-          <h2>
+          <h2
+            style={{
+              fontSize: "1.75rem",
+              fontWeight: "600px",
+              lineHeight: "1.5715",
+              color: "#000000",
+            }}
+          >
             Register on <Link to="/">TripTip</Link>
           </h2>
-          <ul className="input">
-            <li className="input-wrapper">
+          <ul>
+            <li className="input-register">
               <IconoUserRegister />
               <input
+                className="input-reg"
                 type="text"
                 id="username"
                 name="username"
@@ -73,9 +79,10 @@ const RegisterPage = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </li>
-            <li className="input-wrapper">
+            <li className="input-register">
               <IconoEmail />
               <input
+                className="input-reg"
                 type="email"
                 id="email"
                 name="email"
@@ -84,9 +91,10 @@ const RegisterPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </li>
-            <li className="input-wrapper">
+            <li className="input-register">
               <IconoPassword />
               <input
+                className="input-reg"
                 type="password"
                 id="pass1"
                 name="pass1"
@@ -95,9 +103,10 @@ const RegisterPage = () => {
                 onChange={(e) => setPass1(e.target.value)}
               />
             </li>
-            <li className="input-wrapper">
+            <li className="input-register">
               <IconoPassword />
               <input
+                className="input-reg"
                 type="password"
                 id="pass2"
                 name="pass2"
@@ -106,20 +115,14 @@ const RegisterPage = () => {
                 onChange={(e) => setPass2(e.target.value)}
               />
             </li>
+            <li className="input-register">
+              <button className="boton-reg">
+                <span>Registro</span>
+                <FaUserPlus />
+              </button>
+            </li>
           </ul>
 
-          <button
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "8px",
-              margin: "1rem",
-            }}
-          >
-            <span>Registro</span>
-            <FaUserPlus />
-          </button>
           <Link to="/login">¿Tienes ya cuenta con nosotros? Logeate</Link>
         </fieldset>
       </form>

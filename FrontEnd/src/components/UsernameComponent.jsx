@@ -33,40 +33,48 @@ const UsernameComponent = ({ currentUsername, handleUsernameChange }) => {
       {editing ? (
         <>
           <input
+            className="input-personal"
             type="text"
             value={newUsername}
             onChange={(e) => setNewUsername(e.target.value)}
             placeholder="Nuevo Username..."
           />
 
-          <button
-            type="button"
-            onClick={handleSave}
+          <div
             style={{
-              cursor: "pointer",
+              marginTop: "1rem",
             }}
           >
-            <FaCheck
-              title="Aceptar"
+            <button
+              type="button"
+              onClick={handleSave}
               style={{
-                color: "green",
+                marginRight: "1rem",
+                cursor: "pointer",
               }}
-            />
-          </button>
-          <button
-            type="button"
-            onClick={handleCancel}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <FaTimes
-              title="cancelar"
+            >
+              <FaCheck
+                title="Aceptar"
+                style={{
+                  color: "green",
+                }}
+              />
+            </button>
+            <button
+              type="button"
+              onClick={handleCancel}
               style={{
-                color: "red",
+                cursor: "pointer",
               }}
-            />
-          </button>
+            >
+              <FaTimes
+                title="cancelar"
+                style={{
+                  color: "red",
+                }}
+              />
+            </button>
+          </div>
         </>
       ) : (
         <h3

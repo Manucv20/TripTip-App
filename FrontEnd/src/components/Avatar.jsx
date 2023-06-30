@@ -4,8 +4,6 @@ const Avatar = ({ imagen, estilo }) => {
     : null;
 
   const estiloAvatar = {
-    width: "170px",
-    height: "170px",
     display: "inline-block",
     backgroundSize: "cover",
     borderRadius: "50%",
@@ -16,7 +14,7 @@ const Avatar = ({ imagen, estilo }) => {
 
   return (
     <img
-      className="avatar-photo"
+      className="avatar-movil"
       src={imagenUrl || "/photoperfil.png"}
       alt="Mi Perfil"
       style={estiloAvatar}
