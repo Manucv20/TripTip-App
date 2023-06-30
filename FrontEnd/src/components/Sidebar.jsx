@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FaSuitcase, FaHeart, FaCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -7,9 +7,23 @@ const Sidebar = () => {
   const { userData } = useContext(AuthContext);
   const [highlightedItem, setHighlightedItem] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSidebarVisible(window.innerWidth > 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Comprobar el tamaño inicial de la pantalla
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   if (!userData) {
-    return <div>Cargando...</div>; // Indicador de carga mientras se carga userData solución al problema de la carga de la pagina cuando se reinicia
+    return <div>Cargando...</div>;
   }
 
   const handleMouseEnter = (index) => {
@@ -25,7 +39,7 @@ const Sidebar = () => {
   };
 
   const sidebarStyles = {
-    display: "flex",
+    display: isSidebarVisible ? "flex" : "none",
     flexDirection: "column",
     alignItems: "flex-start",
     padding: "10px",
