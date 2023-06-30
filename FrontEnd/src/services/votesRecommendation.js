@@ -12,6 +12,12 @@ export const getVotedRecommendations = async (userId, token) => {
 
     const votedRecommendations = response.data;
 
+    const { value } = votedRecommendations[0];
+
+    if (value !== 1) {
+      return 0;
+    }
+
     const promises = votedRecommendations.map(async (votedRecommendation) => {
       let recommendationId = votedRecommendation.recommendation_id;
 
