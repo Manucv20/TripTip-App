@@ -1,3 +1,5 @@
+import React from "react";
+
 const Footer = () => {
   return (
     <footer style={styles.footer}>
@@ -11,7 +13,6 @@ const styles = {
     backgroundColor: "rgb(194, 178, 128)",
     width: "100%",
     padding: "10px",
-    marginTop: "20px", // Ajusta el valor según el margen superior deseado
     bottom: 0,
     left: 0,
     display: "flex",
