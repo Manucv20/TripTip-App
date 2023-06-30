@@ -60,7 +60,7 @@ const createNewUser = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: "Usuario registrado exitosamente.", userId });
+      .json({ message: "Usuario registrado exitosamente.", userId, token });
   } catch (err) {
     next(err);
   }
