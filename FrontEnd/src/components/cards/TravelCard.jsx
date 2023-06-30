@@ -2,11 +2,10 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { searchAPI } from "../../services/getRecommendations";
 
-const BeachCard = () => {
+const TravelCard = ({ categoria, backgroundImage, title }) => {
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    const categoria = "Playas relax"; // Cambia la categoría de búsqueda a "Playa"
     const results = await searchAPI("", categoria);
     navigate("/search-results", { state: { searchResults: results } });
   };
@@ -23,16 +22,16 @@ const BeachCard = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundSize: "cover",
-          backgroundImage: `url("/viaje_playa.jpg")`,
+          backgroundImage: `url(${backgroundImage})`,
         }}
         onClick={handleSearch}
       >
         <h3 style={{ fontSize: "24px", color: "#ffffff", margin: "0" }}>
-          Playas y relax
+          {title}
         </h3>
       </div>
     </Link>
   );
 };
 
-export default BeachCard;
+export default TravelCard;
