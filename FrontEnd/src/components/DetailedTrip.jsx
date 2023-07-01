@@ -53,7 +53,7 @@ export const DetailedTrip = ({ trip }) => {
         <p id="details">{trip.result.details}</p>
       </div>
       <div id="datasheet">
-        <h2>Información de viaje:</h2>
+        <h2>Información de viaje</h2>
         <p>Categoría:</p>
         <p>{trip.result.category}</p>
         <p>Dirección:</p>

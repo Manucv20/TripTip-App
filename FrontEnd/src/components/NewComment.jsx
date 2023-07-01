@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { userCommentService } from "../services";
 import { AuthContext } from "../context/AuthContext";
+import Avatar from "./Avatar";
 
 const NewComment = ({ trip, addComment }) => {
   const [comment, setComment] = useState("");
@@ -38,11 +39,12 @@ const NewComment = ({ trip, addComment }) => {
 
   return (
     <section className="NewComment">
+      <Avatar estilo={{ width: "50px", height: "50x" }} />
       <form className="comment-form" onSubmit={handleSubmitComment}>
         <textarea
           value={comment}
           className="comment-textarea"
-          placeholder="Añade un comentario"
+          placeholder="Añade un comentario..."
           onChange={handleCommentChange}
         ></textarea>
         <div className="comment-buttons">
