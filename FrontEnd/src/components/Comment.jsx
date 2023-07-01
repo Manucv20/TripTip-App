@@ -45,7 +45,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
         <p className="c-username">@{comment.username} </p>&nbsp;
         <p className="c-created_at">{timeDiff}</p>
       </div>
-      <div className="prueba">
+      <div>
         <textarea
           ref={textareaRef}
           rows={1}
