@@ -142,6 +142,7 @@ section {
   margin: 0.5rem;
   transition: 0.3s ease all;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+
 }
 
 .avatar-movil {
@@ -184,6 +185,7 @@ section {
     width: 70px;
   }
 }
+
 
 /* Final del CSS de la pagina de perfil */
 
@@ -408,8 +410,10 @@ body {
   /* "Comentarios" y todos sus hijos*/
 }
 
+
 .CommentsList .Comment {
   position: relative;
+
 }
 
 .mas-comentarios {
@@ -424,4 +428,5 @@ body {
 .prueba {
   background-color: black;
 }
+
 /* FIN Recomendación en detalle TripPage test*/
