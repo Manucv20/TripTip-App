@@ -73,7 +73,7 @@ async function main() {
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );`);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   } finally {
     if (connection) connection.release();
     process.exit();

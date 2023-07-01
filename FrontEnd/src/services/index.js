@@ -165,7 +165,7 @@ export const updataUserPasswordService = async ({ password, token, id }) => {
   }
 };
 
-export const getSingleTripService = async (id) => {
+export const getSingleTripService = async ({ id }) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_APP_BACKEND}/recommendation/${id}`
@@ -207,7 +207,7 @@ export const userCommentService = async (id, comment, token) => {
   }
 };
 
-export const tripCommentsService = async (id) => {
+export const tripCommentsService = async ({ id }) => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_APP_BACKEND}/recommendations/${id}/comments`,

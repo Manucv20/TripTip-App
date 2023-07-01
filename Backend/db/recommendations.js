@@ -47,17 +47,18 @@ const getRecommendationById = async (id) => {
       [id]
     );
 
-    const [userResult] = await connection.query(
-      `
-      SELECT username FROM users WHERE id = ?
-    `,
-      [result[0].user_id]
-    );
-
-    console.log(result[0].user_id);
-
     if (result.length === 0) {
       throw generateError(`La recomendación con ID: ${id} no existe`, 404);
+    }
+
+    let userResult;
+    if (result[0].user_id) {
+      [userResult] = await connection.query(
+        `
+        SELECT username FROM users WHERE id = ?
+      `,
+        [result[0].user_id]
+      );
     }
 
     const [votes] = await connection.query(
@@ -74,7 +75,7 @@ const getRecommendationById = async (id) => {
       result: result[0],
       votes: votes[0].votes,
       comments: comments,
-      userResult: userResult[0],
+      userResult: userResult ? userResult[0] : null,
     };
 
     return [recommendation];
@@ -161,7 +162,7 @@ const recommendationByUser = async (id) => {
 
     const [recommendation] = await connection.query(
       `
-    SELECT * FROM recommendations WHERE user_id = ?
+    SELECT r.*, (SELECT COUNT(*) FROM votes v WHERE v.recommendation_id = r.id) AS votes FROM recommendations r WHERE r.user_id = ?
     `,
       [id]
     );
@@ -183,29 +184,60 @@ const updateRecommendation = async (
   location,
   summary,
   details,
-  image = "",
+  image,
   id
 ) => {
   let connection;
   try {
     connection = await getConnection();
-    //Crear una recomendacion
+    // Crear una lista de actualizaciones que se aplicarán en la consulta
+    const updates = [];
+    const params = [];
 
-    const [newRecommendation] = await connection.query(
-      `UPDATE recommendations
-      SET user_id = ?,
-      title = ?, 
-      category = ?, 
-      location = ?, 
-      summary = ?, 
-      details = ?, 
-      image = ?
-      WHERE id = ?;`,
-      [userId, title, category, location, summary, details, image, id]
-    );
+    // Verificar qué columnas deben actualizarse y agregarlas a la lista de actualizaciones
+    if (title !== undefined) {
+      updates.push("title = ?");
+      params.push(title);
+    }
+    if (category !== undefined) {
+      updates.push("category = ?");
+      params.push(category);
+    }
+    if (location !== undefined) {
+      updates.push("location = ?");
+      params.push(location);
+    }
+    if (summary !== undefined) {
+      updates.push("summary = ?");
+      params.push(summary);
+    }
+    if (details !== undefined) {
+      updates.push("details = ?");
+      params.push(details);
+    }
+    if (image !== undefined) {
+      updates.push("image = ?");
+      params.push(image);
+    }
 
-    //Devolver la id
-    return newRecommendation.insertId;
+    // Verificar si se proporcionaron columnas para actualizar
+    if (updates.length === 0) {
+      throw generateError("No se proporcionaron datos para actualizar.", 400);
+    }
+
+    // Generar la consulta SQL dinámica con las actualizaciones
+    const sql = `UPDATE recommendations
+      SET ${updates.join(", ")}
+      WHERE id = ?;`;
+
+    // Agregar el ID al final de los parámetros
+    params.push(id);
+
+    // Ejecutar la consulta con los parámetros
+    const [result] = await connection.query(sql, params);
+
+    // Devolver la id de la recomendación actualizada
+    return result.insertId;
   } finally {
     if (connection) connection.release();
   }

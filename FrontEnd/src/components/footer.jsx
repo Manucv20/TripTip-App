@@ -13,7 +13,6 @@ const styles = {
     backgroundColor: "rgb(194, 178, 128)",
     width: "100%",
     padding: "10px",
-    position: "fixed",
     bottom: 0,
     left: 0,
     display: "flex",

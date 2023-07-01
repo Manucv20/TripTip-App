@@ -1,38 +1,65 @@
 import { AuthContext } from "../context/AuthContext";
-import { useState, useContext } from "react";
 import { deleteCommentService } from "../services";
 import Avatar from "./Avatar";
+import React, { useState, useContext, useEffect, useRef } from "react";
 
 export const Comment = ({ comment, removeComment, timeDiff }) => {
   const { auth, userData, token } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const textareaRef = useRef(null);
+
   const deleteComment = async (id) => {
     try {
-      await deleteCommentService({ id, token });
-      removeComment(id);
+      const confirmDelete = window.confirm(
+        "¿Estás seguro de que quieres borrar el comentario?"
+      );
+      if (confirmDelete) {
+        await deleteCommentService({ id, token });
+        removeComment(id);
+      }
     } catch (error) {
       setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [comment.comment]);
+
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
 
   return (
     <>
       <div className="namedate-container">
-        <Avatar />
+        <Avatar
+          imagen={comment.avatar}
+          estilo={{ width: "30px", height: "30px" }}
+        />
         <p className="c-username">@{comment.username} </p>&nbsp;
         <p className="c-created_at">{timeDiff}</p>
       </div>
-      <div>
-        <div>{comment.comment}</div>
+      <div className="prueba">
+        <textarea
+          ref={textareaRef}
+          rows={1}
+          className="comment-content"
+          value={comment.comment}
+          onChange={adjustTextareaHeight}
+        />
         {auth && userData.userId === comment.user_id ? (
           <button
             className="trashcan"
             onClick={() => deleteComment(comment.id)}
           >
             <img
-              className="trashcan-img"
               src="/trash-can.png"
-              alt="eliminar-comentario"
+              className="trashcan-img"
+              alt="Trash Can"
             />
           </button>
         ) : null}
