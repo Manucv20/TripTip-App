@@ -39,33 +39,28 @@ const NewComment = ({ trip, addComment }) => {
 
   return (
     <section className="NewComment">
-      <div className="NewComment-container">
-        <Avatar
-          className="avatar-nc"
-          estilo={{ width: "65px", height: "65px" }}
-        />
-        <form className="comment-form" onSubmit={handleSubmitComment}>
-          <textarea
-            value={comment}
-            className="comment-textarea"
-            placeholder="Añade un comentario..."
-            onChange={handleCommentChange}
-          ></textarea>
-          <div className="comment-buttons">
-            <button
-              type="button"
-              className="comment-cancel-button"
-              onClick={handleCancelComment}
-            >
-              Cancelar
-            </button>
-            <button type="submit" className="comment-submit-button">
-              Comentar
-            </button>
-            {sending ? <p>Sending comment</p> : null}
-          </div>
-        </form>
-      </div>
+      <Avatar estilo={{ width: "50px", height: "50x" }} />
+      <form className="comment-form" onSubmit={handleSubmitComment}>
+        <textarea
+          value={comment}
+          className="comment-textarea"
+          placeholder="Añade un comentario..."
+          onChange={handleCommentChange}
+        ></textarea>
+        <div className="comment-buttons">
+          <button
+            type="button"
+            className="comment-cancel-button"
+            onClick={handleCancelComment}
+          >
+            Cancelar
+          </button>
+          <button type="submit" className="comment-submit-button">
+            Comentar
+          </button>
+          {sending ? <p>Sending comment</p> : null}
+        </div>
+      </form>
     </section>
   );
 };

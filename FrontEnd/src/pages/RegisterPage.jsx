@@ -33,23 +33,15 @@ const RegisterPage = () => {
         password: pass1,
       });
 
-      const clave = data.token;
-      navigate(`/registered/${clave}`);
+      const { token } = data;
+      navigate(`/registered/${token}`);
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   return (
-    <section
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "2rem",
-      }}
-    >
+    <section style={{ margin: "2rem" }}>
       <form onSubmit={handleForm} style={{ margin: "2rem" }}>
         <fieldset
           style={{
@@ -74,14 +66,7 @@ const RegisterPage = () => {
           >
             Register on <Link to="/">TripTip</Link>
           </h2>
-          <ul
-            style={{
-              listStyle: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem",
-            }}
-          >
+          <ul>
             <li className="input-register">
               <IconoUserRegister />
               <input

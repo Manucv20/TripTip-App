@@ -2,10 +2,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { voteTripUserService } from "../services";
 import { useNavigate } from "react-router-dom";
-import NewComment from "../components/NewComment";
-import { CommentsList } from "../components/CommentsList";
 
-export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
+export const DetailedTrip = ({ trip }) => {
   const navigate = useNavigate();
   const { token, auth } = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -24,50 +22,47 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
 
   return (
     <section className="DetailedTrip">
-      <div className="image-content">
-        {trip.result.image ? (
-          <img
-            id="detailedPhoto"
-            src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image
+      <div className="image-container">
+        <div className="image-content">
+          {trip.result.image ? (
+            <img
+              id="detailedPhoto"
+              src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                trip.result.image
               }`}
-            alt={trip.result.summary}
-          />
-        ) : (
-          "/Subir_foto_recomendacion.jpg"
-        )}
-        <div className="summary-container">
-          <p id="summary">"{trip.result.summary}"</p>
-          <div className="vote-container" onClick={voteTrip}>
-            <div
-              style={{
-                cursor: "pointer",
-              }}
-            >
-              ❤️ {votes}
-            </div>{" "}
-            <div>{error ? <p>{error}</p> : null}</div>
+              alt={trip.result.summary}
+            />
+          ) : null}
+          <div className="summary-container">
+            <p id="summary">"{trip.result.summary}"</p>
+            <div className="vote-container" onClick={voteTrip}>
+              <div
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                ❤️ {votes}
+              </div>{" "}
+              <div>{error ? <p>{error}</p> : null}</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="title-container">
+      <div>
         <h1>{trip.result.title}</h1>
         <p id="details">{trip.result.details}</p>
-        <div id="datasheet">
-          <h2>Información de viaje</h2>
-          <p>Categoría:</p>
-          <p>{trip.result.category}</p>
-          <p>Dirección:</p>
-          <p>{trip.result.location}</p>
-          <p>Recomendado por:</p>
-          <p>{trip.userResult.username}</p>
-          <p>Fecha de recomendación:</p>
-          <p>{new Date(trip.result.created_at).toLocaleDateString("es-ES")}</p>
-        </div>
       </div>
-      <div className="comments-container">
-        {auth && <NewComment trip={trip} addComment={addComment} />}
-        <CommentsList comments={comments} removeComment={removeComment} />
-      </div>{" "}
+      <div id="datasheet">
+        <h2>Información de viaje</h2>
+        <p>Categoría:</p>
+        <p>{trip.result.category}</p>
+        <p>Dirección:</p>
+        <p>{trip.result.location}</p>
+        <p>Recomendado por:</p>
+        <p>{trip.userResult.username}</p>
+        <p>Fecha de recomendación:</p>
+        <p>{new Date(trip.result.created_at).toLocaleDateString("es-ES")}</p>
+      </div>
     </section>
   );
 };

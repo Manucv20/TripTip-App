@@ -23,12 +23,6 @@ const CreateRecommendationPage = () => {
             ...formData,
             [e.target.name]: e.target.value,
         });
-
-        // Limpia los errores cuando el usuario modifica un campo
-        setFormErrors({
-            ...formErrors,
-            [e.target.name]: null,
-        });
     };
 
     const handleImageChange = (e) => {
@@ -40,18 +34,19 @@ const CreateRecommendationPage = () => {
 
     const handleCreateRecommendation = async () => {
         try {
+            const recommendationData = {
+                title: formData.title,
+                category: formData.category,
+                location: formData.location,
+                summary: formData.summary,
+                details: formData.details,
+                // Otros campos de datos que necesites para crear la recomendación
+            };
+
             if (!token) {
-                console.log("Error: No se encontró el token");
+                console.log("Error: No token found");
                 return;
             }
-
-            const recommendationData = new FormData();
-            recommendationData.append("title", formData.title);
-            recommendationData.append("category", formData.category);
-            recommendationData.append("location", formData.location);
-            recommendationData.append("summary", formData.summary);
-            recommendationData.append("details", formData.details);
-            recommendationData.append("image", formData.image);
 
             const newRecommendation = await createRecommendation(
                 recommendationData,
@@ -63,8 +58,6 @@ const CreateRecommendationPage = () => {
             navigate("/myRecommendations");
         } catch (error) {
             console.log("Error al crear la recomendación:", error);
-            // Mostrar mensaje de error al usuario
-            alert("Error al crear la recomendación. Por favor, inténtalo de nuevo más tarde.");
         }
     };
 
@@ -103,11 +96,6 @@ const CreateRecommendationPage = () => {
             errors.details = "Los detalles son requeridos";
         }
 
-        // Validación de tipo de archivo de imagen (ejemplo: solo se permiten JPEG y PNG)
-        if (formData.image && !formData.image.type.includes("image/")) {
-            errors.image = "Por favor, selecciona un archivo de imagen válido";
-        }
-
         setFormErrors(errors);
 
         return Object.keys(errors).length === 0;
@@ -125,9 +113,11 @@ const CreateRecommendationPage = () => {
         <div
             style={{
                 display: "flex",
-                alignItems: "center",
                 justifyContent: "center",
-                minHeight: "100vh",
+                alignItems: "center",
+                height: "100vh",
+                padding: "20px",
+                boxSizing: "border-box",
             }}
         >
             <form
@@ -136,10 +126,10 @@ const CreateRecommendationPage = () => {
                     display: "flex",
                     flexDirection: "column",
                     maxWidth: "400px",
+                    width: "100%",
                     padding: "20px",
                     border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#f1f1f1",
+                    borderRadius: "8px",
                 }}
             >
                 <label style={{ marginBottom: "10px" }}>Título:</label>
@@ -149,13 +139,9 @@ const CreateRecommendationPage = () => {
                     value={formData.title}
                     onChange={handleInputChange}
                     required
-                    style={{ marginBottom: "10px", width: "100%" }}
+                    style={{ marginBottom: "10px" }}
                 />
-                {formErrors.title && (
-                    <p style={{ color: "red", marginBottom: "10px" }}>
-                        {formErrors.title}
-                    </p>
-                )}
+                {formErrors.title && <p>{formErrors.title}</p>}
                 <label style={{ marginBottom: "10px" }}>Categoría:</label>
                 <input
                     type="text"
@@ -163,13 +149,9 @@ const CreateRecommendationPage = () => {
                     value={formData.category}
                     onChange={handleInputChange}
                     required
-                    style={{ marginBottom: "10px", width: "100%" }}
+                    style={{ marginBottom: "10px" }}
                 />
-                {formErrors.category && (
-                    <p style={{ color: "red", marginBottom: "10px" }}>
-                        {formErrors.category}
-                    </p>
-                )}
+                {formErrors.category && <p>{formErrors.category}</p>}
                 <label style={{ marginBottom: "10px" }}>Ubicación:</label>
                 <input
                     type="text"
@@ -177,73 +159,35 @@ const CreateRecommendationPage = () => {
                     value={formData.location}
                     onChange={handleInputChange}
                     required
-                    style={{ marginBottom: "10px", width: "100%" }}
+                    style={{ marginBottom: "10px" }}
                 />
-                {formErrors.location && (
-                    <p style={{ color: "red", marginBottom: "10px" }}>
-                        {formErrors.location}
-                    </p>
-                )}
+                {formErrors.location && <p>{formErrors.location}</p>}
                 <label style={{ marginBottom: "10px" }}>Resumen:</label>
                 <textarea
                     name="summary"
                     value={formData.summary}
                     onChange={handleInputChange}
                     required
-                    style={{ marginBottom: "10px", width: "100%" }}
+                    style={{ marginBottom: "10px" }}
                 />
-                {formErrors.summary && (
-                    <p style={{ color: "red", marginBottom: "10px" }}>
-                        {formErrors.summary}
-                    </p>
-                )}
+                {formErrors.summary && <p>{formErrors.summary}</p>}
                 <label style={{ marginBottom: "10px" }}>Detalles:</label>
                 <textarea
                     name="details"
                     value={formData.details}
                     onChange={handleInputChange}
                     required
-                    style={{ marginBottom: "10px", width: "100%" }}
+                    style={{ marginBottom: "10px" }}
                 />
-                {formErrors.details && (
-                    <p style={{ color: "red", marginBottom: "10px" }}>
-                        {formErrors.details}
-                    </p>
-                )}
+                {formErrors.details && <p>{formErrors.details}</p>}
                 <label style={{ marginBottom: "10px" }}>Imagen:</label>
-                {formData.image && (
-                    <img
-                        src={URL.createObjectURL(formData.image)}
-                        alt="Selected"
-                        style={{ marginBottom: "10px", width: "100%" }}
-                    />
-                )}
                 <input
                     type="file"
                     name="image"
-                    accept="image/jpeg, image/png"
                     onChange={handleImageChange}
                     style={{ marginBottom: "10px" }}
                 />
-                {formErrors.image && (
-                    <p style={{ color: "red", marginBottom: "10px" }}>
-                        {formErrors.image}
-                    </p>
-                )}
-                <button
-                    type="submit"
-                    style={{
-                        backgroundColor: "#4CAF50",
-                        color: "white",
-                        padding: "10px 20px",
-                        border: "none",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        width: "100%",
-                    }}
-                >
-                    Crear nueva recomendación
-                </button>
+                <button type="submit">Crear nueva recomendación</button>
             </form>
         </div>
     );

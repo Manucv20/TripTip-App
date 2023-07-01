@@ -4,8 +4,7 @@ const SendEmailPage = () => {
       <section
         style={{
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          justifyContent: "center",
           gap: "2rem",
           marginTop: "2rem",
           marginBottom: "2rem",
