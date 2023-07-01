@@ -18,11 +18,13 @@ const TripPage = () => {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <section className="TripPage">
-      <DetailedTrip trip={trip} />
-      {auth ? <NewComment trip={trip} addComment={addComment} /> : null}
-      <CommentsList comments={comments} removeComment={removeComment} />
-    </section>
+    <DetailedTrip
+      className="TripPage"
+      trip={trip}
+      addComment={addComment}
+      comments={comments}
+      removeComment={removeComment}
+    />
   );
 };
 

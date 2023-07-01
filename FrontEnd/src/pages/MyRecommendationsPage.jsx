@@ -123,9 +123,9 @@ const CreatedRecommendations = () => {
                   <img
                     src={
                       recommendation.image
-                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                            recommendation.image
-                          }`
+
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${recommendation.image}`
+
                         : "/Subir_foto_recomendacion.jpg"
                     }
                     alt={recommendation.title}
@@ -150,9 +150,11 @@ const CreatedRecommendations = () => {
                   </button>
                   <button
                     style={buttonStyle}
+
                     onClick={() =>
                       handleDeleteRecommendation(recommendation.id)
                     }
+
                   >
                     Borrar
                   </button>
