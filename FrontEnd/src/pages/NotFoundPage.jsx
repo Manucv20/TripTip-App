@@ -6,7 +6,8 @@ const NotFoundPage = () => {
       <section
         style={{
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
           gap: "1rem",
           marginTop: "2rem",
           marginBottom: "2rem",
