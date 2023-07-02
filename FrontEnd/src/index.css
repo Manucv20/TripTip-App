@@ -14,6 +14,7 @@ section {
   align-items: center;
 } */
 
+
 /* Final del CSS común para todas las páginas */
 /* CSS Formulario Registro y Login*/
 
@@ -143,6 +144,7 @@ section {
   margin: 0.5rem;
   transition: 0.3s ease all;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+
 }
 
 .avatar-movil {
@@ -185,6 +187,7 @@ section {
     width: 70px;
   }
 }
+
 
 /* Final del CSS de la pagina de perfil */
 
@@ -468,7 +471,7 @@ p#details {
     flex-direction: column;
     align-items: center;
   }
-
+}
   .comments-container {
     display: flex;
     flex-direction: column;
@@ -494,5 +497,6 @@ p#details {
 #detailedPhoto {
   width: 100%;
 }
+
 
 /* FIN Recomendación en detalle TripPage test*/

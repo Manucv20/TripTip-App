@@ -35,8 +35,6 @@ const getVotedRecommendationsController = async (req, res, next) => {
 
     const votedRecommendations = await getVotedRecommendationsByUser(user_id);
 
-    console.log(votedRecommendations);
-
     res.status(200).json(votedRecommendations);
   } catch (er) {
     next(e);

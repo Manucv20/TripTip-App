@@ -15,7 +15,6 @@ const LikePages = () => {
             userData.userId,
             token
           );
-
           setVotedRecommendations(response);
         }
       } catch (error) {
