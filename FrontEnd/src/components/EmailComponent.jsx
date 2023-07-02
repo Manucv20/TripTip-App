@@ -23,15 +23,17 @@ const EmailComponent = ({ currentEmail }) => {
         return;
       }
 
-      await updataUserEmailService({
+      const data = await updataUserEmailService({
         email: newEmail,
         token,
         id: userData.userId,
       });
       toast.success("Actualización exitosa.");
 
+      const clave = data.token;
+
       logoutHandler();
-      navigate("/registered");
+      navigate(`/registered/${clave}`);
     } catch (error) {
       toast.error(error.message);
     }
