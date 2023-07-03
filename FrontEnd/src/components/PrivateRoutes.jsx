@@ -18,7 +18,7 @@ function PrivateRoutes() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            gap: "1rem",
+            // gap: "1rem",
             width: "100%",
           }}
         >

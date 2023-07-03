@@ -2,17 +2,18 @@
 
 ul {
   list-style: none;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; */
 }
 
-section {
+/* section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+}  */
+
 
 /* Final del CSS común para todas las páginas */
 /* CSS Formulario Registro y Login*/
@@ -219,7 +220,7 @@ a {
   border-radius: 4px;
 }
 
-/* Recomendación en detalle TripPage */
+Recomendación en detalle TripPage */
 * {
   margin: 0;
   padding: 0;
@@ -237,10 +238,10 @@ body {
   overflow-y: auto;
   min-width: 320px;
 }
-#root {
+ #root {
   width: 100%;
   height: 100%;
-}
+} 
 
 .vote-container {
   display: flex;
@@ -305,6 +306,7 @@ p#details {
 }
 
 @media (max-width: 767px) {
+  
   .TripPage {
     display: flex;
     justify-content: center;
@@ -316,9 +318,45 @@ p#details {
     min-width: 320px;
   }
 
-  /* .NewComment-container {
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #datasheet {
+    width: 70%;
+  }
+
+  .comments-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comments-container{
+    width: 80%;
+  }
+
+  .NewComment{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
+
+  .NewComment-container {
     width: 100%;
-  } */
+  }
+
+  .comment-textarea{
+    width: 100%;
+  }
+
+  .NewComment{
+  }
+
+
 }
 /* Caja de comentarios */
 .mas-comentarios {
@@ -389,9 +427,15 @@ p#details {
   padding: 2rem;
   font-size: 1rem;
   width: 100%;
+
+}
+
+.CommentsList {
+  width: 100%;
 }
 
 .CommentsList .ul-comments {
+  all: initial;
   list-style-type: none;
   width: 100%;
 }
@@ -483,10 +527,6 @@ p#details {
     width: 100%;
   }
 
-  .CommentsList {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
 }
 
 /* Fin Desktop layout */
@@ -495,4 +535,4 @@ p#details {
   width: 100%;
 }
 
-/* FIN Recomendación en detalle TripPage test*/
+/* FIN Recomendación en detalle TripPage test

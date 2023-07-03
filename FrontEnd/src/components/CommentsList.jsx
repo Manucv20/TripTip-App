@@ -42,9 +42,7 @@ export const CommentsList = ({ comments, removeComment }) => {
         <ul className="ul-comments">
           <h3 id="titulo">Comentarios</h3>
 
-
           {reversedComments.slice(0, visibleComments).map((comment) => {
-
             const commentDate = new Date(comment.created_at);
             const utcDateString = commentDate.toUTCString();
             const timeDiff = calculateTimeDiff(utcDateString);
