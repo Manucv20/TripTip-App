@@ -1,6 +1,4 @@
-
-import TravelCard from "../components/cards/TravelCard";
-
+import TravelCard from "../components/Cards/TravelCard";
 import SearchComponent from "../components/SearchComponent";
 
 const HomePage = () => {

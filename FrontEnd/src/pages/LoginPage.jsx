@@ -60,15 +60,7 @@ const LoginPage = () => {
   };
 
   return (
-    <section
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "2rem",
-      }}
-    >
+    <section style={{ height: "75vh" }}>
       <form onSubmit={submitHandler} style={{ margin: "2rem" }}>
         <fieldset
           style={{
@@ -93,14 +85,7 @@ const LoginPage = () => {
           >
             Login on <Link to="/">TripTip</Link>
           </h2>
-          <ul
-            style={{
-              listStyle: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem",
-            }}
-          >
+          <ul>
             <li className="input-register">
               <IconoEmail />
               <input

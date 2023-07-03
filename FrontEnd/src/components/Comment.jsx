@@ -38,9 +38,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
       <div className="namedate-container">
         <Avatar
           imagen={comment.avatar}
-
           estilo={{ width: "30px", height: "30px" }}
-
         />
         <p className="c-username">@{comment.username} </p>&nbsp;
         <p className="c-created_at">{timeDiff}</p>

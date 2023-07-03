@@ -1,4 +1,4 @@
-const Avatar = ({ imagen, estilo, className }) => {
+const Avatar = ({ imagen, estilo }) => {
   const imagenUrl = imagen
     ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${imagen}`
     : null;
@@ -14,9 +14,7 @@ const Avatar = ({ imagen, estilo, className }) => {
 
   return (
     <img
-
-      className={className}
-
+      className="avatar-movil"
       src={imagenUrl || "/photoperfil.png"}
       alt="Mi Perfil"
       style={estiloAvatar}

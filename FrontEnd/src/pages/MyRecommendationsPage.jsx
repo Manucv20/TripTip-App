@@ -1,13 +1,15 @@
-import { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { getCreatedRecommendations } from "../services/getRecommendationsById";
-import { Link } from "react-router-dom";
+import {
+  getCreatedRecommendations,
+  deleteRecommendation,
+} from "../services/getRecommendationsById";
 
 const CreatedRecommendations = () => {
-  const { userData } = useContext(AuthContext);
+  const { userData, token } = useContext(AuthContext);
   const [createdRecommendations, setCreatedRecommendations] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCreatedRecommendations = async () => {
@@ -24,6 +26,19 @@ const CreatedRecommendations = () => {
     fetchCreatedRecommendations();
   }, [userData]);
 
+  const handleDeleteRecommendation = async (recommendationId) => {
+    try {
+      await deleteRecommendation(recommendationId, token);
+      const updatedRecommendations = createdRecommendations.filter(
+        (recommendation) => recommendation.id !== recommendationId
+      );
+      setCreatedRecommendations(updatedRecommendations);
+      console.log("Recomendación eliminada:", recommendationId);
+    } catch (error) {
+      console.log("Error al eliminar la recomendación:", error);
+    }
+  };
+
   const containerStyle = {
     width: "100%",
     height: "100%",
@@ -39,22 +54,27 @@ const CreatedRecommendations = () => {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
-    overflowY: "auto",
     padding: "16px",
+    overflowY: "auto",
   };
 
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
     borderRadius: "8px",
     border: "1px solid #ccc",
     padding: "16px",
     marginBottom: "16px",
+    minHeight: "250px",
   };
 
   const imageStyle = {
     width: "200px",
     height: "200px",
+    marginBottom: "16px",
+    objectFit: "cover",
+    borderRadius: "8px",
     marginBottom: "16px",
   };
 
@@ -62,60 +82,52 @@ const CreatedRecommendations = () => {
     flex: "1",
   };
 
-  const paginationMenuStyle = {
-    backgroundColor: "#f9f9f9",
-    borderTop: "1px solid #ccc",
-    padding: "16px",
-    textAlign: "center",
+  const buttonStyle = {
+    margin: "8px",
+    padding: "8px",
+    borderRadius: "4px",
+    background: "#eee",
+    border: "none",
+    cursor: "pointer",
   };
 
-  // Obtener el índice de inicio y fin para la página actual
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // Obtener las recomendaciones para la página actual
-  const currentRecommendations = createdRecommendations.slice(
-    startIndex,
-    endIndex
-  );
-
-  // Calcular el número total de páginas
-  const totalPages = Math.ceil(createdRecommendations.length / itemsPerPage);
-
-  // Cambiar a la página anterior
-  const goToPreviousPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+  const addButtonStyle = {
+    marginBottom: "16px",
+    padding: "8px",
+    borderRadius: "4px",
+    background: "#eee",
+    border: "none",
+    cursor: "pointer",
   };
 
-  // Cambiar a la página siguiente
-  const goToNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const handleAddRecommendation = () => {
+    navigate("/recommendations/new");
   };
+
+  const handleEditRecommendation = (recommendationId) => {
+    navigate(`/recommendation/${recommendationId}/edit`);
+  };
+
 
   return (
     <div style={containerStyle}>
       <h2>Tus recomendaciones creadas:</h2>
-      {currentRecommendations.length > 0 ? (
+      <button style={addButtonStyle} onClick={handleAddRecommendation}>
+        Añadir Recomendación
+      </button>
+      {createdRecommendations.length > 0 ? (
         <ul style={listStyle}>
-          {currentRecommendations.map((recommendation) => (
+          {createdRecommendations.map((recommendation) => (
             <li key={recommendation.id}>
-              <Link
-                to={`/recommendation/${recommendation.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div style={cardStyle}>
+              <div style={cardStyle}>
+                <Link
+                  to={`/recommendation/${recommendation.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <img
                     src={
                       recommendation.image
-<<<<<<< HEAD
-
                         ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${recommendation.image}`
-
-=======
-                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                            recommendation.image
-                          }`
->>>>>>> parent of ebb7ba8 (Merge pull request #60 from Manucv20/25-creacion-vista-de-recomendaciones-personal)
                         : "/Subir_foto_recomendacion.jpg"
                     }
                     alt={recommendation.title}
@@ -130,7 +142,6 @@ const CreatedRecommendations = () => {
                     <p>Fecha de creación: {recommendation.created_at}</p>
                     <p>Votos: {recommendation.votes}</p>
                   </div>
-<<<<<<< HEAD
                 </Link>
                 <div>
                   <button
@@ -141,37 +152,17 @@ const CreatedRecommendations = () => {
                   </button>
                   <button
                     style={buttonStyle}
-
-                    onClick={() =>
-                      handleDeleteRecommendation(recommendation.id)
-                    }
-
+                    onClick={() => handleDeleteRecommendation(recommendation.id)}
                   >
                     Borrar
                   </button>
-=======
->>>>>>> parent of ebb7ba8 (Merge pull request #60 from Manucv20/25-creacion-vista-de-recomendaciones-personal)
                 </div>
-              </Link>
+              </div>
             </li>
           ))}
         </ul>
       ) : (
         <p>No has creado ninguna recomendación</p>
-      )}
-
-      {createdRecommendations.length > itemsPerPage && (
-        <div style={paginationMenuStyle}>
-          <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-            Anterior
-          </button>
-          <span>
-            Página {currentPage} de {totalPages}
-          </span>
-          <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-            Siguiente
-          </button>
-        </div>
       )}
     </div>
   );

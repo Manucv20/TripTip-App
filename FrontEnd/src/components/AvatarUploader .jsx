@@ -99,7 +99,7 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
           ) : null}
         </>
       ) : (
-        <Avatar className={"avatar-movil"} imagen={profile_imagen} />
+        <Avatar imagen={profile_imagen} />
       )}
       <input
         id="fileInput"

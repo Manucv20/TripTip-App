@@ -88,7 +88,7 @@ const getVotedRecommendationsByUser = async (user_id) => {
       `
       SELECT recommendation_id, value
       FROM votes
-      WHERE user_id = ? AND value = 1
+      WHERE user_id = ?
     `,
       [user_id]
     );

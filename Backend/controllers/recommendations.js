@@ -2,6 +2,7 @@ const { generateError, createPathIfNotExists } = require("../helpers");
 const {
   newRecommendationSchema,
   idRecommendationSchema,
+  updateRecommendationSchema,
 } = require("../schemas/recommendationsSchemas");
 const {
   createRecommendation,
@@ -39,15 +40,11 @@ const newRecommendationController = async (req, res, next) => {
       const image = sharp(req.files.image.data);
       //verifico que el archivo contenga las extensiones jpg o png
       const fileName = req.files.image.name;
-      if (
-        fileName.endsWith(".jpg") ||
-        fileName.endsWith(".png") ||
-        fileName.endsWith(".jpeg")
-      ) {
-        image.resize(1024);
+      if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+        image.resize(256);
       } else {
         throw generateError(
-          "Por favor, asegúrate de subir una imagen en formato jpg, png o jpeg.",
+          "Por favor, asegúrate de subir una imagen en formato jpg o png.",
           400
         );
       }
@@ -177,7 +174,7 @@ const getRecommendationByUserController = async (req, res, next) => {
 
 const updateRecommendationController = async (req, res, next) => {
   try {
-    const { error, value } = newRecommendationSchema.validate(req.body);
+    const { error, value } = updateRecommendationSchema.validate(req.body);
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
@@ -188,7 +185,7 @@ const updateRecommendationController = async (req, res, next) => {
 
     if (req.userId !== updateQuery.result.user_id) {
       throw generateError(
-        "No puedes eliminar una recomendación que no te pertenece.",
+        "No puedes actualizar una recomendación que no te pertenece.",
         401
       );
     }
@@ -196,27 +193,23 @@ const updateRecommendationController = async (req, res, next) => {
     let imageFileName;
 
     if (req.files?.image) {
-      //Creo el path del directorio uploads
+      // Creo el path del directorio uploads
       const uploadsDir = path.join(__dirname, "../uploads");
-      //Creo el directorio si no existe
+      // Creo el directorio si no existe
       await createPathIfNotExists(uploadsDir);
-      //Procesar la imagen
+      // Procesar la imagen
       const image = sharp(req.files.image.data);
-      //verifico que el archivo contenga las extensiones jpg o png
+      // Verifico que el archivo contenga las extensiones jpg o png
       const fileName = req.files.image.name;
-      if (
-        fileName.endsWith(".jpg") ||
-        fileName.endsWith(".png") ||
-        fileName.endsWith(".jpeg")
-      ) {
-        image.resize(1024);
+      if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+        image.resize(256);
       } else {
         throw generateError(
-          "Por favor, asegúrate de subir una imagen en formato jpg, png o jpeg.",
+          "Por favor, asegúrate de subir una imagen en formato jpg o png.",
           400
         );
       }
-      //Guardo la imagen con un nombre aleatorio en el directorio uploads
+      // Guardo la imagen con un nombre aleatorio en el directorio uploads
       imageFileName = `${randomName(16)}.jpg`;
 
       await image.toFile(path.join(uploadsDir, imageFileName));

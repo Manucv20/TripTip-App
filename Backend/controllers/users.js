@@ -246,7 +246,7 @@ const updateEmailController = async (req, res, next) => {
     });
     res
       .status(200)
-      .json({ message: "Correo Actualizado exitosamente.", userId, token });
+      .json({ message: "Correo Actualizado exitosamente.", userId });
   } catch (error) {
     next(error);
   }
