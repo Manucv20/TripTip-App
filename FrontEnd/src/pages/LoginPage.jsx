@@ -5,8 +5,8 @@ import { FaSignInAlt } from "react-icons/fa";
 
 import { activateUserService, loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import IconoEmail from "../components/IconoEmail";
-import IconoPassword from "../components/IconoPassword";
+import IconoEmail from "../components/icons/IconoEmail";
+import IconoPassword from "../components/icons/IconoPassword";
 
 const LoginPage = () => {
   const navigate = useNavigate();

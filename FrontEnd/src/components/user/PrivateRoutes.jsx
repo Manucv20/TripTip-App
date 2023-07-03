@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import Sidebar from "./Sidebar";
+import Sidebar from "../layout/Sidebar";
 
 function PrivateRoutes() {
   const navigate = useNavigate();

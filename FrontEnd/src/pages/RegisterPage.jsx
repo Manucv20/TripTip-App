@@ -4,9 +4,9 @@ import { toast } from "sonner";
 import { FaUserPlus } from "react-icons/fa";
 
 import { registerUserService } from "../services";
-import IconoUserRegister from "../components/IconoUserRegister";
-import IconoEmail from "../components/IconoEmail";
-import IconoPassword from "../components/IconoPassword";
+import IconoUserRegister from "../components/icons/IconoUserRegister";
+import IconoEmail from "../components/icons/IconoEmail";
+import IconoPassword from "../components/icons/IconoPassword";
 
 const RegisterPage = () => {
   const navigate = useNavigate();

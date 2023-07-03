@@ -1,6 +1,6 @@
 import { AuthContext } from "../../context/AuthContext";
 import { deleteCommentService } from "../../services";
-import Avatar from "./Avatar";
+import Avatar from "../user/Avatar";
 import React, { useState, useContext, useEffect, useRef } from "react";
 
 export const Comment = ({ comment, removeComment, timeDiff }) => {
