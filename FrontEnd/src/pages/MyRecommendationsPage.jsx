@@ -39,12 +39,9 @@ const CreatedRecommendations = () => {
     }
   };
 
-  const handleCreateRecommendation = () => {
-    navigate("/recommendations/new");
-  };
-
   const containerStyle = {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -53,10 +50,12 @@ const CreatedRecommendations = () => {
 
   const listStyle = {
     width: "100%",
+    flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
     padding: "16px",
+    overflowY: "auto",
   };
 
   const cardStyle = {
@@ -104,6 +103,11 @@ const CreatedRecommendations = () => {
   const handleAddRecommendation = () => {
     navigate("/recommendations/new");
   };
+
+  const handleEditRecommendation = (recommendationId) => {
+    navigate(`/recommendation/${recommendationId}/edit`);
+  };
+
 
   return (
     <div style={containerStyle}>

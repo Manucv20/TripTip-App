@@ -47,7 +47,10 @@ function App() {
               <Route path="/mylikes" element={<LikesPage />} />
               <Route path="/myRecommendations" element={<MyRecommendationsPage />} />
               <Route path="/recommendations/new" element={<CreateRecommendationPage />} />
-              <Route path="/recommendations/edit/:recommendationId" element={<EditRecommendationPage />} />
+              <Route
+                path={`/recommendation/:recommendationId/edit`}
+                element={<EditRecommendationPage />}
+              />
             </Route>
 
             {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}

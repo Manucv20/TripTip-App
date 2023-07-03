@@ -16,7 +16,7 @@ const NewVoteController = async (req, res, next) => {
     if (success) {
       message = "¡Excelente elección! Te ha gustado la recomendación.";
     } else {
-      message = `¿Cambiaste de opinión? Has quitado tu "me gusta" de la recomendación.`;
+      message = '¿Cambiaste de opinión? Has quitado tu "me gusta" de la recomendación.';
     }
 
     res.send({

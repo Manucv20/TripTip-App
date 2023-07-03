@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { userCommentService } from "../services";
 import { AuthContext } from "../context/AuthContext";
+import Avatar from "./Avatar";
 
 const NewComment = ({ trip, addComment }) => {
   const [comment, setComment] = useState("");
@@ -38,27 +39,33 @@ const NewComment = ({ trip, addComment }) => {
 
   return (
     <section className="NewComment">
-      <form className="comment-form" onSubmit={handleSubmitComment}>
-        <textarea
-          value={comment}
-          className="comment-textarea"
-          placeholder="Añade un comentario"
-          onChange={handleCommentChange}
-        ></textarea>
-        <div className="comment-buttons">
-          <button
-            type="button"
-            className="comment-cancel-button"
-            onClick={handleCancelComment}
-          >
-            Cancelar
-          </button>
-          <button type="submit" className="comment-submit-button">
-            Comentar
-          </button>
-          {sending ? <p>Sending comment</p> : null}
-        </div>
-      </form>
+      <div className="NewComment-container">
+        <Avatar
+          className="avatar-nc"
+          estilo={{ width: "65px", height: "65px" }}
+        />
+        <form className="comment-form" onSubmit={handleSubmitComment}>
+          <textarea
+            value={comment}
+            className="comment-textarea"
+            placeholder="Añade un comentario..."
+            onChange={handleCommentChange}
+          ></textarea>
+          <div className="comment-buttons">
+            <button
+              type="button"
+              className="comment-cancel-button"
+              onClick={handleCancelComment}
+            >
+              Cancelar
+            </button>
+            <button type="submit" className="comment-submit-button">
+              Comentar
+            </button>
+            {sending ? <p>Sending comment</p> : null}
+          </div>
+        </form>
+      </div>
     </section>
   );
 };

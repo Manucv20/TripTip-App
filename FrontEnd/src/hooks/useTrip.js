@@ -11,7 +11,7 @@ const useTrip = (id) => {
       try {
         setLoading(true);
 
-        const data = await getSingleTripService(id);
+        const data = await getSingleTripService({ id });
 
         setTrip(data);
       } catch (error) {

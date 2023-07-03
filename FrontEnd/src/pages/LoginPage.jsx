@@ -60,7 +60,7 @@ const LoginPage = () => {
   };
 
   return (
-    <section style={{ margin: "2rem" }}>
+    <section style={{ height: "75vh" }}>
       <form onSubmit={submitHandler} style={{ margin: "2rem" }}>
         <fieldset
           style={{

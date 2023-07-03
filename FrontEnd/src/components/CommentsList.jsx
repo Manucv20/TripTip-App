@@ -1,6 +1,8 @@
 import { Comment } from "./Comment";
+import { useState } from "react";
 
 export const CommentsList = ({ comments, removeComment }) => {
+  const [visibleComments, setVisibleComments] = useState(5);
   const reversedComments = [...comments].reverse();
 
   const calculateTimeDiff = (commentDate) => {
@@ -37,10 +39,10 @@ export const CommentsList = ({ comments, removeComment }) => {
   return (
     <section className="CommentsList">
       {reversedComments.length ? (
-        <ul>
+        <ul className="ul-comments">
           <h3 id="titulo">Comentarios</h3>
 
-          {reversedComments.map((comment) => {
+          {reversedComments.slice(0, visibleComments).map((comment) => {
             const commentDate = new Date(comment.created_at);
             const utcDateString = commentDate.toUTCString();
             const timeDiff = calculateTimeDiff(utcDateString);
@@ -55,6 +57,14 @@ export const CommentsList = ({ comments, removeComment }) => {
               </li>
             );
           })}
+          {reversedComments.length > visibleComments && (
+            <button
+              className="mas-comentarios"
+              onClick={() => setVisibleComments(visibleComments + 5)}
+            >
+              Ver más
+            </button>
+          )}
         </ul>
       ) : (
         <p>No hay comentarios aún</p>

@@ -11,7 +11,7 @@ const useComments = (id) => {
       try {
         setLoading(true);
 
-        const data = await tripCommentsService(id);
+        const data = await tripCommentsService({ id });
         setComments(data);
       } catch (error) {
         setError(error.message);
