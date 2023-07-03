@@ -12,10 +12,8 @@ import SendEmailPage from "./pages/SendEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LikesPage from "./pages/LikePages";
 import ProfilePage from "./pages/ProfilePage.jsx";
-import TripPage from "./pages/TripPage.jsx";
 import MyRecommendationsPage from "./pages/MyRecommendationsPage.jsx";
-import CreateRecommendationPage from "./pages/CreateRecommendationPage";
-import EditRecommendationPage from "./pages/EditRecommendationPage.jsx";
+import TripPage from "./pages/TripPage.jsx";
 
 function App() {
   return (
@@ -37,7 +35,12 @@ function App() {
           {/* Ruta de Paginas creadas por mi (Jose Carmona) */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+<<<<<<< HEAD
           <Route path="/registered/:clave" element={<SendEmailPage />} />
+=======
+          <Route path="/registered/:token" element={<SendEmailPage />} />
+          {/* Ruta para activar las cuentas de usuario */}
+>>>>>>> parent of ebb7ba8 (Merge pull request #60 from Manucv20/25-creacion-vista-de-recomendaciones-personal)
           <Route path="/acount/:token" element={<LoginPage />} />
           {/* Rutas Privadas a tener en cuenta para el Dashboard del Usuario */}
           <Route element={<PrivateRoutes />}>
@@ -47,6 +50,7 @@ function App() {
               path="/myRecommendations"
               element={<MyRecommendationsPage />}
             />
+<<<<<<< HEAD
             <Route
               path="/recommendations/new"
               element={<CreateRecommendationPage />}
@@ -55,6 +59,8 @@ function App() {
               path="/recommendations/edit/:recommendationId"
               element={<EditRecommendationPage />}
             />
+=======
+>>>>>>> parent of ebb7ba8 (Merge pull request #60 from Manucv20/25-creacion-vista-de-recomendaciones-personal)
           </Route>
           {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
           <Route path="*" element={<NotFoundPage />} />
