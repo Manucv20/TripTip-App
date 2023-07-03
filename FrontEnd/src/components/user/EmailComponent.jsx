@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { FaCheck, FaPencilAlt, FaTimes } from "react-icons/fa";
 import { toast } from "sonner";
-import { updataUserEmailService } from "../services";
+import { updataUserEmailService } from "../../services";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const EmailComponent = ({ currentEmail }) => {
   const navigate = useNavigate();

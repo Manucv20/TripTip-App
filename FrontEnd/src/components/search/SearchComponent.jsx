@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { searchAPI } from "../services/getRecommendations";
+import { searchAPI } from "../../services/getRecommendations";
 
 const SearchComponent = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaSuitcase, FaHeart, FaCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const { userData } = useContext(AuthContext);

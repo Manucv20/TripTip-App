@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { toast } from "sonner";
 import { FaCheck, FaPencilAlt, FaTimes } from "react-icons/fa";
-import { updataUserPasswordService } from "../services";
+import { updataUserPasswordService } from "../../services";
 
 const PasswordComponent = ({ currentPassword }) => {
   const navigate = useNavigate();
