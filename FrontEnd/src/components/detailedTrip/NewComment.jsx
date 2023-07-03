@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { userCommentService } from "../services";
-import { AuthContext } from "../context/AuthContext";
+import { userCommentService } from "../../services";
+import { AuthContext } from "../../context/AuthContext";
 import Avatar from "./Avatar";
 
 const NewComment = ({ trip, addComment }) => {

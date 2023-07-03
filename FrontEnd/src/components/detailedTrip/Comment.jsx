@@ -1,5 +1,5 @@
-import { AuthContext } from "../context/AuthContext";
-import { deleteCommentService } from "../services";
+import { AuthContext } from "../../context/AuthContext";
+import { deleteCommentService } from "../../services";
 import Avatar from "./Avatar";
 import React, { useState, useContext, useEffect, useRef } from "react";
 

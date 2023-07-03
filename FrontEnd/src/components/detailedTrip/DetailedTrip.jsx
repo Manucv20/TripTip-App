@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { voteTripUserService } from "../services";
+import { AuthContext } from "../../context/AuthContext";
+import { voteTripUserService } from "../../services";
 import { useNavigate } from "react-router-dom";
-import NewComment from "../components/NewComment";
-import { CommentsList } from "../components/CommentsList";
+import NewComment from "./NewComment";
+import { CommentsList } from "./CommentsList";
 
 export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useTrip from "../hooks/useTrip";
-import { DetailedTrip } from "../components/DetailedTrip";
+import { DetailedTrip } from "../components/detailedTrip/DetailedTrip";
 import useComments from "../hooks/useComments";
 import ErrorMessage from "../components/ErrorMessage";
 

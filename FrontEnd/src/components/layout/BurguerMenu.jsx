@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import { FaCog, FaHeart, FaSignOutAlt, FaSuitcase } from "react-icons/fa";
 import Avatar from "./Avatar";

@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import RegisterPage from "./pages/RegisterPage";
-import PrivateRoutes from "./components/PrivateRoutes";
+import PrivateRoutes from "./components/user/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
 
 import HomePage from "./pages/HomePage";
-import SearchResultsComponent from "./components/SearchResultsComponent";
+import SearchResultsComponent from "./components/search/SearchResultsComponent";
 import SendEmailPage from "./pages/SendEmailPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LikesPage from "./pages/LikePages";
