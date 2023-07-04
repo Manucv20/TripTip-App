@@ -14,7 +14,7 @@ function PrivateRoutes() {
   return (
     <>
       {auth ? (
-        <div
+        <section
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -22,8 +22,8 @@ function PrivateRoutes() {
             height: "100vh",
           }}
         >
-          {<Sidebar />} <Outlet />
-        </div>
+          <Sidebar /> <Outlet />
+        </section>
       ) : null}
     </>
   );

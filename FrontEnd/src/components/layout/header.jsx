@@ -8,7 +8,7 @@ function Header() {
   const { auth } = useContext(AuthContext);
 
   const headerStyle = {
-    backgroundColor: "RGB(247, 247, 247)",
+    backgroundColor: "rgb(247,247,247)",
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
@@ -29,7 +29,7 @@ function Header() {
   };
 
   const titleStyle = {
-    fontSize: "24px",
+    fontSize: "30px",
     color: "black",
   };
 
@@ -64,7 +64,7 @@ function Header() {
         <Link to="/login" style={loginLinkStyle}>
           <div style={avatarContainerStyle}>
             <FaUserCircle style={avatarStyle} />
-            <p>Mi espacio personal</p>
+            <span>Mi espacio personal</span>
           </div>
         </Link>
       )}

@@ -23,7 +23,6 @@ function App() {
       <Layout>
         <Toaster position="top-left" richColors />{" "}
         {/* Componente para mostrar notificaciones */}
-        <main>
           <Routes>
             {/* Ruta que se puede modificar por la buena */}
             <Route path="/" element={<HomePage />} />{" "}
@@ -56,7 +55,6 @@ function App() {
             {/* Ruta para cuando el usuario pone una ruta que no existe falta por crear un componente para que se muestre el mensaje */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </main>
       </Layout>
     </>
   );

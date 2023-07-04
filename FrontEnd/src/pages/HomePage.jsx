@@ -5,8 +5,7 @@ const HomePage = () => {
   return (
     <>
       <SearchComponent />
-      <div style={pageContainerStyle}>
-        <section style={sectionStyle}>
+        <section style={pageContainerStyle}>
           <div style={contentContainerStyle}>
             <h2 style={titleStyle}>Viajar mejor: ¿dónde, cuándo y cómo?</h2>
             <p style={textStyle}>
@@ -98,7 +97,7 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-      </div>
+
     </>
   );
 };
@@ -107,9 +106,6 @@ const pageContainerStyle = {
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
-};
-
-const sectionStyle = {
   margin: 0,
   flex: 1,
   display: "flex",
@@ -119,6 +115,7 @@ const sectionStyle = {
   padding: "30px 0",
   background: "#f6f6f6",
 };
+
 
 const contentContainerStyle = {
   margin: 0,
