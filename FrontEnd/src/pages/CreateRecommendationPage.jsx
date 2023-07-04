@@ -51,7 +51,10 @@ const CreateRecommendationPage = () => {
             recommendationData.append("location", formData.location);
             recommendationData.append("summary", formData.summary);
             recommendationData.append("details", formData.details);
-            recommendationData.append("image", formData.image);
+
+            if (formData.image) {
+                recommendationData.append("image", formData.image);
+            }
 
             const newRecommendation = await createRecommendation(
                 recommendationData,
@@ -64,7 +67,9 @@ const CreateRecommendationPage = () => {
         } catch (error) {
             console.log("Error al crear la recomendación:", error);
             // Mostrar mensaje de error al usuario
-            alert("Error al crear la recomendación. Por favor, inténtalo de nuevo más tarde.");
+            alert(
+                "Error al crear la recomendación. Por favor, inténtalo de nuevo más tarde."
+            );
         }
     };
 
@@ -211,13 +216,6 @@ const CreateRecommendationPage = () => {
                     </p>
                 )}
                 <label style={{ marginBottom: "10px" }}>Imagen:</label>
-                {formData.image && (
-                    <img
-                        src={URL.createObjectURL(formData.image)}
-                        alt="Selected"
-                        style={{ marginBottom: "10px", width: "100%" }}
-                    />
-                )}
                 <input
                     type="file"
                     name="image"
@@ -229,6 +227,13 @@ const CreateRecommendationPage = () => {
                     <p style={{ color: "red", marginBottom: "10px" }}>
                         {formErrors.image}
                     </p>
+                )}
+                {formData.image && (
+                    <img
+                        src={URL.createObjectURL(formData.image)}
+                        alt="Preview"
+                        style={{ marginBottom: "10px", maxWidth: "100%" }}
+                    />
                 )}
                 <button
                     type="submit"

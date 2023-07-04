@@ -20,8 +20,8 @@ export const getRecommendationById = async (recommendationId) => {
     const recommendation = response.data;
     return recommendation;
   } catch (error) {
-    console.error("Error al obtener la recomendación:", error);
-    throw new Error("Error al obtener la recomendación");
+    console.error("Error al obtener la recomendaci贸n:", error);
+    throw new Error("Error al obtener la recomendaci贸n");
   }
 };
 
@@ -31,12 +31,16 @@ export const editRecommendation = async (
   token
 ) => {
   try {
+    console.log(token);
+    console.log(recommendationId);
+    console.log(recommendationData);
     const response = await axios.put(
       `${import.meta.env.VITE_APP_BACKEND}/recommendations/${recommendationId}`,
       recommendationData,
       {
         headers: {
           Authorization: token,
+          "Content-Type": "application/json",
         },
       }
     );
@@ -94,4 +98,3 @@ export const createRecommendation = async (recommendationData, token) => {
     throw new Error("Error creating recommendation");
   }
 };
-
