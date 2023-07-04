@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchComponent from "./SearchComponent";
+import defaultImage from "../../../public/Subir_foto_recomendacion.jpg";
 
 const SearchResultsComponent = () => {
   const location = useLocation();
@@ -42,7 +43,13 @@ const SearchResultsComponent = () => {
               {currentCards.map((result) => (
                 <div key={result.id} style={cardStyle}>
                   <img
-                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`}
+                    src={
+                      result.image
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                            result.image
+                          }`
+                        : defaultImage
+                    }
                     alt={result.title}
                     style={imageStyle}
                   />
@@ -79,7 +86,9 @@ const SearchResultsComponent = () => {
                       key={index}
                       onClick={() => handlePageChange(index + 1)}
                       style={
-                        currentPage === index + 1 ? activePageButtonStyle : pageButtonStyle
+                        currentPage === index + 1
+                          ? activePageButtonStyle
+                          : pageButtonStyle
                       }
                     >
                       {index + 1}
