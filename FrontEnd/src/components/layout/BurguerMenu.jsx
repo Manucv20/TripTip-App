@@ -53,7 +53,14 @@ const BurgerMenu = () => {
           marginRight: "2rem",
         }}
       >
-        <span>{userData.userUsername}</span>
+        <span
+          id="welcome-message"
+          class="welcome-text"
+          style={{ fontSize: "20px" }}
+        >
+          Bienvenido, {userData.userUsername}
+        </span>
+
         {
           <Avatar
             imagen={userData.imagen}
@@ -81,12 +88,13 @@ const BurgerMenu = () => {
               justifyContent: "flex-start",
               alignItems: "center",
               margin: "0.5rem",
+              marginBottom: "2rem",
               gap: "1rem",
             }}
           >
             <FaSuitcase />
             <NavLink to="/myRecommendations" onClick={toggleMenu}>
-              Mis Recomendaciones
+              Mis recomendaciones
             </NavLink>
           </li>
 
@@ -96,12 +104,13 @@ const BurgerMenu = () => {
               justifyContent: "flex-start",
               alignItems: "center",
               margin: "0.5rem",
+              marginBottom: "2rem",
               gap: "1rem",
             }}
           >
             <FaHeart />
             <NavLink to="/mylikes" onClick={toggleMenu}>
-              Mis Favoritos
+              Mis favoritos
             </NavLink>
           </li>
           <li
@@ -110,6 +119,7 @@ const BurgerMenu = () => {
               justifyContent: "flex-start",
               alignItems: "center",
               margin: "0.5rem",
+              marginBottom: "2rem",
               gap: "1rem",
             }}
           >

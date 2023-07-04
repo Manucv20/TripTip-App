@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import BurgerMenu from "./BurguerMenu";
+
 function Header() {
   const { auth } = useContext(AuthContext);
 
   const headerStyle = {
-    backgroundColor: "rgb(194, 178, 128)",
+    backgroundColor: "RGB(247, 247, 247)",
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
@@ -27,15 +29,25 @@ function Header() {
   };
 
   const titleStyle = {
-    fontSize: "30px",
-    color: "white",
+    fontSize: "24px",
+    color: "black",
   };
 
   const loginLinkStyle = {
-    color: "white",
+    color: "black",
     marginLeft: "auto",
     marginRight: "2rem",
     textDecoration: "none",
+  };
+
+  const avatarContainerStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const avatarStyle = {
+    fontSize: "24px",
+    margin: "1rem",
   };
 
   return (
@@ -50,7 +62,10 @@ function Header() {
         <BurgerMenu />
       ) : (
         <Link to="/login" style={loginLinkStyle}>
-          Iniciar sesión
+          <div style={avatarContainerStyle}>
+            <FaUserCircle style={avatarStyle} />
+            <p>Mi espacio personal</p>
+          </div>
         </Link>
       )}
     </header>
