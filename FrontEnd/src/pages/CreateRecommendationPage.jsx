@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { createRecommendation } from "../services/getRecommendationsById";
+import DefaultImage from "../../public/Subir_foto_recomendacion.jpg";
 
 const CreateRecommendationPage = () => {
   const { token } = useContext(AuthContext);
@@ -24,7 +25,6 @@ const CreateRecommendationPage = () => {
       [e.target.name]: e.target.value,
     });
 
-    // Limpia los errores cuando el usuario modifica un campo
     setFormErrors({
       ...formErrors,
       [e.target.name]: null,
@@ -51,7 +51,10 @@ const CreateRecommendationPage = () => {
       recommendationData.append("location", formData.location);
       recommendationData.append("summary", formData.summary);
       recommendationData.append("details", formData.details);
-      recommendationData.append("image", formData.image);
+
+      if (formData.image) {
+        recommendationData.append("image", formData.image);
+      }
 
       const newRecommendation = await createRecommendation(
         recommendationData,
@@ -63,7 +66,6 @@ const CreateRecommendationPage = () => {
       navigate("/myRecommendations");
     } catch (error) {
       console.log("Error al crear la recomendación:", error);
-      // Mostrar mensaje de error al usuario
       alert(
         "Error al crear la recomendación. Por favor, inténtalo de nuevo más tarde."
       );
@@ -105,7 +107,6 @@ const CreateRecommendationPage = () => {
       errors.details = "Los detalles son requeridos";
     }
 
-    // Validación de tipo de archivo de imagen (ejemplo: solo se permiten JPEG y PNG)
     if (formData.image && !formData.image.type.includes("image/")) {
       errors.image = "Por favor, selecciona un archivo de imagen válido";
     }
@@ -253,5 +254,4 @@ const CreateRecommendationPage = () => {
     </div>
   );
 };
-
 export default CreateRecommendationPage;

@@ -36,59 +36,71 @@ const SearchResultsComponent = () => {
   return (
     <>
       <SearchComponent />
-      {searchResults.length > 0 ? (
-        <div style={cardContainerStyle}>
-          {currentCards.map((result) => (
-            <div key={result.id} style={cardStyle}>
-              <img
-                src={
-                  result.image
-                    ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                        result.image
-                      }`
-                    : defaultImage
-                }
-                alt={result.title}
-                style={imageStyle}
-              />
-              <div style={contentStyle}>
-                <h3>{result.title}</h3>
-                <p>Categoría: {result.category}</p>
-                <p>Ubicación: {result.location}</p>
-                <p>Resumen: {result.summary}</p>
-                <p>Fecha de creación: {result.created_at}</p>
-                <p>Votos: {result.votes}</p>
-                <button onClick={() => voteTrip(result.id)}>
-                  <span role="img" aria-label="heart">
-                    ❤️
-                  </span>
-                </button>
-              </div>
-            </div>
-          ))}
-          {searchResults.length > cardsPerPage && (
-            <div style={paginationStyle}>
-              {Array(Math.ceil(searchResults.length / cardsPerPage))
-                .fill()
-                .map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                    style={
-                      currentPage === index + 1
-                        ? activePageButtonStyle
-                        : pageButtonStyle
+      <section style={containerStyle}>
+        {searchResults.length > 0 ? (
+          <>
+            <div style={cardContainerStyle}>
+              {currentCards.map((result) => (
+                <div key={result.id} style={cardStyle}>
+                  <img
+                    src={
+                      result.image
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                            result.image
+                          }`
+                        : defaultImage
                     }
-                  >
-                    {index + 1}
-                  </button>
-                ))}
+                    alt={result.title}
+                    style={imageStyle}
+                  />
+                  <div style={contentStyle}>
+                    <h3>{result.title}</h3>
+                    <p>Categoría: {result.category}</p>
+                    <p>Ubicación: {result.location}</p>
+                    <p>Resumen: {result.summary}</p>
+                    <p>Fecha de creación: {result.created_at}</p>
+                    <button onClick={() => voteTrip(result.id)}>
+                      <span role="img" aria-label="heart">
+                        ❤️
+                      </span>
+                    </button>
+                    <button>
+                      <Link
+                        to={`/recommendation/${result.id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        Ir al detalle
+                      </Link>
+                    </button>
+                    <p>Votos: {result.votes}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
-      ) : (
-        <p>No se encontraron resultados</p>
-      )}
+            {searchResults.length > cardsPerPage && (
+              <div style={paginationStyle}>
+                {Array(Math.ceil(searchResults.length / cardsPerPage))
+                  .fill()
+                  .map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handlePageChange(index + 1)}
+                      style={
+                        currentPage === index + 1
+                          ? activePageButtonStyle
+                          : pageButtonStyle
+                      }
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <p>No se encontraron resultados</p>
+        )}
+      </section>
     </>
   );
 };
@@ -148,6 +160,7 @@ const activePageButtonStyle = {
   ...pageButtonStyle,
   fontWeight: "bold",
   backgroundColor: "#ccc",
+  margin: ""
 };
 
 export default SearchResultsComponent;
