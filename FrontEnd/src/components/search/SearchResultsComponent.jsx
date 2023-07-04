@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SearchComponent from "./SearchComponent";
+import defaultImage from "../../../public/Subir_foto_recomendacion.jpg";
 
 const SearchResultsComponent = () => {
   const location = useLocation();
@@ -29,9 +30,7 @@ const SearchResultsComponent = () => {
           {searchResults.map((result) => (
             <div key={result.id} style={cardStyle}>
               <img
-                src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                  result.image
-                }`}
+                src={result.image ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}` : defaultImage}
                 alt={result.title}
                 style={imageStyle}
               />
@@ -42,7 +41,7 @@ const SearchResultsComponent = () => {
                 <p>Resumen: {result.summary}</p>
                 <p>Fecha de creación: {result.created_at}</p>
                 <p>Votos: {result.votes}</p>
-                                <button onClick={() => voteTrip(result.id)}>
+                <button onClick={() => voteTrip(result.id)}>
                   <span role="img" aria-label="heart">
                     ❤️
                   </span>

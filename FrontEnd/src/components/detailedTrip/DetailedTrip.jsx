@@ -4,6 +4,7 @@ import { voteTripUserService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import NewComment from "./NewComment";
 import { CommentsList } from "./CommentsList";
+import defaultImage from "../../../public/Subir_foto_recomendacion.jpg";
 
 export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   const navigate = useNavigate();
@@ -28,12 +29,15 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
         {trip.result.image ? (
           <img
             id="detailedPhoto"
-            src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image
-              }`}
+            src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image}`}
             alt={trip.result.summary}
           />
         ) : (
-          "/Subir_foto_recomendacion.jpg"
+          <img
+            id="detailedPhoto"
+            src={defaultImage}
+            alt={trip.result.summary}
+          />
         )}
         <div className="summary-container">
           <p id="summary">"{trip.result.summary}"</p>
@@ -67,7 +71,7 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
       <div className="comments-container">
         {auth && <NewComment trip={trip} addComment={addComment} />}
         <CommentsList comments={comments} removeComment={removeComment} />
-      </div>{" "}
+      </div>
     </section>
   );
 };
