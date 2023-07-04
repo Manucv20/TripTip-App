@@ -23,30 +23,37 @@ const EditRecommendationPage = () => {
     const [formErrors, setFormErrors] = useState({});
     const [dataLoaded, setDataLoaded] = useState(false);
     const [recommendationImageURL, setRecommendationImageURL] = useState("");
-    const [imageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {
         const fetchRecommendation = async () => {
             try {
+                console.log("recommendationId", recommendationId);
                 const response = await getRecommendationById(recommendationId);
                 console.log("response", response);
-                if (response.success) {
-                    const { result } = response;
-                    if (result) {
-                        setFormData((prevFormData) => ({
-                            ...prevFormData,
-                            title: result.title,
-                            category: result.category,
-                            location: result.location,
-                            summary: result.summary,
-                            details: result.details,
-                            image: result.image,
-                        }));
-                        setDataLoaded(true);
-                        setRecommendationImageURL(result.image);
-                    }
+                if (
+                    response &&
+                    response.recommendation &&
+                    response.recommendation.result
+                ) {
+                    const { result } = response.recommendation;
+                    setFormData((prevFormData) => ({
+                        ...prevFormData,
+                        title: result.title,
+                        category: result.category,
+                        location: result.location,
+                        summary: result.summary,
+                        details: result.details,
+                        image: result.image,
+                    }));
+                    setDataLoaded(true);
+                    setRecommendationImageURL(
+                        `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`
+                    );
                 } else {
-                    console.error("Error al obtener la recomendación:", response.error);
+                    console.error(
+                        "No se encontró el resultado en la respuesta:",
+                        response && response.recommendation
+                    );
                 }
             } catch (error) {
                 console.error("Error al obtener la recomendación:", error);
@@ -58,25 +65,16 @@ const EditRecommendationPage = () => {
         }
     }, [recommendationId]);
 
-    useEffect(() => {
-        if (recommendationImageURL) {
-            const image = new Image();
-            image.src = recommendationImageURL;
-            image.onload = () => {
-                setImageLoaded(true);
-            };
-        }
-    }, [recommendationImageURL]);
-
     const handleInputChange = (e) => {
+        const { name, value } = e.target;
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [e.target.name]: e.target.value,
+            [name]: value,
         }));
 
         setFormErrors((prevFormErrors) => ({
             ...prevFormErrors,
-            [e.target.name]: null,
+            [name]: null,
         }));
     };
 
@@ -88,35 +86,30 @@ const EditRecommendationPage = () => {
                 ...prevFormData,
                 image: file,
             }));
+            setRecommendationImageURL(URL.createObjectURL(file));
         }
     };
 
     const handleUpdateRecommendation = async () => {
+        console.log("formData", formData);
+        console.log("token", token);
         try {
-            const updatedRecommendationData = {
-                ...formData,
-            };
-
             if (!token) {
                 console.log("Error: No se encontró un token");
                 return;
             }
 
-            await editRecommendation(
-                recommendationId,
-                updatedRecommendationData,
-                `Bearer ${token}`
-            );
+            const updatedRecommendationData = { ...formData };
+            await editRecommendation(recommendationId, updatedRecommendationData, token);
 
             console.log("Recomendación actualizada");
             navigate("/myRecommendations");
         } catch (error) {
             console.log("Error al actualizar la recomendación:", error);
-            alert(
-                "Error al actualizar la recomendación. Por favor, inténtalo de nuevo más tarde."
-            );
+            alert("Error al actualizar la recomendación. Por favor, inténtalo de nuevo más tarde.");
         }
     };
+
 
     const resetForm = () => {
         setFormData({
@@ -173,8 +166,11 @@ const EditRecommendationPage = () => {
     return (
         <div>
             <h2>Editar Recomendación</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form
+                onSubmit={handleSubmit}
+                style={{ maxWidth: "500px", margin: "0 auto" }}
+            >
+                <div style={{ marginBottom: "1rem" }}>
                     <label htmlFor="title">Título</label>
                     <input
                         type="text"
@@ -182,10 +178,11 @@ const EditRecommendationPage = () => {
                         name="title"
                         value={formData.title}
                         onChange={handleInputChange}
+                        style={{ width: "100%" }}
                     />
                     {formErrors.title && <div>{formErrors.title}</div>}
                 </div>
-                <div>
+                <div style={{ marginBottom: "1rem" }}>
                     <label htmlFor="category">Categoría</label>
                     <input
                         type="text"
@@ -193,10 +190,11 @@ const EditRecommendationPage = () => {
                         name="category"
                         value={formData.category}
                         onChange={handleInputChange}
+                        style={{ width: "100%" }}
                     />
                     {formErrors.category && <div>{formErrors.category}</div>}
                 </div>
-                <div>
+                <div style={{ marginBottom: "1rem" }}>
                     <label htmlFor="location">Ubicación</label>
                     <input
                         type="text"
@@ -204,30 +202,33 @@ const EditRecommendationPage = () => {
                         name="location"
                         value={formData.location}
                         onChange={handleInputChange}
+                        style={{ width: "100%" }}
                     />
                     {formErrors.location && <div>{formErrors.location}</div>}
                 </div>
-                <div>
+                <div style={{ marginBottom: "1rem" }}>
                     <label htmlFor="summary">Resumen</label>
                     <textarea
                         id="summary"
                         name="summary"
                         value={formData.summary}
                         onChange={handleInputChange}
+                        style={{ width: "100%" }}
                     />
                     {formErrors.summary && <div>{formErrors.summary}</div>}
                 </div>
-                <div>
+                <div style={{ marginBottom: "1rem" }}>
                     <label htmlFor="details">Detalles</label>
                     <textarea
                         id="details"
                         name="details"
                         value={formData.details}
                         onChange={handleInputChange}
+                        style={{ width: "100%" }}
                     />
                     {formErrors.details && <div>{formErrors.details}</div>}
                 </div>
-                <div>
+                <div style={{ marginBottom: "1rem" }}>
                     <label htmlFor="image">Imagen</label>
                     <input
                         type="file"
@@ -236,17 +237,20 @@ const EditRecommendationPage = () => {
                         onChange={handleImageChange}
                     />
                 </div>
-                {formData.image && (
-                    <div>
+                {recommendationImageURL && (
+                    <div style={{ marginBottom: "1rem", textAlign: "center" }}>
                         <img
-                            src={URL.createObjectURL(formData.image)}
-                            alt="Recommendation"
+                            src={recommendationImageURL}
+                            alt="Img preview"
+                            style={{ maxWidth: "100%", maxHeight: "300px" }}
                         />
                     </div>
                 )}
-                {recommendationImageURL && !imageLoaded && (
+
+                {formData.image && !recommendationImageURL && (
                     <div>Cargando imagen...</div>
                 )}
+
                 <button type="submit">Actualizar</button>
                 <button type="button" onClick={resetForm}>
                     Reiniciar
