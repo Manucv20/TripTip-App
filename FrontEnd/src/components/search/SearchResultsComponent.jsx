@@ -38,10 +38,16 @@ const SearchResultsComponent = () => {
       <SearchComponent />
       {searchResults.length > 0 ? (
         <div style={cardContainerStyle}>
-          {searchResults.map((result) => (
+          {currentCards.map((result) => (
             <div key={result.id} style={cardStyle}>
               <img
-                src={result.image ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}` : defaultImage}
+                src={
+                  result.image
+                    ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                        result.image
+                      }`
+                    : defaultImage
+                }
                 alt={result.title}
                 style={imageStyle}
               />
@@ -59,28 +65,30 @@ const SearchResultsComponent = () => {
                 </button>
               </div>
             </div>
-            {searchResults.length > cardsPerPage && (
-              <div style={paginationStyle}>
-                {Array(Math.ceil(searchResults.length / cardsPerPage))
-                  .fill()
-                  .map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePageChange(index + 1)}
-                      style={
-                        currentPage === index + 1 ? activePageButtonStyle : pageButtonStyle
-                      }
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-              </div>
-            )}
-          </>
-        ) : (
-          <p>No se encontraron resultados</p>
-        )}
-      </section>
+          ))}
+          {searchResults.length > cardsPerPage && (
+            <div style={paginationStyle}>
+              {Array(Math.ceil(searchResults.length / cardsPerPage))
+                .fill()
+                .map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handlePageChange(index + 1)}
+                    style={
+                      currentPage === index + 1
+                        ? activePageButtonStyle
+                        : pageButtonStyle
+                    }
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <p>No se encontraron resultados</p>
+      )}
     </>
   );
 };
@@ -140,7 +148,6 @@ const activePageButtonStyle = {
   ...pageButtonStyle,
   fontWeight: "bold",
   backgroundColor: "#ccc",
-  margin: ""
 };
 
 export default SearchResultsComponent;
