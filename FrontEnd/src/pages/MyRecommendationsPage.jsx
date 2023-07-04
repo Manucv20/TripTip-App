@@ -80,6 +80,7 @@ const CreatedRecommendations = () => {
 
   const contentStyle = {
     flex: "1",
+    minHeight: "250px",
   };
 
   const buttonStyle = {
@@ -108,9 +109,8 @@ const CreatedRecommendations = () => {
     navigate(`/recommendation/${recommendationId}/edit`);
   };
 
-
   return (
-    <div style={containerStyle}>
+    <section style={containerStyle}>
       <h2>Tus recomendaciones creadas:</h2>
       <button style={addButtonStyle} onClick={handleAddRecommendation}>
         Añadir Recomendación
@@ -127,7 +127,9 @@ const CreatedRecommendations = () => {
                   <img
                     src={
                       recommendation.image
-                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${recommendation.image}`
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                            recommendation.image
+                          }`
                         : "/Subir_foto_recomendacion.jpg"
                     }
                     alt={recommendation.title}
@@ -137,8 +139,6 @@ const CreatedRecommendations = () => {
                     <h3>{recommendation.title}</h3>
                     <p>Categoría: {recommendation.category}</p>
                     <p>Ubicación: {recommendation.location}</p>
-                    <p>Resumen: {recommendation.summary}</p>
-                    <p>Detalles: {recommendation.details}</p>
                     <p>Fecha de creación: {recommendation.created_at}</p>
                     <p>Votos: {recommendation.votes}</p>
                   </div>
@@ -152,7 +152,9 @@ const CreatedRecommendations = () => {
                   </button>
                   <button
                     style={buttonStyle}
-                    onClick={() => handleDeleteRecommendation(recommendation.id)}
+                    onClick={() =>
+                      handleDeleteRecommendation(recommendation.id)
+                    }
                   >
                     Borrar
                   </button>
@@ -164,7 +166,7 @@ const CreatedRecommendations = () => {
       ) : (
         <p>No has creado ninguna recomendación</p>
       )}
-    </div>
+    </section>
   );
 };
 

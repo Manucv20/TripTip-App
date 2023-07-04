@@ -25,16 +25,18 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   return (
     <section className="DetailedTrip">
       <div className="image-content">
-        {trip.result.image ? (
-          <img
-            id="detailedPhoto"
-            src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image
-              }`}
-            alt={trip.result.summary}
-          />
-        ) : (
-          "/Subir_foto_recomendacion.jpg"
-        )}
+        <img
+          id="detailedPhoto"
+          src={
+            trip.result.image
+              ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                  trip.result.image
+                }`
+              : "/Subir_foto_recomendacion.jpg"
+          }
+          alt={trip.result.summary}
+        />
+        
         <div className="summary-container">
           <p id="summary">"{trip.result.summary}"</p>
           <div className="vote-container" onClick={voteTrip}>
