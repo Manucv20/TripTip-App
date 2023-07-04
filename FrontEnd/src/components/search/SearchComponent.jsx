@@ -142,7 +142,7 @@ const SearchComponent = () => {
   };
 
   return (
-    <div style={containerStyle}>
+    <header style={containerStyle}>
       <div style={arrowContainerStyle}>
         <div style={arrowStyle} onClick={handlePrevVideo}>
           &#8249;
@@ -191,7 +191,7 @@ const SearchComponent = () => {
           </form>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
