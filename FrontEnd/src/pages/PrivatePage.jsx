@@ -3,6 +3,7 @@ const PruebaPage = () => {
   return (
     <>
       <Sidebar />
+   
     </>
   );
 };

@@ -1,7 +1,5 @@
-
 import TravelCard from "../components/cards/TravelCard";
-
-import SearchComponent from "../components/SearchComponent";
+import SearchComponent from "../components/search/SearchComponent";
 
 const HomePage = () => {
   return (
@@ -10,15 +8,22 @@ const HomePage = () => {
       <div style={pageContainerStyle}>
         <section style={sectionStyle}>
           <div style={contentContainerStyle}>
-            <h3 style={textStyle}>Viajar mejor: ¿dónde, cuándo y cómo?</h3>
+            <h2 style={titleStyle}>Viajar mejor: ¿dónde, cuándo y cómo?</h2>
             <p style={textStyle}>
-              ¿Quieres viajar de forma más auténtica y responsable? Vive
-              experiencias únicas junto con nuestros expertos y expertas
-              locales, y descubre nuestros consejos y recomendaciones para
-              viajar de forma respetuosa con el entorno y la cultura local. Aquí
-              tienes algunos ejemplos:
+              ¿Quieres explorar el mundo de manera auténtica y responsable?
+              Descubre Triptip, una plataforma donde podrás encontrar
+              experiencias públicas recomendadas por nuestros viajeros.
+              Sumérgete en las recomendaciones y consejos de aquellos que han
+              vivido aventuras únicas en destinos fascinantes. En Triptip, te
+              ofrecemos una selección cuidadosamente curada de experiencias
+              recomendadas por viajeros como tú. Explora destinos exóticos,
+              descubre rincones escondidos y sumérgete en la cultura local a
+              través de nuestras recomendaciones auténticas. Además, te
+              brindamos valiosos consejos para viajar de manera respetuosa con
+              el entorno y la cultura local, promoviendo un turismo sostenible.
+              Aquí tienen algunos ejemplos:
             </p>
-            <div style={cardsContainerStyle}>
+            <div style={cardsContainerStyle1}>
               <TravelCard
                 categoria="Safari"
                 backgroundImage="/viaje_safari.jpg"
@@ -34,11 +39,26 @@ const HomePage = () => {
                 backgroundImage="/viaje_deportes.jpg"
                 title="Deportes"
               />
+              <TravelCard
+                categoria="Compras"
+                backgroundImage="/viaje_compras.jpg"
+                title="Compras"
+              />
             </div>
-            <h4 style={textStyle}>
+            <h3 style={titleStyle}>
               Atrévete a descubrir el mundo de una forma diferente viviendo
               experiencias únicas e inusuales
-            </h4>
+            </h3>
+            <p style={textStyle}>
+              Nuestra comunidad de viajeros está comprometida en compartir sus
+              experiencias de manera responsable, fomentando el respeto por el
+              medio ambiente y las comunidades locales. Únete a Triptip y
+              descubre un mundo de posibilidades para viajar de forma consciente
+              y enriquecedora. Embárcate en una nueva aventura con Triptip,
+              donde la autenticidad y la responsabilidad van de la mano.
+              ¡Descubre nuevas culturas, amplía tus horizontes y haz del mundo
+              tu hogar!"
+            </p>
             <p style={textStyle}>
               ¿En pareja o en familia? ¿Un trekking o un safari? ¿Cultura o
               aventura? Descubre ideas de viaje recomendadas por nuestros
@@ -79,7 +99,6 @@ const HomePage = () => {
           </div>
         </section>
       </div>
-      {/* Footer */}
     </>
   );
 };
@@ -97,11 +116,13 @@ const sectionStyle = {
   justifyContent: "center",
   alignItems: "center",
   width: "100vw",
+  padding: "30px 0",
+  background: "#f6f6f6",
 };
 
 const contentContainerStyle = {
   margin: 0,
-  maxWidth: "100%", // Ancho máximo del contenido para evitar que se estire demasiado en pantallas grandes
+  maxWidth: "1200px", // Ancho máximo del contenido para evitar que se estire demasiado en pantallas grandes
   padding: "20px",
   width: "100%",
 };
@@ -112,9 +133,24 @@ const cardsContainerStyle = {
   gap: "20px",
 };
 
+const cardsContainerStyle1 = {
+  display: "grid",
+  gridTemplateColumns: "repeat(2, 1fr)",
+  gap: "20px",
+};
+
 const textStyle = {
   textAlign: "center",
   margin: "30px",
+  fontSize: "20px",
+};
+
+const titleStyle = {
+  textAlign: "center",
+  margin: "30px",
+  fontSize: "25px",
+  textDecoration: "underline",
+  textDecorationColor: "gray",
 };
 
 export default HomePage;

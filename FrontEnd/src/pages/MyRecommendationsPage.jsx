@@ -39,12 +39,9 @@ const CreatedRecommendations = () => {
     }
   };
 
-  const handleCreateRecommendation = () => {
-    navigate("/recommendations/new");
-  };
-
   const containerStyle = {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -53,10 +50,12 @@ const CreatedRecommendations = () => {
 
   const listStyle = {
     width: "100%",
+    flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
     padding: "16px",
+    overflowY: "auto",
   };
 
   const cardStyle = {
@@ -105,6 +104,11 @@ const CreatedRecommendations = () => {
     navigate("/recommendations/new");
   };
 
+  const handleEditRecommendation = (recommendationId) => {
+    navigate(`/recommendation/${recommendationId}/edit`);
+  };
+
+
   return (
     <div style={containerStyle}>
       <h2>Tus recomendaciones creadas:</h2>
@@ -123,9 +127,7 @@ const CreatedRecommendations = () => {
                   <img
                     src={
                       recommendation.image
-                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                            recommendation.image
-                          }`
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${recommendation.image}`
                         : "/Subir_foto_recomendacion.jpg"
                     }
                     alt={recommendation.title}
@@ -150,9 +152,7 @@ const CreatedRecommendations = () => {
                   </button>
                   <button
                     style={buttonStyle}
-                    onClick={() =>
-                      handleDeleteRecommendation(recommendation.id)
-                    }
+                    onClick={() => handleDeleteRecommendation(recommendation.id)}
                   >
                     Borrar
                   </button>

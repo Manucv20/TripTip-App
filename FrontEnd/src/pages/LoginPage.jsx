@@ -5,8 +5,8 @@ import { FaSignInAlt } from "react-icons/fa";
 
 import { activateUserService, loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import IconoEmail from "../components/IconoEmail";
-import IconoPassword from "../components/IconoPassword";
+import IconoEmail from "../components/icons/IconoEmail";
+import IconoPassword from "../components/icons/IconoPassword";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -60,30 +60,32 @@ const LoginPage = () => {
   };
 
   return (
-    <section style={{ margin: "2rem" }}>
-      <form onSubmit={submitHandler} style={{ margin: "2rem" }}>
+    <section className="login-page">
+      <form onSubmit={submitHandler}>
         <fieldset
           style={{
             display: "flex",
-            justifyContent: "space-between",
             flexDirection: "column",
-            gap: "2rem",
+            alignItems: "center",
+            justifyContent: "space-around",
+
             padding: "1.7rem",
             margin: "0.5rem",
             borderRadius: "15px",
-            boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-            backgroundColor: "#C2B280",
+            // boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
+            backgroundColor: "#dcdcdc3f",
           }}
         >
           <h2
             style={{
+              color: "rgb(194, 178, 128)",
               fontSize: "1.75rem",
               fontWeight: "600px",
               lineHeight: "1.5715",
-              color: "#000000",
+              textAlign: "center",
             }}
           >
-            Login on <Link to="/">TripTip</Link>
+            Inicia sesión en <Link to="/">Triptip</Link>
           </h2>
           <ul>
             <li className="input-register">
@@ -94,7 +96,7 @@ const LoginPage = () => {
                 id="email"
                 name="email"
                 required
-                placeholder="Email ..."
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </li>
@@ -106,19 +108,23 @@ const LoginPage = () => {
                 id="pass1"
                 name="pass1"
                 required
-                placeholder="Password ..."
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </li>
             <li className="input-register">
               <button className="boton-reg">
                 <span>Iniciar sesión</span>
-                <FaSignInAlt />
               </button>
             </li>
           </ul>
-
-          <Link to="/register">¿No tienes cuenta? Registrate.</Link>
+          <div className="alta-login">
+            <p>¿No tienes cuenta?</p>
+            <Link style={{ textAlign: "center" }} to="/register">
+              {" "}
+              <p className="anchor">Regístrate.</p>
+            </Link>
+          </div>
         </fieldset>
       </form>
     </section>

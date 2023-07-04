@@ -4,10 +4,10 @@ import { FaTimes, FaSyncAlt } from "react-icons/fa";
 
 import { getDataUserService, updataUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import AvatarUploader from "../components/AvatarUploader ";
-import UsernameComponent from "../components/UsernameComponent";
-import EmailComponent from "../components/EmailComponent";
-import PasswordComponent from "../components/PasswordComponent";
+import AvatarUploader from "../components/user/AvatarUploader ";
+import UsernameComponent from "../components/user/UsernameComponent";
+import EmailComponent from "../components/user/EmailComponent";
+import PasswordComponent from "../components/user/PasswordComponent";
 
 const ProfilePage = () => {
   const { userData, token, setToken } = useContext(AuthContext);
