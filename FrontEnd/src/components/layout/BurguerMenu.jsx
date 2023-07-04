@@ -55,7 +55,7 @@ const BurgerMenu = () => {
       >
         <span
           id="welcome-message"
-          class="welcome-text"
+          className="welcome-text"
           style={{ fontSize: "20px" }}
         >
           Bienvenido, {userData.userUsername}

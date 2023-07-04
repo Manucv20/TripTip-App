@@ -25,7 +25,9 @@ const SearchComponent = () => {
     setLugar("");
     setCategoria("");
 
-    navigate("/search-results", { state: { searchResults } });
+    navigate(`/search-results?query=${lugar}-${categoria}`, {
+      state: { searchResults },
+    });
   };
 
   useEffect(() => {

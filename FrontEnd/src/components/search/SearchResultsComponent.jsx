@@ -10,49 +10,77 @@ const SearchResultsComponent = () => {
     console.log("Resultados de búsqueda:", searchResults);
   }, [searchResults]);
 
+  const voteTrip = async (id) => {
+    try {
+      if (!auth) return navigate("/login");
+      setError("");
+      const vote = await voteTripUserService(id, token);
+      setVotes(vote);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
-    <>
+    <div style={containerStyle}>
       <SearchComponent />
-      {/* <h2>Resultados de la búsqueda:</h2> */}
       {searchResults.length > 0 ? (
-        <ul>
+        <div style={cardContainerStyle}>
           {searchResults.map((result) => (
-            <li key={result.id}>
-              <div style={cardStyle}>
-                {result.image && (
-                  <img
-                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                      result.image
-                    }`}
-                    alt={result.title}
-                    style={imageStyle}
-                  />
-                )}
-                <div style={contentStyle}>
-                  <h3>{result.title}</h3>
-                  <p>Categoría: {result.category}</p>
-                  <p>Ubicación: {result.location}</p>
-                  <p>Resumen: {result.summary}</p>
-                  <p>Fecha de creación: {result.created_at}</p>
-                  <p>Votos: {result.votes}</p>
-                </div>
+            <div key={result.id} style={cardStyle}>
+              <img
+                src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                  result.image
+                }`}
+                alt={result.title}
+                style={imageStyle}
+              />
+              <div style={contentStyle}>
+                <h3>{result.title}</h3>
+                <p>Categoría: {result.category}</p>
+                <p>Ubicación: {result.location}</p>
+                <p>Resumen: {result.summary}</p>
+                <p>Fecha de creación: {result.created_at}</p>
+                <p>Votos: {result.votes}</p>
+                                <button onClick={() => voteTrip(result.id)}>
+                  <span role="img" aria-label="heart">
+                    ❤️
+                  </span>
+                </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No se encontraron resultados</p>
       )}
-    </>
+    </div>
   );
+};
+
+const containerStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  height: "100vh",
+};
+
+const cardContainerStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  flexWrap: "wrap",
 };
 
 const cardStyle = {
   display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
   borderRadius: "8px",
   border: "1px solid #ccc",
   padding: "16px",
-  marginBottom: "16px",
+  margin: "16px",
+  width: "400px",
 };
 
 const imageStyle = {
@@ -62,7 +90,8 @@ const imageStyle = {
 };
 
 const contentStyle = {
-  flex: "1",
+  display: "flex",
+  flexDirection: "column",
 };
 
 export default SearchResultsComponent;
