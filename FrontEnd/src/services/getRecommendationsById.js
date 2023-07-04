@@ -40,7 +40,7 @@ export const editRecommendation = async (
       {
         headers: {
           Authorization: token,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       }
     );
