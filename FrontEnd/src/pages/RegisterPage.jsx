@@ -42,6 +42,20 @@ const RegisterPage = () => {
 
   return (
     <section className="login-page">
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: "-1",
+        }}
+      >
+        <source src="/video_login.mp4" type="video/mp4" />
+      </video>
       <form onSubmit={handleForm} style={{ margin: "2rem" }}>
         <fieldset
           style={{
@@ -54,7 +68,7 @@ const RegisterPage = () => {
             margin: "0.5rem",
             borderRadius: "15px",
             // boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-            backgroundColor: "#dcdcdc3f",
+            backgroundColor: "#dcdcdccf",
           }}
         >
           <h2
