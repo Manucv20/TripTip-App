@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchComponent from "./SearchComponent";
+import defaultImage from "../../../public/Subir_foto_recomendacion.jpg";
 
 const SearchResultsComponent = () => {
   const location = useLocation();
@@ -35,40 +36,28 @@ const SearchResultsComponent = () => {
   return (
     <>
       <SearchComponent />
-      <section style={containerStyle}>
-        {searchResults.length > 0 ? (
-          <>
-            <div style={cardContainerStyle}>
-              {currentCards.map((result) => (
-                <div key={result.id} style={cardStyle}>
-                  <img
-                    src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`}
-                    alt={result.title}
-                    style={imageStyle}
-                  />
-                  <div style={contentStyle}>
-                    <h3>{result.title}</h3>
-                    <p>Categoría: {result.category}</p>
-                    <p>Ubicación: {result.location}</p>
-                    <p>Resumen: {result.summary}</p>
-                    <p>Fecha de creación: {result.created_at}</p>
-                    <button onClick={() => voteTrip(result.id)}>
-                      <span role="img" aria-label="heart">
-                        ❤️
-                      </span>
-                    </button>
-                    <button>
-                      <Link
-                        to={`/recommendation/${result.id}`}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        Ir al detalle
-                      </Link>
-                    </button>
-                    <p>Votos: {result.votes}</p>
-                  </div>
-                </div>
-              ))}
+      {searchResults.length > 0 ? (
+        <div style={cardContainerStyle}>
+          {searchResults.map((result) => (
+            <div key={result.id} style={cardStyle}>
+              <img
+                src={result.image ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}` : defaultImage}
+                alt={result.title}
+                style={imageStyle}
+              />
+              <div style={contentStyle}>
+                <h3>{result.title}</h3>
+                <p>Categoría: {result.category}</p>
+                <p>Ubicación: {result.location}</p>
+                <p>Resumen: {result.summary}</p>
+                <p>Fecha de creación: {result.created_at}</p>
+                <p>Votos: {result.votes}</p>
+                <button onClick={() => voteTrip(result.id)}>
+                  <span role="img" aria-label="heart">
+                    ❤️
+                  </span>
+                </button>
+              </div>
             </div>
             {searchResults.length > cardsPerPage && (
               <div style={paginationStyle}>

@@ -159,8 +159,11 @@ const recommendationByUser = async (id) => {
 
     const [recommendation] = await connection.query(
       `
-    SELECT * FROM recommendations WHERE user_id = ?
-    `,
+      SELECT recommendations.*, 
+        (SELECT COUNT(*) FROM votes WHERE votes.recommendation_id = recommendations.id) AS votes
+      FROM recommendations
+      WHERE user_id = ?
+      `,
       [id]
     );
 
@@ -173,6 +176,7 @@ const recommendationByUser = async (id) => {
     if (connection) connection.release();
   }
 };
+
 
 const updateRecommendation = async (
   userId,
