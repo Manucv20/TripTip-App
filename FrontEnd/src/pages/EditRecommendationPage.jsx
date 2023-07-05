@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 import {
   getRecommendationById,
   editRecommendation,
@@ -20,16 +21,16 @@ const EditRecommendationPage = () => {
     image: null,
   });
 
-  const [formErrors, setFormErrors] = useState({});
+  const [setFormErrors] = useState({});
   const [dataLoaded, setDataLoaded] = useState(false);
   const [recommendationImageURL, setRecommendationImageURL] = useState("");
+  const [existingImageName, setExistingImageName] = useState("");
+  const defaultImageURL = "/Subir_foto_recomendacion.jpg";
 
   useEffect(() => {
     const fetchRecommendation = async () => {
       try {
-        console.log("recommendationId", recommendationId);
         const response = await getRecommendationById(recommendationId);
-        console.log("response", response);
         if (
           response &&
           response.recommendation &&
@@ -43,11 +44,13 @@ const EditRecommendationPage = () => {
             location: result.location,
             summary: result.summary,
             details: result.details,
-            image: result.image,
           }));
           setDataLoaded(true);
+          setExistingImageName(result.image);
           setRecommendationImageURL(
-            `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`
+            result.image
+              ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`
+              : defaultImageURL
           );
         } else {
           console.error(
@@ -91,8 +94,6 @@ const EditRecommendationPage = () => {
   };
 
   const handleUpdateRecommendation = async () => {
-    console.log("formData", formData);
-    console.log("token", token);
     try {
       if (!token) {
         console.log("Error: No se encontró un token");
@@ -100,6 +101,26 @@ const EditRecommendationPage = () => {
       }
 
       const updatedRecommendationData = { ...formData };
+
+      if (!updatedRecommendationData.image) {
+        if (existingImageName) {
+          const existingImageResponse = await axios.get(
+            `${import.meta.env.VITE_APP_BACKEND}/uploads/${existingImageName}`,
+            {
+              responseType: "blob",
+            }
+          );
+
+          const file = new File(
+            [existingImageResponse.data],
+            existingImageName
+          );
+          updatedRecommendationData.image = file;
+        } else {
+          updatedRecommendationData.image = null;
+        }
+      }
+
       await editRecommendation(
         recommendationId,
         updatedRecommendationData,
@@ -116,20 +137,6 @@ const EditRecommendationPage = () => {
     }
   };
 
-  const resetForm = () => {
-    setFormData({
-      title: "",
-      category: "",
-      location: "",
-      summary: "",
-      details: "",
-      image: null,
-    });
-
-    setFormErrors({});
-    setRecommendationImageURL("");
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     handleUpdateRecommendation();
@@ -140,88 +147,108 @@ const EditRecommendationPage = () => {
   }
 
   return (
-    <div>
-      <h1>Editar recomendación</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Title */}
-        <div>
-          <label htmlFor="title">Título</label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={formData.title}
-            onChange={handleInputChange}
-          />
-        </div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+        width: "100%",
+      }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "400px",
+          padding: "20px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          backgroundColor: "#f1f1f1",
+          height: "auto", // Ajuste automático al contenido
+          width: "100%",
+        }}
+      >
+        <label style={{ marginBottom: "10px" }}>Título:</label>
+        <input
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleInputChange}
+          required
+          style={{ marginBottom: "10px", width: "100%" }}
+        />
 
-        {/* Category */}
-        <div>
-          <label htmlFor="category">Categoría</label>
-          <input
-            type="text"
-            name="category"
-            id="category"
-            value={formData.category}
-            onChange={handleInputChange}
-          />
-        </div>
+        <label style={{ marginBottom: "10px" }}>Categoría:</label>
+        <input
+          type="text"
+          name="category"
+          value={formData.category}
+          onChange={handleInputChange}
+          required
+          style={{ marginBottom: "10px", width: "100%" }}
+        />
 
-        {/* Location */}
-        <div>
-          <label htmlFor="location">Ubicación</label>
-          <input
-            type="text"
-            name="location"
-            id="location"
-            value={formData.location}
-            onChange={handleInputChange}
-          />
-        </div>
+        <label style={{ marginBottom: "10px" }}>Ubicación:</label>
+        <input
+          type="text"
+          name="location"
+          value={formData.location}
+          onChange={handleInputChange}
+          required
+          style={{ marginBottom: "10px", width: "100%" }}
+        />
 
-        {/* Summary */}
-        <div>
-          <label htmlFor="summary">Resumen</label>
-          <textarea
-            name="summary"
-            id="summary"
-            value={formData.summary}
-            onChange={handleInputChange}
-          />
-        </div>
+        <label style={{ marginBottom: "10px" }}>Resumen:</label>
+        <textarea
+          name="summary"
+          value={formData.summary}
+          onChange={handleInputChange}
+          required
+          style={{ marginBottom: "10px", width: "100%" }}
+        />
 
-        {/* Details */}
-        <div>
-          <label htmlFor="details">Detalles</label>
-          <textarea
-            name="details"
-            id="details"
-            value={formData.details}
-            onChange={handleInputChange}
-          />
-        </div>
+        <label style={{ marginBottom: "10px" }}>Detalles:</label>
+        <textarea
+          name="details"
+          value={formData.details}
+          onChange={handleInputChange}
+          required
+          style={{ marginBottom: "10px", width: "100%" }}
+        />
 
-        {/* Image */}
-        <div>
-          <label htmlFor="image">Imagen</label>
-          {recommendationImageURL && (
-            <img
-              src={recommendationImageURL}
-              alt="Recommendation"
-              style={{ height: "200px" }}
-            />
-          )}
-          <input
-            type="file"
-            name="image"
-            id="image"
-            accept="image/*"
-            onChange={handleImageChange}
+        <label style={{ marginBottom: "10px" }}>Imagen:</label>
+        {recommendationImageURL && (
+          <img
+            src={recommendationImageURL}
+            alt="Recommendation"
+            style={{ marginBottom: "10px", width: "100%", maxWidth: "200px" }}
           />
-        </div>
+        )}
+        <input
+          type="file"
+          name="image"
+          id="image"
+          accept="image/*"
+          onChange={handleImageChange}
+          style={{ marginBottom: "10px" }}
+        />
 
-        {/* Submit button */}
-        <button type="submit">Actualizar</button>
+        <button
+          type="submit"
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            width: "100%",
+          }}
+        >
+          Actualizar
+        </button>
       </form>
     </div>
   );

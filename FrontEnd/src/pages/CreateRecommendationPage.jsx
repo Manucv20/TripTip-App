@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { createRecommendation } from "../services/getRecommendationsById";
-import DefaultImage from "../../public/Subir_foto_recomendacion.jpg";
 
 const CreateRecommendationPage = () => {
   const { token } = useContext(AuthContext);
