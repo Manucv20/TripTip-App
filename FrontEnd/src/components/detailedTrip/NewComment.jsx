@@ -6,8 +6,7 @@ import Avatar from "../user/Avatar";
 const NewComment = ({ trip, addComment }) => {
   const [comment, setComment] = useState("");
   const { token } = useContext(AuthContext);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
+  const [sending, setSending] = useState("");
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -26,7 +25,7 @@ const NewComment = ({ trip, addComment }) => {
       );
       addComment(userComment);
     } catch (error) {
-      setError(error.message);
+      // Handle error here if needed
     } finally {
       setSending(false);
       setComment("");

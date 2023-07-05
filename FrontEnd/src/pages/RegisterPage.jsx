@@ -27,14 +27,13 @@ const RegisterPage = () => {
     }
 
     try {
-      const data = await registerUserService({
+      await registerUserService({
         username,
         email,
         password: pass1,
       });
 
-      const { token } = data;
-      navigate(`/registered/${token}`);
+      navigate(`/registered/`);
     } catch (error) {
       toast.error(error.message);
     }
