@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { voteTripUserService, tripCommentsService } from "../../services";
+import { voteRecommendationService, deleteVoteRecommendationService } from "../../services/votesService";
+import { tripCommentsService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import NewComment from "./NewComment";
 import { CommentsList } from "./CommentsList";
@@ -8,10 +9,12 @@ import defaultImage from "../../img/Subir_foto_recomendacion.jpg";
 
 export const DetailedTrip = ({ trip }) => {
   const navigate = useNavigate();
-  const { token, auth } = useContext(AuthContext);
+  const { token, auth, userData } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [votes, setVotes] = useState(trip.votes);
   const [comments, setComments] = useState([]);
+  const [isVoted, setIsVoted] = useState(false);
+  const prevIsVoted = useRef(false);
 
   useEffect(() => {
     setVotes(trip.votes);
@@ -32,18 +35,56 @@ export const DetailedTrip = ({ trip }) => {
     }
   }, [trip.comments, trip.result.id]);
 
-  const voteTrip = async () => {
+  useEffect(() => {
+    if (auth && trip.votes && trip.votes.includes(userData.userId)) {
+      setIsVoted(true);
+    } else {
+      setIsVoted(false);
+    }
+  }, [auth, trip.votes, userData.userId]);
+
+  const handleVote = async () => {
     try {
       if (!auth) {
         return navigate("/login");
       }
       setError("");
-      const vote = await voteTripUserService(trip.result.id, token);
-      setVotes(vote);
+
+      console.log("isVoted:", isVoted);
+
+      if (isVoted) {
+        console.log("Removing vote...");
+
+        // Remove the vote
+        const deletedVote = await deleteVoteRecommendationService(trip.result.id, userData.userId, token);
+        console.log("deletedVote:", deletedVote);
+
+        setVotes(deletedVote.votes);
+
+        // Check if the previous value of isVoted was true
+        // If it was true, set isVoted to false
+        if (prevIsVoted.current) {
+          setIsVoted(false);
+        }
+      } else {
+        console.log("Creating vote...");
+
+        // Create a new vote
+        const createdVote = await voteRecommendationService(trip.result.id, userData.userId, token);
+        console.log("createdVote:", createdVote);
+
+        setVotes(createdVote.votes);
+        setIsVoted(true);
+      }
     } catch (error) {
+      console.error("Error handling vote:", error);
       setError(error.message);
     }
   };
+
+  useEffect(() => {
+    prevIsVoted.current = isVoted;
+  }, [isVoted]);
 
   return (
     <section className="DetailedTrip">
@@ -59,8 +100,13 @@ export const DetailedTrip = ({ trip }) => {
         />
         <div className="summary-container">
           <p id="summary">"{trip.result.summary}"</p>
-          <div className="vote-container" onClick={voteTrip}>
-            <div style={{ cursor: "pointer" }}>❤️ {votes}</div>{" "}
+          <div
+            className={`vote-container ${isVoted ? "voted" : ""}`}
+            onClick={handleVote}
+          >
+            <div style={{ cursor: "pointer" }}>
+              {isVoted ? "❤️" : "💔"} {votes}
+            </div>{" "}
             <div>{error && <p>{error}</p>}</div>
           </div>
         </div>
