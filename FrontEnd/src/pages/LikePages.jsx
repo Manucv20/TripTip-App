@@ -39,6 +39,7 @@ const LikePages = () => {
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
     padding: "16px",
+    overflowY: "auto",
   };
 
   const cardStyle = {
@@ -83,9 +84,8 @@ const LikePages = () => {
                       <img
                         src={
                           result.image
-                            ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                                result.image
-                              }`
+                            ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image
+                            }`
                             : "/Subir_foto_recomendacion.jpg"
                         }
                         alt={result.title}

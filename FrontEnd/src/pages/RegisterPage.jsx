@@ -4,9 +4,9 @@ import { toast } from "sonner";
 import { FaUserPlus } from "react-icons/fa";
 
 import { registerUserService } from "../services";
-import IconoUserRegister from "../components/IconoUserRegister";
-import IconoEmail from "../components/IconoEmail";
-import IconoPassword from "../components/IconoPassword";
+import IconoUserRegister from "../components/icons/IconoUserRegister";
+import IconoEmail from "../components/icons/IconoEmail";
+import IconoPassword from "../components/icons/IconoPassword";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -41,30 +41,46 @@ const RegisterPage = () => {
   };
 
   return (
-    <section style={{ margin: "2rem" }}>
+    <section className="login-page">
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: "-1",
+        }}
+      >
+        <source src="/video_login.mp4" type="video/mp4" />
+      </video>
       <form onSubmit={handleForm} style={{ margin: "2rem" }}>
         <fieldset
           style={{
             display: "flex",
-            justifyContent: "space-between",
             flexDirection: "column",
-            gap: "2rem",
+            alignItems: "center",
+            justifyContent: "space-around",
+
             padding: "1.7rem",
             margin: "0.5rem",
             borderRadius: "15px",
-            boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-            backgroundColor: "#C2B280",
+            // boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
+            backgroundColor: "#dcdcdccf",
           }}
         >
           <h2
             style={{
+              color: "rgb(194, 178, 128)",
               fontSize: "1.75rem",
               fontWeight: "600px",
               lineHeight: "1.5715",
-              color: "#000000",
+              textAlign: "center",
             }}
           >
-            Register on <Link to="/">TripTip</Link>
+            Regístrate en <Link to="/">Triptip</Link>
           </h2>
           <ul>
             <li className="input-register">
@@ -75,7 +91,7 @@ const RegisterPage = () => {
                 id="username"
                 name="username"
                 required
-                placeholder="User ..."
+                placeholder="Nombre de usuario"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </li>
@@ -87,7 +103,7 @@ const RegisterPage = () => {
                 id="email"
                 name="email"
                 required
-                placeholder="Mail address ..."
+                placeholder="Correo electrónico "
                 onChange={(e) => setEmail(e.target.value)}
               />
             </li>
@@ -99,7 +115,7 @@ const RegisterPage = () => {
                 id="pass1"
                 name="pass1"
                 required
-                placeholder="Password ..."
+                placeholder="Contraseña"
                 onChange={(e) => setPass1(e.target.value)}
               />
             </li>
@@ -111,7 +127,7 @@ const RegisterPage = () => {
                 id="pass2"
                 name="pass2"
                 required
-                placeholder="Repeat password ..."
+                placeholder="Repetir contraseña"
                 onChange={(e) => setPass2(e.target.value)}
               />
             </li>
@@ -122,8 +138,13 @@ const RegisterPage = () => {
               </button>
             </li>
           </ul>
-
-          <Link to="/login">¿Tienes ya cuenta con nosotros? Logeate</Link>
+          <div className="alta-login">
+            <p>¿Tienes ya cuenta con nosotros?</p>
+            <Link style={{ textAlign: "center" }} to="/login">
+              {" "}
+              <p className="anchor">Inicia sesión</p>
+            </Link>
+          </div>{" "}
         </fieldset>
       </form>
     </section>

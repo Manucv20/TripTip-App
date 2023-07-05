@@ -14,24 +14,41 @@ export const getCreatedRecommendations = async (userId) => {
   }
 };
 
-export const editRecommendation = async (recommendationId, recommendationData, token) => {
+export const getRecommendationById = async (recommendationId) => {
   try {
+    const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND}/recommendation/${recommendationId}`);
+    const recommendation = response.data;
+    return recommendation;
+  } catch (error) {
+    console.error("Error al obtener la recomendaci贸n:", error);
+    throw new Error("Error al obtener la recomendaci贸n");
+  }
+};
+
+export const editRecommendation = async (
+  recommendationId,
+  recommendationData,
+  token
+) => {
+  try {
+    console.log(token);
+    console.log(recommendationId);
+    console.log(recommendationData);
     const response = await axios.put(
       `${import.meta.env.VITE_APP_BACKEND}/recommendations/${recommendationId}`,
       recommendationData,
       {
         headers: {
           Authorization: token,
+          "Content-Type": "multipart/form-data",
         },
       }
     );
-
     const updatedRecommendation = response.data;
-
     return updatedRecommendation;
   } catch (error) {
-    console.error("Error editing recommendation:", error);
-    throw new Error("Error editing recommendation");
+    console.error("Error al actualizar la recomendación:", error);
+    throw new Error("Error al actualizar la recomendación");
   }
 };
 
@@ -81,4 +98,3 @@ export const createRecommendation = async (recommendationData, token) => {
     throw new Error("Error creating recommendation");
   }
 };
-

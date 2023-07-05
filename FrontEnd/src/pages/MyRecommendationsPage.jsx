@@ -39,12 +39,9 @@ const CreatedRecommendations = () => {
     }
   };
 
-  const handleCreateRecommendation = () => {
-    navigate("/recommendations/new");
-  };
-
   const containerStyle = {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -53,10 +50,12 @@ const CreatedRecommendations = () => {
 
   const listStyle = {
     width: "100%",
+    flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
     padding: "16px",
+    overflowY: "auto",
   };
 
   const cardStyle = {
@@ -81,6 +80,7 @@ const CreatedRecommendations = () => {
 
   const contentStyle = {
     flex: "1",
+    minHeight: "250px",
   };
 
   const buttonStyle = {
@@ -105,8 +105,12 @@ const CreatedRecommendations = () => {
     navigate("/recommendations/new");
   };
 
+  const handleEditRecommendation = (recommendationId) => {
+    navigate(`/recommendation/${recommendationId}/edit`);
+  };
+
   return (
-    <div style={containerStyle}>
+    <section style={containerStyle}>
       <h2>Tus recomendaciones creadas:</h2>
       <button style={addButtonStyle} onClick={handleAddRecommendation}>
         Añadir Recomendación
@@ -135,8 +139,6 @@ const CreatedRecommendations = () => {
                     <h3>{recommendation.title}</h3>
                     <p>Categoría: {recommendation.category}</p>
                     <p>Ubicación: {recommendation.location}</p>
-                    <p>Resumen: {recommendation.summary}</p>
-                    <p>Detalles: {recommendation.details}</p>
                     <p>Fecha de creación: {recommendation.created_at}</p>
                     <p>Votos: {recommendation.votes}</p>
                   </div>
@@ -164,7 +166,7 @@ const CreatedRecommendations = () => {
       ) : (
         <p>No has creado ninguna recomendación</p>
       )}
-    </div>
+    </section>
   );
 };
 
