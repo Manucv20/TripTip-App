@@ -41,45 +41,39 @@ const RegisterPage = () => {
 
   return (
     <section className="login-page">
-      <video
-        autoPlay
-        loop
-        muted
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: "-1",
-        }}
-      >
-        <source src="/video_login.mp4" type="video/mp4" />
-      </video>
-      <form onSubmit={handleForm} style={{ margin: "2rem" }}>
-        <fieldset
+      <div className="background">
+        <video
+          className="video-background"
+          autoPlay
+          loop
+          muted
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-around",
-
-            padding: "1.7rem",
-            margin: "0.5rem",
-            borderRadius: "15px",
-            // boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
-            backgroundColor: "#dcdcdccf",
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: "-1",
+            filter: "blur(5px)",
           }}
+        >
+          <source src="/video_login.mp4" type="video/mp4" />
+        </video>
+        <form
+          style={{
+            gap: "120px",
+            margin: "2rem",
+          }}
+          onSubmit={handleForm}
         >
           <h2
             style={{
-              color: "rgb(194, 178, 128)",
               fontSize: "1.75rem",
               fontWeight: "600px",
               lineHeight: "1.5715",
               textAlign: "center",
             }}
           >
-            Regístrate en <Link to="/">Triptip</Link>
+            Regístrate en <Link to="/">TripTip</Link>
           </h2>
           <ul>
             <li className="input-register">
@@ -140,12 +134,11 @@ const RegisterPage = () => {
           <div className="alta-login">
             <p>¿Tienes ya cuenta con nosotros?</p>
             <Link style={{ textAlign: "center" }} to="/login">
-              {" "}
               <p className="anchor">Inicia sesión</p>
             </Link>
-          </div>{" "}
-        </fieldset>
-      </form>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };

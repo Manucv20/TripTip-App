@@ -128,7 +128,8 @@ const CreatedRecommendations = () => {
   // Calcula el índice de la última recomendación de la página actual
   const indexOfLastRecommendation = currentPage * recommendationsPerPage;
   // Calcula el índice de la primera recomendación de la página actual
-  const indexOfFirstRecommendation = indexOfLastRecommendation - recommendationsPerPage;
+  const indexOfFirstRecommendation =
+    indexOfLastRecommendation - recommendationsPerPage;
   // Obtiene las recomendaciones de la página actual
   const currentRecommendations = createdRecommendations.slice(
     indexOfFirstRecommendation,
@@ -149,7 +150,14 @@ const CreatedRecommendations = () => {
           <ul style={listStyle}>
             {currentRecommendations.map((recommendation, index) => (
               <li key={recommendation.id}>
-                <div style={{ ...cardStyle, ...(createdRecommendations.length === 1 && { maxWidth: '400px' }) }}>
+                <div
+                  style={{
+                    ...cardStyle,
+                    ...(createdRecommendations.length === 1 && {
+                      maxWidth: "400px",
+                    }),
+                  }}
+                >
                   <Link
                     to={`/recommendation/${recommendation.id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
@@ -157,7 +165,9 @@ const CreatedRecommendations = () => {
                     <img
                       src={
                         recommendation.image
-                          ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${recommendation.image}`
+                          ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                              recommendation.image
+                            }`
                           : "src/img/Subir_foto_recomendacion.jpg"
                       }
                       alt={recommendation.title}
@@ -174,13 +184,17 @@ const CreatedRecommendations = () => {
                   <div>
                     <button
                       style={buttonStyle}
-                      onClick={() => handleEditRecommendation(recommendation.id)}
+                      onClick={() =>
+                        handleEditRecommendation(recommendation.id)
+                      }
                     >
                       Editar
                     </button>
                     <button
                       style={buttonStyle}
-                      onClick={() => handleDeleteRecommendation(recommendation.id)}
+                      onClick={() =>
+                        handleDeleteRecommendation(recommendation.id)
+                      }
                     >
                       Borrar
                     </button>
@@ -191,7 +205,11 @@ const CreatedRecommendations = () => {
           </ul>
           <div style={paginationContainerStyle}>
             {/* Renderiza los números de página */}
-            {Array.from({ length: Math.ceil(createdRecommendations.length / recommendationsPerPage) }).map((_, index) => (
+            {Array.from({
+              length: Math.ceil(
+                createdRecommendations.length / recommendationsPerPage
+              ),
+            }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => paginate(index + 1)}

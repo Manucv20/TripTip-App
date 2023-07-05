@@ -46,6 +46,7 @@ const Sidebar = () => {
   };
 
   const containerStyles = {
+    backgroundColor: "white",
     display: "flex",
     borderRight: "1px solid #ccc",
   };

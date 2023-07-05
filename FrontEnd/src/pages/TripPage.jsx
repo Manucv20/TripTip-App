@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import useTrip from "../hooks/useTrip";
 import { DetailedTrip } from "../components/detailedTrip/DetailedTrip";
 import useComments from "../hooks/useComments";
-import ErrorMessage from "../components/tools/ErrorMessage";
+import NotFoundPage from "./NotFoundPage";
 
 const TripPage = () => {
   const { id } = useParams();

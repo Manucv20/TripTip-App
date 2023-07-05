@@ -6,9 +6,9 @@ import defaultImage from "../../img/Subir_foto_recomendacion.jpg";
 const SearchResultsComponent = () => {
   const location = useLocation();
   const searchResults = location.state?.searchResults?.data || [];
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-  }, [searchResults]);
+  useEffect(() => {}, [searchResults]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 8; // Define el número de tarjetas por página
@@ -44,8 +44,9 @@ const SearchResultsComponent = () => {
                   <img
                     src={
                       result.image
-                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image
-                        }`
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                            result.image
+                          }`
                         : defaultImage
                     }
                     alt={result.title}
@@ -161,7 +162,7 @@ const activePageButtonStyle = {
   ...pageButtonStyle,
   fontWeight: "bold",
   backgroundColor: "#ccc",
-  margin: ""
+  margin: "",
 };
 
 export default SearchResultsComponent;

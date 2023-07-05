@@ -10,17 +10,16 @@ const HomePage = () => {
           <h2 style={titleStyle}>Viajar mejor: ¿dónde, cuándo y cómo?</h2>
           <p style={textStyle}>
             ¿Quieres explorar el mundo de manera auténtica y responsable?
-            Descubre Triptip, una plataforma donde podrás encontrar
-            experiencias públicas recomendadas por nuestros viajeros.
-            Sumérgete en las recomendaciones y consejos de aquellos que han
-            vivido aventuras únicas en destinos fascinantes. En Triptip, te
-            ofrecemos una selección cuidadosamente curada de experiencias
-            recomendadas por viajeros como tú. Explora destinos exóticos,
-            descubre rincones escondidos y sumérgete en la cultura local a
-            través de nuestras recomendaciones auténticas. Además, te
-            brindamos valiosos consejos para viajar de manera respetuosa con
-            el entorno y la cultura local, promoviendo un turismo sostenible.
-            Aquí tienen algunos ejemplos:
+            Descubre Triptip, una plataforma donde podrás encontrar experiencias
+            públicas recomendadas por nuestros viajeros. Sumérgete en las
+            recomendaciones y consejos de aquellos que han vivido aventuras
+            únicas en destinos fascinantes. En Triptip, te ofrecemos una
+            selección cuidadosamente curada de experiencias recomendadas por
+            viajeros como tú. Explora destinos exóticos, descubre rincones
+            escondidos y sumérgete en la cultura local a través de nuestras
+            recomendaciones auténticas. Además, te brindamos valiosos consejos
+            para viajar de manera respetuosa con el entorno y la cultura local,
+            promoviendo un turismo sostenible. Aquí tienen algunos ejemplos:
           </p>
           <div style={cardsContainerStyle1}>
             <TravelCard
@@ -51,12 +50,11 @@ const HomePage = () => {
           <p style={textStyle}>
             Nuestra comunidad de viajeros está comprometida en compartir sus
             experiencias de manera responsable, fomentando el respeto por el
-            medio ambiente y las comunidades locales. Únete a Triptip y
-            descubre un mundo de posibilidades para viajar de forma consciente
-            y enriquecedora. Embárcate en una nueva aventura con Triptip,
-            donde la autenticidad y la responsabilidad van de la mano.
-            ¡Descubre nuevas culturas, amplía tus horizontes y haz del mundo
-            tu hogar!"
+            medio ambiente y las comunidades locales. Únete a Triptip y descubre
+            un mundo de posibilidades para viajar de forma consciente y
+            enriquecedora. Embárcate en una nueva aventura con Triptip, donde la
+            autenticidad y la responsabilidad van de la mano. ¡Descubre nuevas
+            culturas, amplía tus horizontes y haz del mundo tu hogar!"
           </p>
           <p style={textStyle}>
             ¿En pareja o en familia? ¿Un trekking o un safari? ¿Cultura o
@@ -97,7 +95,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
     </>
   );
 };
@@ -114,8 +111,6 @@ const pageContainerStyle = {
   padding: "30px 0",
   background: "#f6f6f6",
 };
-
-
 
 const contentContainerStyle = {
   margin: 0,
