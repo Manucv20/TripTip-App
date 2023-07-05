@@ -1,4 +1,4 @@
-const { createVotes, getVotedRecommendationsByUser } = require("../db/votes");
+const { createVotes, getVotedRecommendationsByUser, deleteVoteByUserAndRecommendation } = require("../db/votes");
 const { getRecommendationById } = require("../db/recommendations");
 
 const NewVoteController = async (req, res, next) => {
@@ -36,7 +36,23 @@ const getVotedRecommendationsController = async (req, res, next) => {
     const votedRecommendations = await getVotedRecommendationsByUser(user_id);
 
     res.status(200).json(votedRecommendations);
-  } catch (er) {
+  } catch (e) {
+    next(e);
+  }
+};
+
+const deleteVoteController = async (req, res, next) => {
+  try {
+    const { user_id, recommendation_id } = req.params;
+
+    // Eliminar el voto del usuario para la recomendación específica
+    await deleteVoteByUserAndRecommendation(user_id, recommendation_id);
+
+    res.send({
+      status: "OK",
+      message: "El voto ha sido eliminado correctamente.",
+    });
+  } catch (e) {
     next(e);
   }
 };
@@ -44,4 +60,5 @@ const getVotedRecommendationsController = async (req, res, next) => {
 module.exports = {
   getVotedRecommendationsController,
   NewVoteController,
+  deleteVoteController,
 };

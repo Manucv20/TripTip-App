@@ -98,7 +98,52 @@ const getVotedRecommendationsByUser = async (user_id) => {
     if (connection) connection.release();
   }
 };
+
+const deleteVoteByUserAndRecommendation = async (user_id, recommendation_id) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    // Verificar si el usuario existe
+    const [user] = await connection.query("SELECT id FROM users WHERE id = ?", [user_id]);
+
+    if (user.length === 0) {
+      throw generateError("Usuario no encontrado", 404);
+    }
+
+    // Verificar si existe un registro de voto para el usuario y la publicación
+    const [existingRecord] = await connection.query(
+      `
+      SELECT * FROM votes
+      WHERE user_id = ? AND recommendation_id = ?
+    `,
+      [user_id, recommendation_id]
+    );
+
+    if (existingRecord.length === 0) {
+      throw generateError("El voto no existe", 404);
+    }
+
+    // Eliminar el voto
+    await connection.query(
+      `
+      DELETE FROM votes
+      WHERE user_id = ? AND recommendation_id = ?
+    `,
+      [user_id, recommendation_id]
+    );
+
+    return { success: true };
+  } catch (error) {
+    throw error;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+
 module.exports = {
   getVotedRecommendationsByUser,
   createVotes,
+  deleteVoteByUserAndRecommendation,
 };
