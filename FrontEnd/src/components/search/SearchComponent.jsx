@@ -155,8 +155,7 @@ const SearchComponent = () => {
       <div style={contentStyle}>
         <h1
           style={{
-            textShadow:
-              "0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #000000, 0 0 60px #000000, 0 0 70px #000000",
+            textShadow: "4px 4px 5px #000000",
             color: "white",
             margin: 0,
           }}

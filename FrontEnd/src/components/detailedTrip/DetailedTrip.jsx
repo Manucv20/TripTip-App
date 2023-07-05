@@ -1,6 +1,9 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { voteRecommendationService, deleteVoteRecommendationService } from "../../services/votesService";
+import {
+  voteRecommendationService,
+  deleteVoteRecommendationService,
+} from "../../services/votesService";
 import { tripCommentsService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import NewComment from "./NewComment";
@@ -8,10 +11,11 @@ import { CommentsList } from "./CommentsList";
 
 export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   const navigate = useNavigate();
-  const { token, auth, userData } = useContext(AuthContext);
+  const { token, auth, userData = {} } = useContext(AuthContext);
+
   const [error, setError] = useState("");
   const [votes, setVotes] = useState(trip.votes);
-  const [comments, setComments] = useState([]);
+  const [commentsList, setCommentsList] = useState([]);
   const [isVoted, setIsVoted] = useState(false);
   const prevIsVoted = useRef(false);
 
@@ -23,8 +27,10 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
     if (trip.comments.length > 0) {
       const fetchComments = async () => {
         try {
-          const comments = await tripCommentsService({ id: trip.result.id });
-          setComments(comments);
+          const commentsList = await tripCommentsService({
+            id: trip.result.id,
+          });
+          setCommentsList(commentsList);
         } catch (error) {
           setError(error.message);
         }
@@ -35,12 +41,18 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   }, [trip.comments, trip.result.id]);
 
   useEffect(() => {
-    if (auth && trip.votes && trip.votes.includes(userData.userId)) {
+    if (
+      auth &&
+      userData &&
+      userData.userId &&
+      trip.votes &&
+      trip.votes.includes(userData.userId)
+    ) {
       setIsVoted(true);
     } else {
       setIsVoted(false);
     }
-  }, [auth, trip.votes, userData.userId]);
+  }, [auth, trip.votes, userData]);
 
   const handleVote = async () => {
     try {
@@ -53,7 +65,11 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
         console.log("Removing vote...");
 
         // Remove the vote
-        const deletedVote = await deleteVoteRecommendationService(trip.result.id, userData.userId, token);
+        const deletedVote = await deleteVoteRecommendationService(
+          trip.result.id,
+          userData.userId,
+          token
+        );
         console.log("deletedVote:", deletedVote);
 
         setVotes(deletedVote.votes);
@@ -67,7 +83,11 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
         console.log("Creating vote...");
 
         // Create a new vote
-        const createdVote = await voteRecommendationService(trip.result.id, userData.userId, token);
+        const createdVote = await voteRecommendationService(
+          trip.result.id,
+          userData.userId,
+          token
+        );
         console.log("createdVote:", createdVote);
 
         setVotes(createdVote.votes);
@@ -86,16 +106,19 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   return (
     <section className="DetailedTrip">
       <div className="image-content">
-        {trip.result.image ? (
+        {
           <img
             id="detailedPhoto"
-            src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image
-              }`}
+            src={
+              trip.result.image
+                ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                    trip.result.image
+                  } `
+                : "/Subir_foto_recomendacion.jpg"
+            }
             alt={trip.result.summary}
           />
-        ) : (
-          "/Subir_foto_recomendacion.jpg"
-        )}
+        }
         <div className="summary-container">
           <p id="summary">"{trip.result.summary}"</p>
           <div

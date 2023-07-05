@@ -68,36 +68,43 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
         ) : null}
         {error ? <p>{error}</p> : null}
       </div>
-
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.6)",
-            zIndex: 9999,
           },
           content: {
-            transform: "translate(0%, 100%)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1rem",
             maxWidth: "400px",
             maxHeight: "200px",
             margin: "0 auto",
-            borderRadius: "4px",
-            padding: "20px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            marginTop: "15rem",
           },
         }}
       >
         <h2>Confirmar eliminación</h2>
         <p>¿Estás seguro de que quieres borrar el comentario?</p>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <button
             style={{
-              backgroundColor: "red",
+              backgroundColor: "#D93030",
               color: "white",
               padding: "8px 16px",
               borderRadius: "4px",
               marginRight: "10px",
+              width: "100px",
             }}
             onClick={handleDelete}
           >
@@ -109,6 +116,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
               color: "white",
               padding: "8px 16px",
               borderRadius: "4px",
+              width: "100px",
             }}
             onClick={handleCloseModal}
           >

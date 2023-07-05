@@ -10,7 +10,7 @@ const Footer = () => {
 
 const styles = {
   footer: {
-    backgroundColor: "rgb(194, 178, 128)",
+    backgroundColor: "#A62424",
     width: "100%",
     padding: "10px",
     bottom: 0,
