@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchComponent from "./SearchComponent";
-import defaultImage from "../../../public/Subir_foto_recomendacion.jpg";
+import defaultImage from "../../img/Subir_foto_recomendacion.jpg";
 
 const SearchResultsComponent = () => {
   const location = useLocation();
   const searchResults = location.state?.searchResults?.data || [];
 
   useEffect(() => {
-    console.log("Resultados de búsqueda:", searchResults);
   }, [searchResults]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,9 +44,8 @@ const SearchResultsComponent = () => {
                   <img
                     src={
                       result.image
-                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
-                            result.image
-                          }`
+                        ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image
+                        }`
                         : defaultImage
                     }
                     alt={result.title}
@@ -81,19 +79,22 @@ const SearchResultsComponent = () => {
               <div style={paginationStyle}>
                 {Array(Math.ceil(searchResults.length / cardsPerPage))
                   .fill()
-                  .map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePageChange(index + 1)}
-                      style={
-                        currentPage === index + 1
-                          ? activePageButtonStyle
-                          : pageButtonStyle
-                      }
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
+                  .map((_, index) => {
+                    const result = searchResults[index];
+                    return (
+                      <button
+                        key={result.id}
+                        onClick={() => handlePageChange(index + 1)}
+                        style={
+                          currentPage === index + 1
+                            ? activePageButtonStyle
+                            : pageButtonStyle
+                        }
+                      >
+                        {index + 1}
+                      </button>
+                    );
+                  })}
               </div>
             )}
           </>

@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const AuthContext = createContext();
@@ -8,7 +8,7 @@ export const AuthProviderComponent = ({ children }) => {
   const storedToken = localStorage.getItem("token");
   const storedAuth = localStorage.getItem("auth");
   const storedUserData = localStorage.getItem("userData");
-  
+
   const [token, setToken] = useState(storedToken || " ");
   const [userData, setUserData] = useState(
     storedUserData ? JSON.parse(storedUserData) : null
@@ -23,7 +23,7 @@ export const AuthProviderComponent = ({ children }) => {
     if (token !== " ") {
       try {
         const decodedToken = jwtDecode(token);
-        localStorage.setItem("userData", JSON.stringify(decodedToken)); // Guardar userData como cadena JSON
+        localStorage.setItem("userData", JSON.stringify(decodedToken));
         setUserData(decodedToken);
         setAuth(true);
         if (login) {
@@ -41,28 +41,28 @@ export const AuthProviderComponent = ({ children }) => {
     }
   }, [token, auth]);
 
-    const logoutHandler = () => {
+  const logoutHandler = () => {
     localStorage.removeItem(storedToken);
     localStorage.removeItem("auth");
     localStorage.removeItem("userData");
-    
+
     setUserData(null);
     setAuth(false);
     return setToken(" ");
   };
 
+  const contextValue = useMemo(() => ({
+    token,
+    setToken,
+    userData,
+    auth,
+    setAuth,
+    setLogin,
+    logoutHandler,
+  }), [token, userData, auth, setLogin, logoutHandler]);
+
   return (
-    <AuthContext.Provider
-      value={{
-        token,
-        setToken,
-        userData,
-        auth,
-        setAuth,
-        setLogin,
-        logoutHandler,
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

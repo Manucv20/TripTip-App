@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { FaSignInAlt } from "react-icons/fa";
 
 import { activateUserService, loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
