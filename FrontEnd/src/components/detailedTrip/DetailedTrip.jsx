@@ -1,20 +1,42 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { voteTripUserService } from "../../services";
+import { voteTripUserService, tripCommentsService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import NewComment from "./NewComment";
 import { CommentsList } from "./CommentsList";
-import defaultImage from "../../../public/Subir_foto_recomendacion.jpg";
+import defaultImage from "../../img/Subir_foto_recomendacion.jpg";
 
-export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
+export const DetailedTrip = ({ trip }) => {
   const navigate = useNavigate();
   const { token, auth } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [votes, setVotes] = useState(trip.votes);
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    setVotes(trip.votes);
+  }, [trip.votes]);
+
+  useEffect(() => {
+    if (trip.comments.length > 0) {
+      const fetchComments = async () => {
+        try {
+          const comments = await tripCommentsService({ id: trip.result.id });
+          setComments(comments);
+        } catch (error) {
+          setError(error.message);
+        }
+      };
+
+      fetchComments();
+    }
+  }, [trip.comments, trip.result.id]);
 
   const voteTrip = async () => {
     try {
-      if (!auth) return navigate("/login");
+      if (!auth) {
+        return navigate("/login");
+      }
       setError("");
       const vote = await voteTripUserService(trip.result.id, token);
       setVotes(vote);
@@ -26,30 +48,20 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
   return (
     <section className="DetailedTrip">
       <div className="image-content">
-        {trip.result.image ? (
-          <img
-            id="detailedPhoto"
-            src={`${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image}`}
-            alt={trip.result.summary}
-          />
-        ) : (
-          <img
-            id="detailedPhoto"
-            src={defaultImage}
-            alt={trip.result.summary}
-          />
-        )}
+        <img
+          id="detailedPhoto"
+          src={
+            trip.result.image
+              ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${trip.result.image}`
+              : defaultImage
+          }
+          alt={trip.result.summary}
+        />
         <div className="summary-container">
           <p id="summary">"{trip.result.summary}"</p>
           <div className="vote-container" onClick={voteTrip}>
-            <div
-              style={{
-                cursor: "pointer",
-              }}
-            >
-              ❤️ {votes}
-            </div>{" "}
-            <div>{error ? <p>{error}</p> : null}</div>
+            <div style={{ cursor: "pointer" }}>❤️ {votes}</div>{" "}
+            <div>{error && <p>{error}</p>}</div>
           </div>
         </div>
       </div>
@@ -65,12 +77,18 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
           <p>Recomendado por:</p>
           <p>{trip.userResult.username}</p>
           <p>Fecha de recomendación:</p>
-          <p>{new Date(trip.result.created_at).toLocaleDateString("es-ES")}</p>
+          <p>
+            {new Date(trip.result.created_at).toLocaleDateString("es-ES")}
+          </p>
         </div>
       </div>
       <div className="comments-container">
-        {auth && <NewComment trip={trip} addComment={addComment} />}
-        <CommentsList comments={comments} removeComment={removeComment} />
+        {auth && <NewComment trip={trip} />}
+        {trip.comments.length > 0 ? (
+          <CommentsList comments={comments} />
+        ) : (
+          <p>No hay comentarios aún</p>
+        )}
       </div>
     </section>
   );

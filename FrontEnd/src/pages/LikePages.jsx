@@ -10,7 +10,7 @@ const LikePages = () => {
   useEffect(() => {
     const fetchVotedRecommendations = async () => {
       try {
-        if (token && userData && userData.userId) {
+        if (token && userData?.userId) { // Optional chaining used here
           const response = await getVotedRecommendations(
             userData.userId,
             token
@@ -27,6 +27,7 @@ const LikePages = () => {
 
   const containerStyle = {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -35,6 +36,7 @@ const LikePages = () => {
 
   const listStyle = {
     width: "100%",
+    flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
@@ -49,7 +51,7 @@ const LikePages = () => {
     borderRadius: "8px",
     border: "1px solid #ccc",
     padding: "16px",
-    marginBottom: "16px",
+    marginBottom: "16px", // Remove the duplicate marginBottom property
     minHeight: "250px",
   };
 
@@ -59,7 +61,6 @@ const LikePages = () => {
     marginBottom: "16px",
     objectFit: "cover",
     borderRadius: "8px",
-    marginBottom: "16px",
   };
 
   const contentStyle = {
@@ -76,7 +77,7 @@ const LikePages = () => {
             if (result && result.title) {
               return (
                 <li key={result.id}>
-                  <div style={cardStyle}>
+                  <div style={{ ...cardStyle, ...(votedRecommendations.length === 1 && { maxWidth: '400px' }) }}>
                     <Link
                       to={`/recommendation/${result.id}`}
                       style={{ textDecoration: "none", color: "inherit" }}
@@ -84,8 +85,7 @@ const LikePages = () => {
                       <img
                         src={
                           result.image
-                            ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image
-                            }`
+                            ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`
                             : "/Subir_foto_recomendacion.jpg"
                         }
                         alt={result.title}
