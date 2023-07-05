@@ -10,11 +10,10 @@ const TripPage = () => {
   const { trip, loading, error } = useTrip(id);
 
   if (loading) return <p>cargando trip</p>;
-  if (error) return <ErrorMessage message={error} />;
+  if (error) return <NotFoundPage />;
 
   return (
     <DetailedTrip
-      className="TripPage"
       trip={trip}
       addComment={addComment}
       comments={comments}

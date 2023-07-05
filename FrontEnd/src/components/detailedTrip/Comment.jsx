@@ -2,24 +2,30 @@ import { AuthContext } from "../../context/AuthContext";
 import { deleteCommentService } from "../../services";
 import Avatar from "../user/Avatar";
 import React, { useState, useContext, useEffect, useRef } from "react";
+import Modal from "react-modal";
 
 export const Comment = ({ comment, removeComment, timeDiff }) => {
   const { auth, userData, token } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const textareaRef = useRef(null);
 
-  const deleteComment = async (id) => {
+  const handleDeleteConfirmation = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async () => {
     try {
-      const confirmDelete = window.confirm(
-        "¿Estás seguro de que quieres borrar el comentario?"
-      );
-      if (confirmDelete) {
-        await deleteCommentService({ id, token });
-        removeComment(id);
-      }
+      await deleteCommentService({ id: comment.id, token });
+      removeComment(comment.id);
+      setIsModalOpen(false);
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -52,10 +58,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
           onChange={adjustTextareaHeight}
         />
         {auth && userData.userId === comment.user_id ? (
-          <button
-            className="trashcan"
-            onClick={() => deleteComment(comment.id)}
-          >
+          <button className="trashcan" onClick={handleDeleteConfirmation}>
             <img
               src="/trash-can.png"
               className="trashcan-img"
@@ -65,6 +68,54 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
         ) : null}
         {error ? <p>{error}</p> : null}
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            zIndex: 9999,
+          },
+          content: {
+            transform: "translate(0%, 100%)",
+            maxWidth: "400px",
+            maxHeight: "200px",
+            margin: "0 auto",
+            borderRadius: "4px",
+            padding: "20px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        <h2>Confirmar eliminación</h2>
+        <p>¿Estás seguro de que quieres borrar el comentario?</p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              padding: "8px 16px",
+              borderRadius: "4px",
+              marginRight: "10px",
+            }}
+            onClick={handleDelete}
+          >
+            Borrar
+          </button>
+          <button
+            style={{
+              backgroundColor: "gray",
+              color: "white",
+              padding: "8px 16px",
+              borderRadius: "4px",
+            }}
+            onClick={handleCloseModal}
+          >
+            Cancelar
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };

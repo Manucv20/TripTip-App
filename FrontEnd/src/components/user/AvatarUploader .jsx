@@ -32,14 +32,6 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
         <FaCameraRetro
           className="fondo2"
           title="Descargar Avatar"
-          style={{
-            position: "absolute",
-            margin: "10px",
-            bottom: "-10px",
-            right: "0px",
-            fontSize: "24px",
-            cursor: "pointer",
-          }}
         />
       </label>
       {image ? (

@@ -14,8 +14,8 @@ html {
   font-size: 16px;
 }
 
-
-body, main {
+body,
+main {
   min-height: 100vh;
   min-width: fit-content;
   overflow-x: hidden;
@@ -39,7 +39,6 @@ a:visited {
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
 
 .login-page form fieldset {
@@ -623,8 +622,21 @@ p#details {
   display: none; /* Oculta el mensaje de bienvenida de forma predeterminada */
 }
 
+@media (max-width: 600px) {
+  #ul-burguer {
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 9%);
+  }
+}
 @media (min-width: 600px) {
   #welcome-message {
     display: block; /* Muestra el mensaje de bienvenida si el ancho de la pantalla es mayor o igual a 600px */
+  }
+  #ul-burguer {
+    position: absolute;
+    transform: translate(50%, 10%);
   }
 }

@@ -70,9 +70,9 @@ const BurgerMenu = () => {
       </button>
       {isOpen ? (
         <ul
+          id="ul-burguer"
           ref={menuRef}
           style={{
-            position: "absolute",
             top: "100%",
             left: 0,
             backgroundColor: "white",

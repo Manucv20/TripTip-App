@@ -4,9 +4,10 @@ import { AuthContext } from "../../context/AuthContext";
 import Avatar from "../user/Avatar";
 
 const NewComment = ({ trip, addComment }) => {
+  const { userData, token } = useContext(AuthContext);
   const [comment, setComment] = useState("");
-  const { token } = useContext(AuthContext);
-  const [sending, setSending] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -25,7 +26,7 @@ const NewComment = ({ trip, addComment }) => {
       );
       addComment(userComment);
     } catch (error) {
-      // Handle error here if needed
+      setError(error.message);
     } finally {
       setSending(false);
       setComment("");
@@ -40,6 +41,7 @@ const NewComment = ({ trip, addComment }) => {
     <section className="NewComment">
       <div className="NewComment-container">
         <Avatar
+          imagen={userData.imagen}
           className="avatar-nc"
           estilo={{ width: "65px", height: "65px" }}
         />
