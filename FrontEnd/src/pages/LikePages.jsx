@@ -10,7 +10,8 @@ const LikePages = () => {
   useEffect(() => {
     const fetchVotedRecommendations = async () => {
       try {
-        if (token && userData?.userId) { // Optional chaining used here
+        if (token && userData?.userId) {
+          // Optional chaining used here
           const response = await getVotedRecommendations(
             userData.userId,
             token
@@ -53,6 +54,8 @@ const LikePages = () => {
     padding: "16px",
     marginBottom: "16px", // Remove the duplicate marginBottom property
     minHeight: "250px",
+    borderRadius: "15px",
+    boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
   };
 
   const imageStyle = {
@@ -77,7 +80,15 @@ const LikePages = () => {
             if (result && result.title) {
               return (
                 <li key={result.id}>
-                  <div style={{ ...cardStyle, ...(votedRecommendations.length === 1 && { maxWidth: '400px' }) }}>
+                  <div
+                    style={{
+                      ...cardStyle,
+                      ...(votedRecommendations.length === 1 && {
+                        maxWidth: "400px",
+                        backgroundColor: "white",
+                      }),
+                    }}
+                  >
                     <Link
                       to={`/recommendation/${result.id}`}
                       style={{ textDecoration: "none", color: "inherit" }}
@@ -85,7 +96,9 @@ const LikePages = () => {
                       <img
                         src={
                           result.image
-                            ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${result.image}`
+                            ? `${import.meta.env.VITE_APP_BACKEND}/uploads/${
+                                result.image
+                              }`
                             : "/Subir_foto_recomendacion.jpg"
                         }
                         alt={result.title}

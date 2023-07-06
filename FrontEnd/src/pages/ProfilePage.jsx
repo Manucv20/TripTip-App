@@ -113,9 +113,12 @@ const ProfilePage = () => {
           {loading ? <p>Cargando Formulario...</p> : null}
           <fieldset
             style={{
+              backgroundColor: "white",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              width: "370px",
+              height: "500px",
               gap: "1rem",
               padding: "2rem",
               margin: "0.5rem",
@@ -129,6 +132,7 @@ const ProfilePage = () => {
                 fontWeight: "600px",
                 lineHeight: "1.5715",
                 color: "#000000",
+                textAlign: "center",
               }}
             >
               Perfil de usuario
@@ -165,9 +169,12 @@ const ProfilePage = () => {
           </fieldset>
           <fieldset
             style={{
+              backgroundColor: "white",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              width: "370px",
+              height: "500px",
               gap: "1rem",
               padding: "2rem",
               margin: "0.5rem",
@@ -181,9 +188,10 @@ const ProfilePage = () => {
                 fontWeight: "600px",
                 lineHeight: "1.5715",
                 color: "#000000",
+                textAlign: "center",
               }}
             >
-              Datos Personales
+              Datos personales
             </h2>
             <ul>
               <li className="container-personal">
@@ -250,7 +258,7 @@ const ProfilePage = () => {
               </li>
               <li className="container-personal">
                 <label htmlFor="biografia" className="label-perfil">
-                  Sobre mi
+                  Sobre mí
                 </label>
 
                 <textarea
@@ -270,16 +278,18 @@ const ProfilePage = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-
-                    marginRight: "2rem",
+                    backgroundColor: "#D93030",
+                    marginRight: "3rem",
                     gap: "8px",
                     cursor: "pointer",
+                    fontWeight: "bold",
+                    marginTop: "20px",
                   }}
                 >
                   {" "}
                   <FaSyncAlt
                     style={{
-                      color: "blue",
+                      color: "white",
                     }}
                   />{" "}
                   Actualizar
@@ -289,16 +299,19 @@ const ProfilePage = () => {
                   type="button"
                   onClick={handleCancel}
                   style={{
+                    marginTop: "20px",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     gap: "8px",
                     cursor: "pointer",
+                    backgroundColor: "#D93030",
+                    fontWeight: "bold",
                   }}
                 >
                   <FaTimes
                     style={{
-                      color: "red",
+                      color: "white",
                     }}
                   />{" "}
                   Cancelar

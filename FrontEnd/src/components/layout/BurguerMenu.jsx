@@ -73,8 +73,8 @@ const BurgerMenu = () => {
           id="ul-burguer"
           ref={menuRef}
           style={{
-            top: "100%",
-            left: 0,
+            top: 41,
+            left: -25,
             backgroundColor: "white",
             listStyle: "none",
             padding: 0,

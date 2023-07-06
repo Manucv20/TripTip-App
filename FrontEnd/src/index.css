@@ -21,6 +21,12 @@ main {
   overflow-x: hidden;
 }
 
+body {
+  background-image: url(/public/pattern_airplane.png);
+  background-repeat: repeat;
+  background-size: 600px 600px;
+}
+
 ul {
   list-style: none;
 }
@@ -66,6 +72,10 @@ a:visited {
   height: 430px;
   width: 500px;
 }
+
+/* .login-page form fieldset h2 {
+  background-color: black;
+} */
 
 .login-page form ul {
   /* background-color: black; */
@@ -410,10 +420,12 @@ p#details {
 /* Fin ficha de viaje */
 
 .DetailedTrip {
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  min-height: 100vh;
 }
 .login-page form {
   display: flex;
@@ -566,6 +578,12 @@ p#details {
 
 /* Fin caja de comentarios */
 
+/* New trip */
+
+.new-trip label {
+  font-weight: bold;
+}
+
 /* "Comentarios" y todos sus hijos*/
 .comment-content {
   width: 100%;
@@ -701,7 +719,7 @@ p#details {
     z-index: 9999;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 9%);
+    transform: translate(-38%, 9%);
   }
 }
 @media (min-width: 600px) {

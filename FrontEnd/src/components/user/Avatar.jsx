@@ -7,6 +7,8 @@ const Avatar = ({ imagen, estilo }) => {
     display: "inline-block",
     backgroundSize: "cover",
     borderRadius: "50%",
+    width: "250px",
+    height: "250px",
     position: "relative",
     objectFit: "cover",
     ...estilo, // Fusionar el estilo pasado desde el componente padre

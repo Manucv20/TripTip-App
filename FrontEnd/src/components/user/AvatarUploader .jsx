@@ -29,10 +29,7 @@ const AvatarUploader = ({ handleAction, profile_imagen }) => {
   return (
     <>
       <label htmlFor="fileInput">
-        <FaCameraRetro
-          className="fondo2"
-          title="Descargar Avatar"
-        />
+        <FaCameraRetro className="fondo2" title="Descargar Avatar" />
       </label>
       {image ? (
         <>

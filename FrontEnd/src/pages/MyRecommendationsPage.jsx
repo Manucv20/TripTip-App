@@ -51,8 +51,9 @@ const CreatedRecommendations = () => {
   };
 
   const listStyle = {
+    backgroundColor: "white",
     width: "100%",
-    flex: "1",
+    // flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "16px",
@@ -69,6 +70,9 @@ const CreatedRecommendations = () => {
     padding: "16px",
     marginBottom: "16px",
     minHeight: "250px",
+    maxWidth: "350px",
+    borderRadius: "15px",
+    boxShadow: "0 0px 3px rgba(0, 0, 0, 0.5)",
   };
 
   const imageStyle = {
@@ -97,9 +101,11 @@ const CreatedRecommendations = () => {
     marginBottom: "16px",
     padding: "8px",
     borderRadius: "4px",
-    background: "#eee",
+    backgroundColor: "#D93030",
     border: "none",
     cursor: "pointer",
+    color: "white",
+    fontWeight: "bold",
   };
 
   const paginationContainerStyle = {

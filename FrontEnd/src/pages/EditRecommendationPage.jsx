@@ -239,7 +239,7 @@ const EditRecommendationPage = () => {
           type="submit"
           style={{
             padding: "10px 20px",
-            backgroundColor: "#4CAF50",
+            backgroundColor: "#d93030",
             color: "white",
             border: "none",
             borderRadius: "4px",
