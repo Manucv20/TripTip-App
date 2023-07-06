@@ -108,8 +108,6 @@ const LikePages = () => {
                         <h3>{result.title}</h3>
                         <p>Categoría: {result.category}</p>
                         <p>Ubicación: {result.location}</p>
-                        <p>Resumen: {result.summary}</p>
-                        <p>Detalles: {result.details}</p>
                         <p>Fecha de creación: {result.created_at}</p>
                         <p>Votos: {votes}</p>
                       </div>
