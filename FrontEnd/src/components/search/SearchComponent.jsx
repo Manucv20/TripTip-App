@@ -118,7 +118,7 @@ const SearchComponent = () => {
 
   const buttonStyle = {
     height: "40px",
-    backgroundColor: "#007bff",
+    backgroundColor: "#D93030",
     color: "#fff",
     border: "none",
     borderRadius: "4px",

@@ -125,6 +125,7 @@ const CreateRecommendationPage = () => {
 
   return (
     <div
+      className="new-trip"
       style={{
         display: "flex",
         alignItems: "center",
@@ -238,7 +239,8 @@ const CreateRecommendationPage = () => {
         <button
           type="submit"
           style={{
-            backgroundColor: "#4CAF50",
+            backgroundColor: "#d93030",
+            fontWeight: "bold",
             color: "white",
             padding: "10px 20px",
             border: "none",

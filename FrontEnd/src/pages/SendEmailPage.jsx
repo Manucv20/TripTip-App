@@ -1,14 +1,24 @@
 const SendEmailPage = () => {
   return (
-    <>
-      <section
+    <section
+      style={{
+        display: "flex",
+        justifyContent: "start",
+        flexDirection: "column",
+        gap: "2rem",
+        height: "100vh",
+        background: "white",
+      }}
+    >
+      <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "2rem",
           gap: "2rem",
-          marginTop: "2rem",
-          marginBottom: "2rem",
         }}
+        className="email-container"
       >
         <figure>
           <img
@@ -21,9 +31,10 @@ const SendEmailPage = () => {
           style={{
             marginTop: "2rem",
             marginBottom: "2rem",
+            textAlign: "center",
           }}
         >
-          Estas a un paso de Activar tu cuenta. Revisa tu Email.
+          Estás a un paso de activar tu cuenta. Revisa tu email.
         </h2>
         <p>
           <strong>
@@ -50,13 +61,14 @@ const SendEmailPage = () => {
           style={{
             fontSize: "1.5rem",
             color: "blueviolet",
+            textAlign: "center",
           }}
         >
           ¡Esperamos verte pronto en nuestro sitio y que disfrutes de una
           experiencia increíble!
         </p>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

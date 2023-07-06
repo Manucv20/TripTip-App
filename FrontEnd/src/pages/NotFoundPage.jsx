@@ -6,15 +6,25 @@ const NotFoundPage = () => {
       <section
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "start",
+          alignItems: "center",
+          flexDirection: "column",
           gap: "1rem",
-          marginTop: "2rem",
-          marginBottom: "2rem",
+          margin: "2rem",
+          minHeight: "100vh",
         }}
       >
         <h2>Uups ... Página no encontrada</h2>
-        <img src="page-not-found.png" alt="404" />
-        <Link to="/">Ir a la página de inicio.</Link>
+        <img
+          style={{
+            width: "500px",
+          }}
+          src="page-not-found.png"
+          alt="404"
+        />
+        <Link style={{ color: "#d93030" }} to="/">
+          Ir a la página de inicio.
+        </Link>
       </section>
     </>
   );
