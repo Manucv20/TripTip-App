@@ -86,7 +86,7 @@ const deleteRecommendationController = async (req, res, next) => {
 
     const [deleteQuery] = await getRecommendationById(id);
 
-    if (req.userId !== deleteQuery.result.user_id) {
+    if (Number(req.userId) !== deleteQuery.result.user_id) {
       throw generateError(
         "No puedes eliminar una recomendación que no te pertenece.",
         401
@@ -179,7 +179,7 @@ const updateRecommendationController = async (req, res, next) => {
 
     const [updateQuery] = await getRecommendationById(id);
 
-    if (req.userId !== updateQuery.result.user_id) {
+    if (Number(req.userId) !== updateQuery.result.user_id) {
       throw generateError(
         "No puedes eliminar una recomendación que no te pertenece.",
         401
