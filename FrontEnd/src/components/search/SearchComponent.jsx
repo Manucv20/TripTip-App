@@ -114,6 +114,7 @@ const SearchComponent = () => {
     marginRight: "10px",
     padding: "0 10px",
     fontSize: "16px",
+    outline: "none",
   };
 
   const buttonStyle = {

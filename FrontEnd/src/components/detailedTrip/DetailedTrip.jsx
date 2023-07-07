@@ -59,11 +59,7 @@ export const DetailedTrip = ({ trip, comments, addComment, removeComment }) => {
       if (!auth) return navigate("/login");
       setError("");
 
-      console.log("isVoted:", isVoted);
-
       if (isVoted) {
-        console.log("Removing vote...");
-
         // Remove the vote
         const deletedVote = await deleteVoteRecommendationService(
           trip.result.id,

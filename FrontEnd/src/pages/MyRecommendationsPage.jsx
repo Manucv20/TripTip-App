@@ -51,17 +51,16 @@ const CreatedRecommendations = () => {
   };
 
   const listStyle = {
-    backgroundColor: "white",
     width: "100%",
-    // flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "16px",
+    gap: "2rem",
     padding: "16px",
     overflowY: "auto",
   };
 
   const cardStyle = {
+    backgroundColor: "white",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -217,6 +216,7 @@ const CreatedRecommendations = () => {
               ),
             }).map((_, index) => (
               <button
+                alt="siguiente página"
                 key={index}
                 onClick={() => paginate(index + 1)}
                 style={{

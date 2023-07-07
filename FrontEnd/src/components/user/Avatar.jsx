@@ -18,7 +18,7 @@ const Avatar = ({ imagen, estilo }) => {
     <img
       className="avatar-movil"
       src={imagenUrl || "/photoperfil.png"}
-      alt="Mi Perfil"
+      alt="Mi perfil"
       style={estiloAvatar}
     />
   );

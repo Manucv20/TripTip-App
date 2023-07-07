@@ -54,13 +54,18 @@ const NewComment = ({ trip, addComment }) => {
           ></textarea>
           <div className="comment-buttons">
             <button
+              alt="cancelar comentario"
               type="button"
               className="comment-cancel-button"
               onClick={handleCancelComment}
             >
               Cancelar
             </button>
-            <button type="submit" className="comment-submit-button">
+            <button
+              type="submit"
+              className="comment-submit-button"
+              alt=" enviar comentario"
+            >
               Comentar
             </button>
             {sending ? <p>Sending comment</p> : null}
