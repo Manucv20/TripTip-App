@@ -21,7 +21,7 @@ const EditRecommendationPage = () => {
     image: null,
   });
 
-  const [setFormErrors] = useState({});
+const [formErrors, setFormErrors] = useState({});
   const [dataLoaded, setDataLoaded] = useState(false);
   const [recommendationImageURL, setRecommendationImageURL] = useState("");
   const [existingImageName, setExistingImageName] = useState("");

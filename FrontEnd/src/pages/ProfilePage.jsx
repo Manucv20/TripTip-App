@@ -8,6 +8,8 @@ import AvatarUploader from "../components/user/AvatarUploader ";
 import UsernameComponent from "../components/user/UsernameComponent";
 import EmailComponent from "../components/user/EmailComponent";
 import PasswordComponent from "../components/user/PasswordComponent";
+import TokenButton from "../components/tokenButton";
+
 
 const ProfilePage = () => {
   const { userData, token, setToken } = useContext(AuthContext);
@@ -316,6 +318,7 @@ const ProfilePage = () => {
                   />{" "}
                   Cancelar
                 </button>
+                <TokenButton />
               </li>
             </ul>
           </fieldset>
