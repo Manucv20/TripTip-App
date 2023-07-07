@@ -40,7 +40,6 @@ const CreateRecommendationPage = () => {
   const handleCreateRecommendation = async () => {
     try {
       if (!token) {
-        console.log("Error: No se encontró el token");
         return;
       }
 

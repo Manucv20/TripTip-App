@@ -73,12 +73,7 @@ a:visited {
   width: 500px;
 }
 
-/* .login-page form fieldset h2 {
-  background-color: black;
-} */
-
 .login-page form ul {
-  /* background-color: black; */
   height: 50px;
   display: flex;
   flex-direction: column;
@@ -99,7 +94,6 @@ a:visited {
 }
 
 .register-page form ul {
-  /* background-color: black; */
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -115,10 +109,6 @@ a:visited {
 
 .alta-login .anchor {
   color: #d93030;
-}
-
-.alta-login {
-  /* filter: blur(5px); */
 }
 
 .input-register {
@@ -141,12 +131,6 @@ a:visited {
   border-radius: 5px;
 }
 
-@media (max-width: 450px) {
-  .input-reg {
-    width: 170px;
-  }
-}
-
 .svg-icon {
   margin-right: -1px;
   width: 25px;
@@ -167,7 +151,6 @@ a:visited {
   color: #fff;
   transition: 0.3s ease all;
   border-radius: 5px;
-  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); */
 }
 
 .boton-reg:hover,
@@ -206,36 +189,26 @@ a:visited {
   align-items: center;
 }
 
-.profile-page form {
-  /* justify-content: center;
-  align-items: center; */
-}
-
 .input-perfil {
   display: flex;
   justify-content: center;
-  /* position: relative; */
-  /* margin-top: 2rem; */
 }
 
 .input-oculto {
   display: flex;
   justify-content: center;
-  /* margin-top: 2rem; */
+
   flex-direction: column;
 }
 
 .container-personal {
   display: flex;
   flex-direction: column;
-  /* gap: 0.5rem; */
 }
 
 .label-perfil {
   display: block;
   font-weight: bold;
-  /* margin-bottom: 5px;
-  margin-top: 1rem; */
 }
 
 .input-personal {
@@ -273,7 +246,6 @@ a:visited {
   cursor: pointer;
   color: #fff;
   font-size: 0.8rem;
-  /* margin: 0.5rem; */
   transition: 0.3s ease all;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
@@ -288,40 +260,6 @@ a:visited {
   height: 250px;
 }
 
-@media (max-width: 450px) {
-  form {
-    /* margin-right: 2rem; */
-  }
-
-  /* .avatar-movil {
-    width: 250px;
-    height: 250px;
-  }
-
-  .carga-avatar {
-    width: 210px;
-    height: 210px;
-  }
-
-  .input-perfil {
-    width: 250px;
-  }
-
-  .input-personal {
-    width: 250px;
-  }
-  .textarea-personal {
-    width: 250px;
-  }
-
-  .boton-personal {
-    width: 70px;
-  } */
-}
-
-/* main {
-  height: 100vh;
-} */
 /* Final del CSS de la pagina de perfil */
 
 img.emailconfirm {
@@ -454,35 +392,11 @@ p#details {
 .login-page form h2 {
   color: whitesmoke;
 }
-@media (max-width: 767px) {
-  /* .login-page form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
 
-    height: 360px;
+@media (max-width: 600px) {
+  .input-reg {
+    width: 170px;
   }
-
-  .login-page form p {
-    color: whitesmoke;
-    font-weight: bolder;
-  }
-
-  .background {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.541);
-    height: 100vh;
-    width: 100vw;
-  }
-
-  .login-page form h2 {
-    color: whitesmoke;
-  } */
-
   .title-container {
     width: 100vw;
     display: flex;
@@ -657,7 +571,6 @@ p#details {
   padding: 5px;
   border-radius: 5px;
 }
-/* "Comentarios" y todos sus hijos*/
 
 /* Desktop layout */
 @media (min-width: 767px) {
@@ -710,7 +623,7 @@ p#details {
 /* FIN Recomendación en detalle TripPage test */
 
 #welcome-message {
-  display: none; /* Oculta el mensaje de bienvenida de forma predeterminada */
+  display: none;
 }
 
 @media (max-width: 600px) {
@@ -724,7 +637,7 @@ p#details {
 }
 @media (min-width: 600px) {
   #welcome-message {
-    display: block; /* Muestra el mensaje de bienvenida si el ancho de la pantalla es mayor o igual a 600px */
+    display: block;
   }
   #ul-burguer {
     position: absolute;

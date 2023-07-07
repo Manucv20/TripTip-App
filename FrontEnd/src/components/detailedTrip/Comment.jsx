@@ -39,6 +39,8 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
     }
   };
 
+  Modal.setAppElement("#root");
+
   return (
     <>
       <div className="namedate-container">
@@ -62,7 +64,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
             <img
               src="/trash-can.png"
               className="trashcan-img"
-              alt="Trash Can"
+              alt="borrar comentario"
             />
           </button>
         ) : null}

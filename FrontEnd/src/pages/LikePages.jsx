@@ -37,15 +37,16 @@ const LikePages = () => {
 
   const listStyle = {
     width: "100%",
-    flex: "1",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "16px",
+    gap: "2rem",
     padding: "16px",
     overflowY: "auto",
   };
 
   const cardStyle = {
+    backgroundColor: "white",
+    maxWidth: "fit-content",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",

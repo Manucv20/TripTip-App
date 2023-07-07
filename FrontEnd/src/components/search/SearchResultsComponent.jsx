@@ -6,7 +6,6 @@ import defaultImage from "../../img/Subir_foto_recomendacion.jpg";
 const SearchResultsComponent = () => {
   const location = useLocation();
   const searchResults = location.state?.searchResults?.data || [];
-  const [error, setError] = useState("");
 
   useEffect(() => {}, [searchResults]);
 
@@ -17,17 +16,6 @@ const SearchResultsComponent = () => {
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = searchResults.slice(indexOfFirstCard, indexOfLastCard);
 
-  const voteTrip = async (id) => {
-    try {
-      if (!auth) return navigate("/login");
-      setError("");
-      const vote = await voteTripUserService(id, token);
-      setVotes(vote);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -35,7 +23,7 @@ const SearchResultsComponent = () => {
   return (
     <>
       <SearchComponent />
-      <section style={containerStyle}>
+      <section className="search-results" style={containerStyle}>
         {searchResults.length > 0 ? (
           <>
             <div style={cardContainerStyle}>
@@ -58,12 +46,7 @@ const SearchResultsComponent = () => {
                     <p>Ubicación: {result.location}</p>
                     <p>Resumen: {result.summary}</p>
                     <p>Fecha de creación: {result.created_at}</p>
-                    <button onClick={() => voteTrip(result.id)}>
-                      <span role="img" aria-label="heart">
-                        ❤️
-                      </span>
-                    </button>
-                    <button>
+                    <button alt="Ir al detalle">
                       <Link
                         to={`/recommendation/${result.id}`}
                         style={{ textDecoration: "none", color: "inherit" }}
@@ -84,6 +67,7 @@ const SearchResultsComponent = () => {
                     const result = searchResults[index];
                     return (
                       <button
+                        alt="cambiar página"
                         key={result.id}
                         onClick={() => handlePageChange(index + 1)}
                         style={
@@ -130,6 +114,7 @@ const cardStyle = {
   padding: "16px",
   margin: "16px",
   width: "400px",
+  backgroundColor: "white",
 };
 
 const imageStyle = {
