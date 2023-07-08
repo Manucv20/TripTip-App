@@ -414,12 +414,9 @@ p#details {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-  }
-
-  .comments-container {
     width: 100%;
   }
-
+  
   .NewComment {
     width: 100vw;
     display: flex;
@@ -436,6 +433,12 @@ p#details {
 }
 /* Caja de comentarios */
 .mas-comentarios {
+  background-color: #dcdcdc3f;
+  border: none;
+  color: #d93030;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
   width: 100%;
 }
 .CommentsList .trashcan {
@@ -515,10 +518,6 @@ p#details {
   width: 100%;
 }
 
-.CommentsList {
-  width: 100%;
-}
-
 .CommentsList .ul-comments {
   all: initial;
   list-style-type: none;
@@ -550,10 +549,6 @@ p#details {
   font-weight: bold;
   font-size: 1.2rem;
 }
-.CommentsList .trashcan {
-  border: initial;
-  background-color: initial;
-}
 
 .trashcan-img {
   width: 1.2rem;
@@ -561,15 +556,6 @@ p#details {
 
 .CommentsList .Comment {
   position: relative;
-}
-
-.mas-comentarios {
-  background-color: #dcdcdc3f;
-  border: none;
-  color: #d93030;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
 }
 
 /* Desktop layout */
