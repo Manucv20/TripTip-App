@@ -22,7 +22,7 @@ main {
 }
 
 body {
-  background-image: url(/public/pattern_airplane.png);
+  background-image: url(/pattern_airplane.png);
   background-repeat: repeat;
   background-size: 600px 600px;
 }
