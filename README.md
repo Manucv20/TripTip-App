@@ -16,11 +16,45 @@ La aplicación de React para TripTip-App ofrece las siguientes características:
 - Votar las recomendaciones de otros usuarios.
 - Gestionar tu perfil, incluyendo tu foto de perfil.
 
-Para integrar el front-end con el back-end, puedes utilizar los endpoints de API proporcionados:
+## Configuración y Ejecución
 
-- Utiliza las rutas de API adecuadas para realizar acciones como buscar, crear, borrar y actualizar recomendaciones.
-- Implementa las llamadas de API necesarias para manejar la autenticación de usuarios, el registro y la gestión de perfiles.
-- Utiliza los endpoints de API para comentar y votar en las recomendaciones.
+Para configurar y ejecutar la aplicación TripTip-App, sigue los siguientes pasos:
+
+1. Clona este repositorio en tu máquina local:
+
+```bash
+git clone https://github.com/tu-usuario/TripTip-App.git
+```
+
+2. Navega hasta el directorio raíz del proyecto:
+
+```bash
+cd TripTip-App
+```
+
+3. Crea un archivo `.env` en el directorio raíz basado en el archivo `.env.example` proporcionado:
+
+```bash
+cp .env.example .env
+```
+
+4. Abre el archivo `.env` y reemplaza `API_URL` con la URL de la API de Recomendaciones de Viajes v1.0 y `YOUR_API_KEY` con tu propia clave de API.
+
+5. Instala las dependencias del proyecto:
+
+```bash
+npm install
+```
+
+6. Inicia la aplicación:
+
+```bash
+npm run start
+```
+
+Esto iniciará la aplicación y podrás acceder a ella a través de la URL proporcionada en la línea de comandos.
+
+## Documentación de la API
 
 Para obtener más detalles sobre cómo interactuar con la API de Recomendaciones de Viajes v1.0, consulta la [documentación de la API](https://github.com/Manucv20/TripTip-Api/blob/main/README.md).
 
