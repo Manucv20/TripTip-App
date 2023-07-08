@@ -22,6 +22,6 @@ Para integrar el front-end con el back-end, puedes utilizar los endpoints de API
 - Implementa las llamadas de API necesarias para manejar la autenticación de usuarios, el registro y la gestión de perfiles.
 - Utiliza los endpoints de API para comentar y votar en las recomendaciones.
 
-Para obtener más detalles sobre cómo interactuar con la API de Recomendaciones de Viajes v1.0, consulta la [documentación de la API](https://github.com/users/Manucv20/projects/1/views/1).
+Para obtener más detalles sobre cómo interactuar con la API de Recomendaciones de Viajes v1.0, consulta la [documentación de la API]([https://github.com/users/Manucv20/projects/1/views/1](https://github.com/Manucv20/TripTip-Api/blob/main/README.md)).
 
 Siéntete libre de mejorar la aplicación front-end agregando cualquier característica adicional que consideres útil y relevante para el proyecto.
