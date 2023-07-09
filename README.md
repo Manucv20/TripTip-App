@@ -16,6 +16,27 @@ La aplicación de React para TripTip-App ofrece las siguientes características:
 - Votar las recomendaciones de otros usuarios.
 - Gestionar tu perfil, incluyendo tu foto de perfil.
 
+## Tecnologías utilizadas
+
+- Axios
+- Dotenv
+- Jwt-decode
+- Moment
+- React
+- React-dom
+- React-icons
+- React-modal
+- React-router-dom
+- Sonner
+- @Types/react
+- @Types/react-dom
+- @Vitejs/plugin-react-swc
+- Eslint
+- Eslint-plugin-react
+- Eslint-plugin-react-hooks
+- Eslint-plugin-react-refresh
+- Vite
+
 ## Configuración y Ejecución
 
 Para configurar y ejecutar la aplicación TripTip-App, sigue los siguientes pasos:
