@@ -59,7 +59,7 @@ export const Comment = ({ comment, removeComment, timeDiff }) => {
           value={comment.comment}
           onChange={adjustTextareaHeight}
         />
-        {auth && userData.userId === comment.user_id ? (
+        {auth && Number(userData.userId) === comment.user_id ? (
           <button className="trashcan" onClick={handleDeleteConfirmation}>
             <img
               src="/trash-can.png"
